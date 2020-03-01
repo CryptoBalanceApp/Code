@@ -25,38 +25,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'CryptoBalance',
       //below: replace with home: CryptoList(),
-      /*
-      home: Scaffold(
-        appBar:PreferredSize(
-            preferredSize: Size.fromHeight(60),
-            child:AppBar(
-              backgroundColor: Colors.white,
-              centerTitle: true,
-            title:Row(
-              children:[
 
-                Padding(padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
-                  child:Image.asset('Assets/Logos/moneyTreeAndroid.png',
-                      fit: BoxFit.contain,
-                        height: 40,width: 40),
-        ),
-
-            Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
-                child: Text('CryptoBalance',
-                    style: TextStyle(fontFamily: 'Josefin Sans',
-                        color: Color(0xff3E0CA9)), textAlign: TextAlign.center ))
-
-
-
-              ]
-            )
-            )
-        ),
-        body: Center(
-          child: Text('Hello World'),
-        ),
-      ),
-      */
       home: PricesList(),
     );
   }
@@ -72,6 +41,8 @@ class PricesList extends StatefulWidget {
 class PricesListState extends State<PricesList>{
   //create list type store prices from API
   List _cryptoPrices;
+  //SetMap:
+  final _initialCryptos = Set<Map>(); //= new List(10);
   //set book value: control state if API loading
   bool _loading = false;
 
@@ -84,6 +55,7 @@ class PricesListState extends State<PricesList>{
 
     //before API called, set loading to true
     setState(() {
+      _initialCryptos.clear();
       this._loading = true;
     });
     //waits for response from API
@@ -93,8 +65,33 @@ class PricesListState extends State<PricesList>{
       // below: decode json from api response into format readable as a list
       this._cryptoPrices = jsonDecode(apiResponse.body);
       //we have now loaded json into list, set loading false
+
+      //create for loop: search for bitcoin, ethereum... take as map, add to
+      //_initialCryptos
+      //for(MapEntry entry in this._cryptoPrices.asMap().entries)
+      //String id = _cryptoPrices[0]['id'];
+      //print(id);
+
+      //for each:
+      //https://codingwithjoe.com/dart-fundamentals-working-with-lists/#looping
+      _cryptoPrices.forEach((var entry){
+        //print('printing initial list');
+        //int listLength = _cryptoPrices.
+        String ID = entry['id'];
+        if(ID == 'bitcoin' || ID == 'ethereum' || ID == 'xrp' || ID == 'dogecoin'){
+          //this._initialCryptos[0] = entry;
+          //print(this._initialCryptos[0]);
+          if(_initialCryptos.contains(entry) == false) {
+            _initialCryptos.add(entry);
+            print("added crypto:" + ID);
+          }
+        }
+
+      }); //
+      //print(_initialCryptos);
       this._loading = false;
-      print(_cryptoPrices);
+      //print list https://medium.com/flutter-community/useful-list-methods-in-dart-6e173cac803d
+      //print(_initialCryptos.sublist(0));
     });
     return;
   }
@@ -135,7 +132,7 @@ class PricesListState extends State<PricesList>{
       //loading is done: return rest of app as body using _buildPricesList
       //nest in a refreshindicator widget, lets use use pull down to refresh
       return new RefreshIndicator(
-        child: _buildPricesList(),
+        child: _buildShortList(),
         onRefresh: getPricesAPI,
       );
     }
@@ -184,11 +181,35 @@ class PricesListState extends State<PricesList>{
   }
 
   //widget builds list
+  Widget _buildShortList() {
+    //create iterable for map
+    final Iterable<ListTile> shortTiles = _initialCryptos.map(
+      (crypto){
+        //return new ListTile of Map
+        return new ListTile(
+          title: Text(crypto['name']),
+          subtitle: Text(
+            //return price
+            getCryptoPrice(crypto),
+          ),
+        );
+      },
+    );
+    //make a divided list of the above ListTiles, use listview
+    final List<Widget> divided = ListTile.divideTiles(
+      context: context,
+      tiles: shortTiles,
+    ).toList();
+    return new ListView(children: divided);
+    //make iterable tiles into list
+  }
+
   Widget _buildPricesList() {
     //build items in a list view
     return ListView.builder(
       //set item count: ensure index in range, use built in .length function list
       itemCount: _cryptoPrices.length,
+        //itemCount: _initialCryptos.length,
       //padding for list tile content
       padding: const EdgeInsets.all(16.0),
       itemBuilder: (context, i){
@@ -201,7 +222,8 @@ class PricesListState extends State<PricesList>{
         * make another function to generate a selected list (like _saved) to
         * just display a certain number prices
         */
-        return _buildRow(_cryptoPrices[index]);
+       return _buildRow(_cryptoPrices[index]);
+       //return _buildRow(_initialCryptos[index]);
       }
     );
   }
