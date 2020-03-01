@@ -1,10 +1,12 @@
 
 //import 'package:crypto_balance/Jerid.dart';
 import 'package:crypto_balance/main.dart';
-import 'package:crypto_balance/main.dart';
 import 'package:flutter/material.dart';
 
+List fromCurrAPI;
+
 void main()=> runApp(MyApp1());
+
 
 class Currency{
   final Text current;

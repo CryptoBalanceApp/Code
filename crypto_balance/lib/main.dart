@@ -5,9 +5,11 @@
  * Code sources/examples:
  * -crypto price/api: Cryptocurrency Pricing App, Bilguun Batbold, Medium
  *  https://medium.com/quick-code/build-a-simple-app-with-pull-to-refresh-and-favourites-using-flutter-77a899904e04
+ * -"for each":
+    //https://codingwithjoe.com/dart-fundamentals-working-with-lists/#looping
  */
 
-
+import 'package:crypto_balance/tabbedAppbar.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
@@ -50,9 +52,10 @@ class PricesListState extends State<PricesList>{
    * progress bar if API still loading
    */
   Future<void> getPricesAPI() async {
+    
+
     //bitcoin API we are using
     String _apiURL =  "http://api.coinmarketcap.com/v1/ticker/";
-
     //before API called, set loading to true
     setState(() {
       _initialCryptos.clear();
@@ -66,32 +69,54 @@ class PricesListState extends State<PricesList>{
       this._cryptoPrices = jsonDecode(apiResponse.body);
       //we have now loaded json into list, set loading false
 
-      //create for loop: search for bitcoin, ethereum... take as map, add to
-      //_initialCryptos
-      //for(MapEntry entry in this._cryptoPrices.asMap().entries)
-      //String id = _cryptoPrices[0]['id'];
-      //print(id);
-
-      //for each:
-      //https://codingwithjoe.com/dart-fundamentals-working-with-lists/#looping
+      //for each crypto entry get the id variable, decide what to add
       _cryptoPrices.forEach((var entry){
-        //print('printing initial list');
-        //int listLength = _cryptoPrices.
         String ID = entry['id'];
-        if(ID == 'bitcoin' || ID == 'ethereum' || ID == 'xrp' || ID == 'dogecoin'){
-          //this._initialCryptos[0] = entry;
-          //print(this._initialCryptos[0]);
+        //function to add entries to map
+        void add_map(){
           if(_initialCryptos.contains(entry) == false) {
             _initialCryptos.add(entry);
             print("added crypto:" + ID);
           }
         }
+        //add to crypto map based on ID
+        switch(ID){
+          case "bitcoin": {
+            add_map();
+          }
+          break;
+          case "ethereum": {
+            add_map();
+          }
+          break;
+          case "litecoin": {
+            add_map();
+          }
+          break;
+          case "dogecoin": {
+            add_map();
+          }
+          break;
+          case "stellar": {
+            add_map();
+          }
+          break;
+          case "bitcoin-cash": {
+            add_map();
+          }
+          break;
+          case "xrp": {
+            add_map();
+          }
+          break;
+          default: {
 
-      }); //
-      //print(_initialCryptos);
+          }
+          break;
+        }
+      });
+      //we are done loading everything, set bool to false
       this._loading = false;
-      //print list https://medium.com/flutter-community/useful-list-methods-in-dart-6e173cac803d
-      //print(_initialCryptos.sublist(0));
     });
     return;
   }
@@ -106,9 +131,25 @@ class PricesListState extends State<PricesList>{
      *vary for each
     */
     int decimals_to_round = 2;
+    //iD: use to identify; a few cryptos need different rounding
+    String iD = selection['id'];
     /*pow: return 10^decimal: basic idea: multiply number by power of 10, round,
      *then divide by that same power 10: get rounded to decimals
      */
+    switch(iD){
+      case "xrp": {
+      decimals_to_round=6;
+      }
+      break;
+      case "stellar": {
+        decimals_to_round=6;
+      }
+      break;
+      case "dogecoin": {
+        decimals_to_round=6;
+      }
+      break;
+    }
     int fac = pow(10, decimals_to_round);
     /*get price: parse "selection" (passed in crypto subarray from api), only
      *passing in the subarray with all the information for one cryptocurrency.
