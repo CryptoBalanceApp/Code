@@ -154,28 +154,7 @@ class PricesListState extends State<PricesList>{
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      appBar:PreferredSize(
-        preferredSize: Size.fromHeight(60),
-        child:AppBar(
-          backgroundColor: Colors.white,
-          centerTitle: true,
-          title:Row(
-            children:[
 
-              Padding(padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
-                child:Image.asset('Assets/Logos/moneyTreeAndroid.png',
-                    fit: BoxFit.contain,
-                    height: 40,width: 40),
-              ),
-
-              Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
-                  child: Text('CryptoBalance',
-                      style: TextStyle(fontFamily: 'Josefin Sans',
-                          color: Color(0xff3E0CA9)), textAlign: TextAlign.center ))
-            ],
-          ),
-        ),
-      ),
       body: _getMainBody(),
     );
   }
