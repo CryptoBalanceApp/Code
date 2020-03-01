@@ -6,11 +6,14 @@
  * -crypto price/api: Cryptocurrency Pricing App, Bilguun Batbold, Medium
  *  https://medium.com/quick-code/build-a-simple-app-with-pull-to-refresh-and-favourites-using-flutter-77a899904e04
  * -"for each":
-    //https://codingwithjoe.com/dart-fundamentals-working-with-lists/#looping
+ *   //https://codingwithjoe.com/dart-fundamentals-working-with-lists/#looping
+ * -decoding conversion rates
+ *    https://lesterbotello.dev/2019/07/13/consuming-http-services-with-flutter/
  */
 
 import 'package:crypto_balance/tabbedAppbar.dart';
 import 'package:flutter/material.dart';
+import 'package:crypto_balance/entities/factors.dart';
 import 'dart:async';
 import 'dart:math';
 import 'dart:convert';
@@ -43,8 +46,12 @@ class PricesList extends StatefulWidget {
 class PricesListState extends State<PricesList>{
   //create list type store prices from API
   List _cryptoPrices;
+  //List _conversionFactors;
   //SetMap:
-  final _initialCryptos = Set<Map>(); //= new List(10);
+  final _initialCryptos = Set<Map>();
+
+  //factors: class created to handle API conversion and get "rates" map
+  factors _convertFactors = factors();
   //set book value: control state if API loading
   bool _loading = false;
 
@@ -52,8 +59,8 @@ class PricesListState extends State<PricesList>{
    * progress bar if API still loading
    */
   Future<void> getPricesAPI() async {
-    
-
+    //get price conversion data from API
+    String _apiURLConv = "https://api.exchangeratesapi.io/latest?base=USD";
     //bitcoin API we are using
     String _apiURL =  "http://api.coinmarketcap.com/v1/ticker/";
     //before API called, set loading to true
@@ -62,12 +69,22 @@ class PricesListState extends State<PricesList>{
       this._loading = true;
     });
     //waits for response from API
+    http.Response apiResponseConv = await http.get(_apiURLConv);
     http.Response apiResponse = await http.get(_apiURL);
     //after that line execute, set state off of loading, decode response
     setState((){
+      //below: call constructor for factors to get map of rates
+      //rates: <country code> : <conversion factor from USD>
+      this._convertFactors = factors.fromJson(json.decode(apiResponseConv.body));
       // below: decode json from api response into format readable as a list
       this._cryptoPrices = jsonDecode(apiResponse.body);
-      //we have now loaded json into list, set loading false
+
+      //debug lines for API response conversion
+      print("test print currencies");
+      double canada = _convertFactors.rates["CAD"];
+      double mexico = _convertFactors.rates["MXN"];
+      print(canada);
+      print(mexico);
 
       //for each crypto entry get the id variable, decide what to add
       _cryptoPrices.forEach((var entry){
@@ -115,7 +132,7 @@ class PricesListState extends State<PricesList>{
           break;
         }
       });
-      //we are done loading everything, set bool to false
+      //we have now loaded json into list, set loading false
       this._loading = false;
     });
     return;
@@ -125,6 +142,8 @@ class PricesListState extends State<PricesList>{
    * string (crypto price) rounded to two decimals with a dollar sign
    * NOTE!: This may be the function to alter based on international currency
    * choice
+   *  -partially done: countryConvert: conversion factor:
+   *   ToDo: replace hardcoded GBP with a string determined by drop down select
    */
   String getCryptoPrice(Map selection) {
     /*set number of decimals we wish to see for the crypto, eventually should
@@ -133,6 +152,8 @@ class PricesListState extends State<PricesList>{
     int decimals_to_round = 2;
     //iD: use to identify; a few cryptos need different rounding
     String iD = selection['id'];
+    String country = "MXN";
+    double countryConvert = this._convertFactors.rates[country];
     /*pow: return 10^decimal: basic idea: multiply number by power of 10, round,
      *then divide by that same power 10: get rounded to decimals
      */
@@ -157,6 +178,7 @@ class PricesListState extends State<PricesList>{
      *from API corresponding to that crypto's price_usd
      */
     double parsed = double.parse(selection['price_usd']);
+    parsed *= countryConvert;
     //round parsed using equation inside equation, add '$'
     return "\$" + (parsed = (parsed * fac).round() / fac).toString();
   }

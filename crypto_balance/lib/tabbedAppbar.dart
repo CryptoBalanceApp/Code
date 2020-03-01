@@ -3,7 +3,9 @@
 import 'package:crypto_balance/main.dart';
 import 'package:flutter/material.dart';
 
-List fromCurrAPI;
+//
+//List fromCurrAPI;
+//var currMap = new Map();
 
 void main()=> runApp(MyApp1());
 
