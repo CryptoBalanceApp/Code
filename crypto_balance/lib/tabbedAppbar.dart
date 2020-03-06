@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 //
 //List fromCurrAPI;
 //var currMap = new Map();
+String currencySelection = "EUR";
 
 void main()=> runApp(MyApp1());
+
 
 
 class Currency{
@@ -19,7 +21,11 @@ class Currency{
 const List<Currency> Currencies = <Currency>[
   const Currency(current: const Text('USD',style: TextStyle(color: Color(0xff3E0CA9)),)),
   const Currency(current: const Text('YEN',style: TextStyle(color: Color(0xff3E0CA9)),)),
-  const Currency(current:const Text('EURO',style: TextStyle(color: Color(0xff3E0CA9)),))
+  const Currency(current: const Text('MXN',style: TextStyle(color: Color(0xff3E0CA9)),)),
+  const Currency(current: const Text('GBP',style: TextStyle(color: Color(0xff3E0CA9)),)),
+  const Currency(current: const Text('CNY',style: TextStyle(color: Color(0xff3E0CA9)),)),
+  const Currency(current: const Text('ZAR',style: TextStyle(color: Color(0xff3E0CA9)),)),
+  const Currency(current: const Text('EUR',style: TextStyle(color: Color(0xff3E0CA9)),)),
 ];
 
 class MyApp1 extends StatelessWidget {
@@ -43,8 +49,8 @@ class MyTabbedPage extends StatefulWidget{
 
 class _MyTabbedPageState extends State<MyTabbedPage> with SingleTickerProviderStateMixin {
   final List<Tab> myTabs = <Tab>[
-    Tab(text: 'Left' ),
-    Tab(text: 'Right'),
+    Tab(text: 'Prices' ),
+    Tab(text: 'About'),
 
   ];
 
@@ -69,6 +75,7 @@ class _MyTabbedPageState extends State<MyTabbedPage> with SingleTickerProviderSt
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(105),
         child: AppBar(
+          //beginning of dropdown tabs
           actions: <Widget>[
             new PopupMenuButton(itemBuilder: (BuildContext context){
               return Currencies.map((Currency currencie){

@@ -20,9 +20,16 @@ import 'dart:convert';
 import 'dart:core';
 import 'package:http/http.dart' as http;
 
+const currencyNames = Currencies;
+
+void main() {
+
+  //print(currencyList);
+  runApp(MyApp());
+}
 
 
-void main() => runApp(MyApp());
+
 
 class MyApp extends StatelessWidget {
   @override
@@ -61,8 +68,9 @@ class PricesListState extends State<PricesList>{
   Future<void> getPricesAPI() async {
     //get price conversion data from API
     String _apiURLConv = "https://api.exchangeratesapi.io/latest?base=USD";
+    String _apiURL = "https://api.coinpaprika.com/v1/tickers";
     //bitcoin API we are using
-    String _apiURL =  "http://api.coinmarketcap.com/v1/ticker/";
+    //String _apiURL =  "http://api.coinmarketcap.com/v1/ticker/";
     //before API called, set loading to true
     setState(() {
       _initialCryptos.clear();
@@ -79,8 +87,14 @@ class PricesListState extends State<PricesList>{
       // below: decode json from api response into format readable as a list
       this._cryptoPrices = jsonDecode(apiResponse.body);
 
+      /*
+      print("trying to test print new currencyList");
+      print(currencyNames);
+      currencyNames.forEach((name){
+        print(name.current);
+       });*/
+
       //debug lines for API response conversion
-      print("test print currencies");
       double canada = _convertFactors.rates["CAD"];
       double mexico = _convertFactors.rates["MXN"];
       print(canada);
@@ -98,23 +112,23 @@ class PricesListState extends State<PricesList>{
         }
         //add to crypto map based on ID
         switch(ID){
-          case "bitcoin": {
+          case "btc-bitcoin": {
             add_map();
           }
           break;
-          case "ethereum": {
+          case "eth-ethereum": {
             add_map();
           }
           break;
-          case "litecoin": {
+          case "ltc-litecoin": {
             add_map();
           }
           break;
-          case "dogecoin": {
+          case "doge-dogecoin": {
             add_map();
           }
           break;
-          case "stellar": {
+          case "xlm-stellar": {
             add_map();
           }
           break;
@@ -122,7 +136,7 @@ class PricesListState extends State<PricesList>{
             add_map();
           }
           break;
-          case "xrp": {
+          case "xrp-xrp": {
             add_map();
           }
           break;
@@ -152,21 +166,22 @@ class PricesListState extends State<PricesList>{
     int decimals_to_round = 2;
     //iD: use to identify; a few cryptos need different rounding
     String iD = selection['id'];
-    String country = "MXN";
+    String country = currencySelection;
+    String currSymbol = "\$";
     double countryConvert = this._convertFactors.rates[country];
     /*pow: return 10^decimal: basic idea: multiply number by power of 10, round,
      *then divide by that same power 10: get rounded to decimals
      */
     switch(iD){
-      case "xrp": {
-      decimals_to_round=6;
-      }
-      break;
-      case "stellar": {
+      case "xrp-xrp": {
         decimals_to_round=6;
       }
       break;
-      case "dogecoin": {
+      case "xlm-stellar": {
+        decimals_to_round=6;
+      }
+      break;
+      case "doge-dogecoin": {
         decimals_to_round=6;
       }
       break;
@@ -177,10 +192,42 @@ class PricesListState extends State<PricesList>{
      *finds price based on the parse function for double, looking for the value
      *from API corresponding to that crypto's price_usd
      */
-    double parsed = double.parse(selection['price_usd']);
+    //double parsed = double.parse(selection['quotes']['USD']['price']);
+    double parsed = selection['quotes']['USD']['price'];
     parsed *= countryConvert;
+
+    switch(country){
+      case "USD": {
+        currSymbol = "\$";
+      }
+      break;
+      case "CNY": {
+        currSymbol = "\¥";
+      }
+      break;
+      case "ZAR": {
+        currSymbol = "R";
+      }
+      break;
+      case "GBP": {
+        currSymbol = "\£";
+      }
+      break;
+      case "EUR": {
+        currSymbol ="\€";
+      }
+      break;
+      case "YEN": {
+        currSymbol ="\円";
+      }
+      break;
+      case "MXN": {
+        currSymbol ="\$";
+      }
+      break;
+    }
     //round parsed using equation inside equation, add '$'
-    return "\$" + (parsed = (parsed * fac).round() / fac).toString();
+    return currSymbol + (parsed = (parsed * fac).round() / fac).toString();
   }
 
   //implement getmainbody function, loading bar if _loading is true
@@ -195,6 +242,7 @@ class PricesListState extends State<PricesList>{
       //loading is done: return rest of app as body using _buildPricesList
       //nest in a refreshindicator widget, lets use use pull down to refresh
       return new RefreshIndicator(
+        //make child a column, add icon
         child: _buildShortList(),
         onRefresh: getPricesAPI,
       );
