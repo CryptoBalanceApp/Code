@@ -193,9 +193,12 @@ class PricesListState extends State<PricesList>{
      *from API corresponding to that crypto's price_usd
      */
     //double parsed = double.parse(selection['quotes']['USD']['price']);
-    double parsed = selection['quotes']['USD']['price'];
-    parsed *= countryConvert;
+    print("call todouble opp1");
 
+    double parsed = selection['quotes']['USD']['price'];
+    print("call todouble opp2");
+    parsed *= countryConvert;
+    print("call todouble opp3");
     switch(country){
       case "USD": {
         currSymbol = "\$";
@@ -217,7 +220,7 @@ class PricesListState extends State<PricesList>{
         currSymbol ="\€";
       }
       break;
-      case "YEN": {
+      case "JPY": {
         currSymbol ="\円";
       }
       break;

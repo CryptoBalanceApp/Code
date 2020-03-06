@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 //
 //List fromCurrAPI;
 //var currMap = new Map();
-String currencySelection = "EUR";
+String currencySelection = "USD";
 
 void main()=> runApp(MyApp1());
 
@@ -15,8 +15,6 @@ void main()=> runApp(MyApp1());
 class Currency{
   final Text current;
   const Currency({this.current});
-
-
 }
 const List<Currency> Currencies = <Currency>[
   const Currency(current: const Text('USD',style: TextStyle(color: Color(0xff3E0CA9)),)),
@@ -33,8 +31,6 @@ class MyApp1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'CryptoBalance',
-
-
       home: MyTabbedPage(),
     );
   }
@@ -62,10 +58,23 @@ class _MyTabbedPageState extends State<MyTabbedPage> with SingleTickerProviderSt
     _tabController = TabController(length: myTabs.length, vsync: this);
   }
 
+  void _selectedCurrency(Currency currAbbrev) {
+    setState(() {
+      //currencySelection = currAbbrev.current.toString();
+
+      //runApp(MyApp());
+      //PricesList();
+      print("selected currency is " + currencySelection);
+      print("selected currency price is" );
+
+    });
+  }
+
   @override
   void dispose() {
     _tabController.dispose();
     super.dispose();
+
   }
 
   @override
@@ -80,10 +89,16 @@ class _MyTabbedPageState extends State<MyTabbedPage> with SingleTickerProviderSt
             new PopupMenuButton(itemBuilder: (BuildContext context){
               return Currencies.map((Currency currencie){
                 //on select: command to make change when dropdown menu selected
-                return new PopupMenuItem(child:
-                new ListTile(title: currencie.current, ),);
+                return new PopupMenuItem(
+                  value: currencie,
+                  child: new ListTile(title: currencie.current, ),
+                );
               }).toList();
-            },color: Colors.white, icon: Icon(Icons.more_vert,color: Color(0xff3E0CA9), ),)
+              //onSelected:
+              },
+              onSelected: _selectedCurrency,
+              color: Colors.white, icon: Icon(Icons.more_vert,color: Color(0xff3E0CA9), ),
+            ),
           ],
 
           backgroundColor: Colors.white,
