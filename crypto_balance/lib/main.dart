@@ -14,6 +14,7 @@
 import 'package:crypto_balance/tabbedAppbar.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto_balance/entities/factors.dart';
+import 'package:crypto_balance/references.dart';
 import 'dart:async';
 import 'dart:math';
 import 'dart:convert';

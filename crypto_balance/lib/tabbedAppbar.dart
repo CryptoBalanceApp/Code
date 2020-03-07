@@ -2,6 +2,7 @@
 //import 'package:crypto_balance/Jerid.dart';
 import 'package:crypto_balance/main.dart';
 import 'package:flutter/material.dart';
+import 'package:crypto_balance/references.dart';
 
 //
 //List fromCurrAPI;
@@ -51,7 +52,7 @@ const List<Currency> Currencies = <Currency>[
   ),
   const Currency(
     current: const Text('Rand',style: TextStyle(color: Color(0xff3E0CA9)),),
-    acronym: currINR,
+    acronym: currZAR,
   ),
   const Currency(
     current: const Text('Rupee',style: TextStyle(color: Color(0xff3E0CA9)),),
@@ -160,7 +161,7 @@ class _MyTabbedPageState extends State<MyTabbedPage> with SingleTickerProviderSt
 
         children:[
           MyApp(),
-          MyApp()
+          MyApp2(),
 
 
         ],
