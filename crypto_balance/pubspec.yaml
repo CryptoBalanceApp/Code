@@ -44,6 +44,10 @@ flutter:
 
   assets:
     - Assets/Logos/
+    - Assets/Photos/
+    - Assets/Icons/
+
+
 
   fonts:
     - family: Josefin Sans

@@ -3,13 +3,25 @@ import 'package:flutter/widgets.dart';
 import 'package:crypto_balance/main.dart';
 import 'package:crypto_balance/tabbedAppbar.dart';
 import 'package:crypto_balance/entities/factors.dart';
+import 'package:crypto_balance/referencesTab.dart';
 
 
 void main() => runApp(MyApp2());
 
 class MyApp2 extends StatelessWidget {
   @override
+
+
+
   Widget build(BuildContext context) {
+    void pushRefTab(){
+      print("pushRefTab entered");
+      /*Navigator.of(context).push(
+        new MaterialPageRoute<void>(
+          MyApp3,
+        ),
+      );*/
+    }
     return MaterialApp(
       home: Scaffold(
           /*appBar: AppBar(
@@ -76,9 +88,10 @@ class MyApp2 extends StatelessWidget {
                             fontFamily:'Josefin Sans', fontSize:20.0 )),
                           dense:true,
                           trailing: Icon(Icons.arrow_forward),
-                          /*onTap: (){
-
-                          },*/
+                          onTap: (){
+                            print("testing push button");
+                            pushRefTab();
+                          },
                         ),
 
                         ListTile(title: Text("Legal",style: TextStyle(color:Color(0xff3E0CA9),
@@ -92,6 +105,8 @@ class MyApp2 extends StatelessWidget {
           )
       ),
     );
+
+
   }
 
 
@@ -125,12 +140,5 @@ class MyApp2 extends StatelessWidget {
         )
       ],
     );
-
-
-
-
-
-
-
   }
 }
