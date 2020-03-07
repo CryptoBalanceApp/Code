@@ -13,12 +13,12 @@ void main()=> runApp(MyApp1());
 //set up string names
 const String currUSD = "USD";
 const String currJPY = "JPY";
-//const String currGBP = "GBP";
-//const String currUSD = "USD";
-//const String currUSD = "USD";
-//const String currUSD = "USD";
-//const String currUSD = "USD";
-//const String currUSD = "USD";
+const String currGBP = "GBP";
+const String currMXN = "MXN";
+const String currZAR = "ZAR";
+const String currCNY = "CNY";
+const String currEUR = "EUR";
+const String currKRW = "KRW";
 
 class Currency{
   final Text current;
@@ -38,12 +38,34 @@ const List<Currency> Currencies = <Currency>[
     current: const Text('YEN',style: TextStyle(color: Color(0xff3E0CA9)),),
     acronym: currJPY,
   ),
-  //const Currency(current: const Text('USD',style: TextStyle(color: Color(0xff3E0CA9)),),),
-  //const Currency(current: const Text('YEN',style: TextStyle(color: Color(0xff3E0CA9)),)),
-  //const Currency(current: const Text('MXN',style: TextStyle(color: Color(0xff3E0CA9)),)),
-  //const Currency(current: const Text('GBP',style: TextStyle(color: Color(0xff3E0CA9)),)),
+  const Currency(
+    current: const Text('Pounds',style: TextStyle(color: Color(0xff3E0CA9)),),
+    acronym: currGBP,
+  ),
+  const Currency(
+    current: const Text('Pesos',style: TextStyle(color: Color(0xff3E0CA9)),),
+    acronym: currMXN,
+  ),
+  const Currency(
+    current: const Text('Rand',style: TextStyle(color: Color(0xff3E0CA9)),),
+    acronym: currZAR,
+  ),
+  const Currency(
+    current: const Text('Yaun',style: TextStyle(color: Color(0xff3E0CA9)),),
+    acronym: currCNY,
+  ),
+  const Currency(
+    current: const Text('Euro',style: TextStyle(color: Color(0xff3E0CA9)),),
+    acronym: currEUR,
+  ),
+  const Currency(
+    current: const Text('Won',style: TextStyle(color: Color(0xff3E0CA9)),),
+    acronym: currKRW,
+  ),
+
+
+
   //const Currency(current: const Text('CNY',style: TextStyle(color: Color(0xff3E0CA9)),)),
-  //const Currency(current: const Text('ZAR',style: TextStyle(color: Color(0xff3E0CA9)),)),
   //const Currency(current: const Text('EUR',style: TextStyle(color: Color(0xff3E0CA9)),)),
 ];
 

@@ -143,6 +143,7 @@ class PricesListState extends State<PricesList>{
           case "xrp-xrp": {
             add_map();
           }
+
           break;
           default: {
 
@@ -237,9 +238,18 @@ class PricesListState extends State<PricesList>{
         currSymbol ="\$";
       }
       break;
+      case "KRW": {
+        currSymbol ="\₩";
+      }
+      break;
     }
     //round parsed using equation inside equation, add '$'
-    return currSymbol + (parsed = (parsed * fac).round() / fac).toString();
+    if(country != "JPY"){
+      return currSymbol + (parsed = (parsed * fac).round() / fac).toString();
+    }else{
+      return (parsed = (parsed * fac).round() / fac).toString() + currSymbol;
+    }
+
   }
 
   //implement getmainbody function, loading bar if _loading is true
