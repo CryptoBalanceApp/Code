@@ -171,10 +171,13 @@ class PricesListState extends State<PricesList>{
     //iD: use to identify; a few cryptos need different rounding
     String iD = selection['id'];
     String country = currencySelection;
-    print("currency selection is " + currencySelection);
+    print("country selection is " + currencySelection);
     String currSymbol = "\$";
+
+    //this wrong?
     double countryConvert = this._convertFactors.rates[country];
-    print("country convert = " + country);
+
+    print("country convert = " + countryConvert.toString());
     /*pow: return 10^decimal: basic idea: multiply number by power of 10, round,
      *then divide by that same power 10: get rounded to decimals
      */
@@ -243,7 +246,7 @@ class PricesListState extends State<PricesList>{
   _getMainBody() {
     void _selectedCurrency(Currency currAbbrev) {
       setState(() {
-        currencySelection = currAbbrev.current.toString();
+        currencySelection = currAbbrev.acronym;
 
         //runApp(MyApp());
         //PricesList();

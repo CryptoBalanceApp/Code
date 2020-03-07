@@ -6,35 +6,45 @@ import 'package:flutter/material.dart';
 //
 //List fromCurrAPI;
 //var currMap = new Map();
-String currencySelection = "USD";
+String currencySelection = currUSD;
 
 void main()=> runApp(MyApp1());
-//const String currUSD = "USD";
 
+//set up string names
+const String currUSD = "USD";
+const String currJPY = "JPY";
+//const String currGBP = "GBP";
+//const String currUSD = "USD";
+//const String currUSD = "USD";
+//const String currUSD = "USD";
+//const String currUSD = "USD";
+//const String currUSD = "USD";
 
 class Currency{
   final Text current;
-  //final String acronym;
+  final String acronym;
   const Currency({
     this.current,
-    //this.acronym,
+    this.acronym,
   });
 }
+
 const List<Currency> Currencies = <Currency>[
-  /*
   const Currency(
     current: const Text('USD',style: TextStyle(color: Color(0xff3E0CA9)),),
     acronym: currUSD,
   ),
-   */
-  const Currency(current: const Text('USD',style: TextStyle(color: Color(0xff3E0CA9)),),),
-  const Currency(current: const Text('YEN',style: TextStyle(color: Color(0xff3E0CA9)),),),
-  const Currency(current: const Text('YEN',style: TextStyle(color: Color(0xff3E0CA9)),)),
-  const Currency(current: const Text('MXN',style: TextStyle(color: Color(0xff3E0CA9)),)),
-  const Currency(current: const Text('GBP',style: TextStyle(color: Color(0xff3E0CA9)),)),
-  const Currency(current: const Text('CNY',style: TextStyle(color: Color(0xff3E0CA9)),)),
-  const Currency(current: const Text('ZAR',style: TextStyle(color: Color(0xff3E0CA9)),)),
-  const Currency(current: const Text('EUR',style: TextStyle(color: Color(0xff3E0CA9)),)),
+  const Currency(
+    current: const Text('YEN',style: TextStyle(color: Color(0xff3E0CA9)),),
+    acronym: currJPY,
+  ),
+  //const Currency(current: const Text('USD',style: TextStyle(color: Color(0xff3E0CA9)),),),
+  //const Currency(current: const Text('YEN',style: TextStyle(color: Color(0xff3E0CA9)),)),
+  //const Currency(current: const Text('MXN',style: TextStyle(color: Color(0xff3E0CA9)),)),
+  //const Currency(current: const Text('GBP',style: TextStyle(color: Color(0xff3E0CA9)),)),
+  //const Currency(current: const Text('CNY',style: TextStyle(color: Color(0xff3E0CA9)),)),
+  //const Currency(current: const Text('ZAR',style: TextStyle(color: Color(0xff3E0CA9)),)),
+  //const Currency(current: const Text('EUR',style: TextStyle(color: Color(0xff3E0CA9)),)),
 ];
 
 class MyApp1 extends StatelessWidget {
