@@ -19,6 +19,9 @@ const String currZAR = "ZAR";
 const String currCNY = "CNY";
 const String currEUR = "EUR";
 const String currKRW = "KRW";
+const String currINR = "INR";
+const String currTHB = "THB";
+const String currPHP = "PHP";
 
 class Currency{
   final Text current;
@@ -39,16 +42,20 @@ const List<Currency> Currencies = <Currency>[
     acronym: currJPY,
   ),
   const Currency(
-    current: const Text('Pounds',style: TextStyle(color: Color(0xff3E0CA9)),),
+    current: const Text('Pound',style: TextStyle(color: Color(0xff3E0CA9)),),
     acronym: currGBP,
   ),
   const Currency(
-    current: const Text('Pesos',style: TextStyle(color: Color(0xff3E0CA9)),),
+    current: const Text('Peso',style: TextStyle(color: Color(0xff3E0CA9)),),
     acronym: currMXN,
   ),
   const Currency(
     current: const Text('Rand',style: TextStyle(color: Color(0xff3E0CA9)),),
-    acronym: currZAR,
+    acronym: currINR,
+  ),
+  const Currency(
+    current: const Text('Rupee',style: TextStyle(color: Color(0xff3E0CA9)),),
+    acronym: currINR,
   ),
   const Currency(
     current: const Text('Yaun',style: TextStyle(color: Color(0xff3E0CA9)),),
@@ -62,11 +69,15 @@ const List<Currency> Currencies = <Currency>[
     current: const Text('Won',style: TextStyle(color: Color(0xff3E0CA9)),),
     acronym: currKRW,
   ),
+  const Currency(
+    current: const Text('Baht',style: TextStyle(color: Color(0xff3E0CA9)),),
+    acronym: currTHB,
+  ),
+  const Currency(
+    current: const Text('Philippine',style: TextStyle(color: Color(0xff3E0CA9)),),
+    acronym: currPHP,
+  ),
 
-
-
-  //const Currency(current: const Text('CNY',style: TextStyle(color: Color(0xff3E0CA9)),)),
-  //const Currency(current: const Text('EUR',style: TextStyle(color: Color(0xff3E0CA9)),)),
 ];
 
 class MyApp1 extends StatelessWidget {
@@ -100,24 +111,12 @@ class _MyTabbedPageState extends State<MyTabbedPage> with SingleTickerProviderSt
     super.initState();
     _tabController = TabController(length: myTabs.length, vsync: this);
   }
-  /*
-  void _selectedCurrency(Currency currAbbrev) {
-    setState(() {
-      currencySelection = currAbbrev.current.toString();
 
-      //runApp(MyApp());
-      //PricesList();
-      print("selected currency is " + currencySelection);
-      print("selected currency price is" );
-
-    });
-  } */
 
   @override
   void dispose() {
     _tabController.dispose();
     super.dispose();
-
   }
 
   @override
@@ -127,23 +126,6 @@ class _MyTabbedPageState extends State<MyTabbedPage> with SingleTickerProviderSt
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(105),
         child: AppBar(
-          //beginning of dropdown tabs
-          /*actions: <Widget>[
-            new PopupMenuButton(itemBuilder: (BuildContext context){
-              return Currencies.map((Currency currencie){
-                //on select: command to make change when dropdown menu selected
-                return new PopupMenuItem(
-                  value: currencie,
-                  child: new ListTile(title: currencie.current, ),
-                );
-              }).toList();
-              //onSelected:
-              },
-              onSelected: _selectedCurrency,
-              color: Colors.white, icon: Icon(Icons.more_vert,color: Color(0xff3E0CA9), ),
-            ),
-          ],*/
-
           backgroundColor: Colors.white,
           centerTitle: true,
           title: Row(

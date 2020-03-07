@@ -28,9 +28,6 @@ void main() {
   runApp(MyApp());
 }
 
-
-
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -52,14 +49,11 @@ class PricesList extends StatefulWidget {
 }
 
 class PricesListState extends State<PricesList>{
-
-
   //create list type store prices from API
   List _cryptoPrices;
   //List _conversionFactors;
   //SetMap:
   final _initialCryptos = Set<Map>();
-
   //factors: class created to handle API conversion and get "rates" map
   factors _convertFactors = factors();
   //set book value: control state if API loading
@@ -72,9 +66,6 @@ class PricesListState extends State<PricesList>{
     //get price conversion data from API
     String _apiURLConv = "https://api.exchangeratesapi.io/latest?base=USD";
     String _apiURL = "https://api.coinpaprika.com/v1/tickers";
-    //bitcoin API we are using
-    //String _apiURL =  "http://api.coinmarketcap.com/v1/ticker/";
-    //before API called, set loading to true
     setState(() {
       _initialCryptos.clear();
       this._loading = true;
@@ -89,20 +80,6 @@ class PricesListState extends State<PricesList>{
       this._convertFactors = factors.fromJson(json.decode(apiResponseConv.body));
       // below: decode json from api response into format readable as a list
       this._cryptoPrices = jsonDecode(apiResponse.body);
-
-
-      /*
-      print("trying to test print new currencyList");
-      print(currencyNames);
-      currencyNames.forEach((name){
-        print(name.current);
-       });*/
-
-      //debug lines for API response conversion
-      double canada = _convertFactors.rates["CAD"];
-      double mexico = _convertFactors.rates["MXN"];
-      print(canada);
-      print(mexico);
 
       //for each crypto entry get the id variable, decide what to add
       _cryptoPrices.forEach((var entry){
@@ -143,10 +120,9 @@ class PricesListState extends State<PricesList>{
           case "xrp-xrp": {
             add_map();
           }
-
           break;
           default: {
-
+            //if not in short list of cryptos, skip
           }
           break;
         }
@@ -159,10 +135,6 @@ class PricesListState extends State<PricesList>{
 
   /*rounding: take in crypto map (one of the sub arrays of the json), return a
    * string (crypto price) rounded to two decimals with a dollar sign
-   * NOTE!: This may be the function to alter based on international currency
-   * choice
-   *  -partially done: countryConvert: conversion factor:
-   *   ToDo: replace hardcoded GBP with a string determined by drop down select
    */
   String getCryptoPrice(Map selection) {
     /*set number of decimals we wish to see for the crypto, eventually should
@@ -202,13 +174,11 @@ class PricesListState extends State<PricesList>{
      *finds price based on the parse function for double, looking for the value
      *from API corresponding to that crypto's price_usd
      */
-    //double parsed = double.parse(selection['quotes']['USD']['price']);
-    print("call todouble opp1");
-
     double parsed = selection['quotes']['USD']['price'];
-    print("call todouble opp2: parsed = " + parsed.toString());
+    //adjust the parsed price based on international conversion
     parsed *= countryConvert;
-    print("call todouble opp3");
+
+    //determine which symbol character to use
     switch(country){
       case "USD": {
         currSymbol = "\$";
@@ -219,7 +189,7 @@ class PricesListState extends State<PricesList>{
       }
       break;
       case "ZAR": {
-        currSymbol = "R";
+        currSymbol = "\R";
       }
       break;
       case "GBP": {
@@ -242,14 +212,27 @@ class PricesListState extends State<PricesList>{
         currSymbol ="\₩";
       }
       break;
+      case "INR": {
+        currSymbol = "\₹";
+      }
+      break;
+      case "THB": {
+        currSymbol = "\฿";
+      }
+      break;
+      case "PHP": {
+        currSymbol = "\₱";
+      }
+      break;
     }
-    //round parsed using equation inside equation, add '$'
-    if(country != "JPY"){
+    //round parsed using equation inside equation, add '$' or other symbol
+    if((country != "EUR") && (country != "JPY")){
+      //not Yen: put symbol before number
       return currSymbol + (parsed = (parsed * fac).round() / fac).toString();
     }else{
+      //is Yen: put symbol after number
       return (parsed = (parsed * fac).round() / fac).toString() + currSymbol;
     }
-
   }
 
   //implement getmainbody function, loading bar if _loading is true
@@ -257,17 +240,16 @@ class PricesListState extends State<PricesList>{
     void _selectedCurrency(Currency currAbbrev) {
       setState(() {
         currencySelection = currAbbrev.acronym;
-
         //runApp(MyApp());
         //PricesList();
         print("selected currency is " + currencySelection);
         print("selected currency price is" );
-
       });
     }
     //if loading API is true, create new center container for progress bar
     if(_loading) {
       return new Center(
+        //note: make a child column <widget>[] to put logo over loading bar
         //use built in (material) circular loading bar, child of Center
         child: new CircularProgressIndicator(),
       );
@@ -281,6 +263,7 @@ class PricesListState extends State<PricesList>{
               return Currencies.map((Currency currencie){
                 //on select: command to make change when dropdown menu selected
                 return new PopupMenuItem(
+                  //value: text to display
                   value: currencie,
                   child: new ListTile(title: currencie.current, ),
                 );
@@ -317,7 +300,6 @@ class PricesListState extends State<PricesList>{
   @override
   Widget build(BuildContext context){
     return Scaffold(
-
       body: _getMainBody(),
     );
   }
@@ -337,40 +319,32 @@ class PricesListState extends State<PricesList>{
         );
       },
     );
+
     //make a divided list of the above ListTiles, use listview
     final List<Widget> divided = ListTile.divideTiles(
       context: context,
       tiles: shortTiles,
     ).toList();
     return new ListView(
-        shrinkWrap: true,
-        children: divided,
+      shrinkWrap: true,
+      children: divided,
     );
     //make iterable tiles into list
   }
 
+  //below: used to display all currencies from API, not just selected few
+  //ToDo: eventually: use in separate page to use as options to add new cryptos
   Widget _buildPricesList() {
     //build items in a list view
     return ListView.builder(
       //set item count: ensure index in range, use built in .length function list
         itemCount: _cryptoPrices.length,
-        //itemCount: _initialCryptos.length,
         //padding for list tile content
         padding: const EdgeInsets.all(16.0),
         itemBuilder: (context, i){
           //builder: return row for each index (if statement met)
           final index = i;
-          /*if(_cryptoPrices[index]['name']== 'Bitcoin') {
-         return _buildRow(_cryptoPrices[index]);
-       }*/
-          /* current: need a way to return a null or something similar, or
-        * make another function to generate a selected list (like _saved) to
-        * just display a certain number prices
-        */
-
-            return _buildRow(_cryptoPrices[index]);
-
-          //return _buildRow(_initialCryptos[index]);
+          return _buildRow(_cryptoPrices[index]);
         }
     );
   }
