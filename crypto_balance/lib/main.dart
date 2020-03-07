@@ -45,12 +45,15 @@ class MyApp extends StatelessWidget {
 
 //create stateful widget, called from MaterialApp home
 class PricesList extends StatefulWidget {
+  //
   @override
   //purpose: call state creation
   PricesListState createState() => PricesListState();
 }
 
 class PricesListState extends State<PricesList>{
+
+
   //create list type store prices from API
   List _cryptoPrices;
   //List _conversionFactors;
@@ -86,6 +89,7 @@ class PricesListState extends State<PricesList>{
       this._convertFactors = factors.fromJson(json.decode(apiResponseConv.body));
       // below: decode json from api response into format readable as a list
       this._cryptoPrices = jsonDecode(apiResponse.body);
+
 
       /*
       print("trying to test print new currencyList");
@@ -167,8 +171,10 @@ class PricesListState extends State<PricesList>{
     //iD: use to identify; a few cryptos need different rounding
     String iD = selection['id'];
     String country = currencySelection;
+    print("currency selection is " + currencySelection);
     String currSymbol = "\$";
     double countryConvert = this._convertFactors.rates[country];
+    print("country convert = " + country);
     /*pow: return 10^decimal: basic idea: multiply number by power of 10, round,
      *then divide by that same power 10: get rounded to decimals
      */
@@ -196,7 +202,7 @@ class PricesListState extends State<PricesList>{
     print("call todouble opp1");
 
     double parsed = selection['quotes']['USD']['price'];
-    print("call todouble opp2");
+    print("call todouble opp2: parsed = " + parsed.toString());
     parsed *= countryConvert;
     print("call todouble opp3");
     switch(country){
@@ -235,6 +241,17 @@ class PricesListState extends State<PricesList>{
 
   //implement getmainbody function, loading bar if _loading is true
   _getMainBody() {
+    void _selectedCurrency(Currency currAbbrev) {
+      setState(() {
+        currencySelection = currAbbrev.current.toString();
+
+        //runApp(MyApp());
+        //PricesList();
+        print("selected currency is " + currencySelection);
+        print("selected currency price is" );
+
+      });
+    }
     //if loading API is true, create new center container for progress bar
     if(_loading) {
       return new Center(
@@ -243,11 +260,30 @@ class PricesListState extends State<PricesList>{
       );
     } else {
       //loading is done: return rest of app as body using _buildPricesList
-      //nest in a refreshindicator widget, lets use use pull down to refresh
-      return new RefreshIndicator(
+      //Column: update box and list
+      return new Column(
+        children: <Widget>[
+          new PopupMenuButton(
+            itemBuilder: (BuildContext context){
+              return Currencies.map((Currency currencie){
+                //on select: command to make change when dropdown menu selected
+                return new PopupMenuItem(
+                  value: currencie,
+                  child: new ListTile(title: currencie.current, ),
+                );
+              }).toList();
+              //onSelected:
+            },
+            onSelected: _selectedCurrency,
+            color: Colors.white, icon: Icon(Icons.more_vert,color: Color(0xff3E0CA9), ),
+          ),
+          //nest in a refreshindicator widget, lets use use pull down to refresh
+          RefreshIndicator(
         //make child a column, add icon
-        child: _buildShortList(),
-        onRefresh: getPricesAPI,
+          child: _buildShortList(),
+          onRefresh: getPricesAPI,
+          ),
+        ],
       );
     }
   }
@@ -293,7 +329,10 @@ class PricesListState extends State<PricesList>{
       context: context,
       tiles: shortTiles,
     ).toList();
-    return new ListView(children: divided);
+    return new ListView(
+        shrinkWrap: true,
+        children: divided,
+    );
     //make iterable tiles into list
   }
 
@@ -315,7 +354,9 @@ class PricesListState extends State<PricesList>{
         * make another function to generate a selected list (like _saved) to
         * just display a certain number prices
         */
-          return _buildRow(_cryptoPrices[index]);
+
+            return _buildRow(_cryptoPrices[index]);
+
           //return _buildRow(_initialCryptos[index]);
         }
     );
@@ -333,6 +374,7 @@ class PricesListState extends State<PricesList>{
       //show price USD, subtitle
       subtitle: Text(
         getCryptoPrice(crypto),
+
       ),
     );
   }

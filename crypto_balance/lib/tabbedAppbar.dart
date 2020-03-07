@@ -9,15 +9,26 @@ import 'package:flutter/material.dart';
 String currencySelection = "USD";
 
 void main()=> runApp(MyApp1());
-
+//const String currUSD = "USD";
 
 
 class Currency{
   final Text current;
-  const Currency({this.current});
+  //final String acronym;
+  const Currency({
+    this.current,
+    //this.acronym,
+  });
 }
 const List<Currency> Currencies = <Currency>[
-  const Currency(current: const Text('USD',style: TextStyle(color: Color(0xff3E0CA9)),)),
+  /*
+  const Currency(
+    current: const Text('USD',style: TextStyle(color: Color(0xff3E0CA9)),),
+    acronym: currUSD,
+  ),
+   */
+  const Currency(current: const Text('USD',style: TextStyle(color: Color(0xff3E0CA9)),),),
+  const Currency(current: const Text('YEN',style: TextStyle(color: Color(0xff3E0CA9)),),),
   const Currency(current: const Text('YEN',style: TextStyle(color: Color(0xff3E0CA9)),)),
   const Currency(current: const Text('MXN',style: TextStyle(color: Color(0xff3E0CA9)),)),
   const Currency(current: const Text('GBP',style: TextStyle(color: Color(0xff3E0CA9)),)),
@@ -57,10 +68,10 @@ class _MyTabbedPageState extends State<MyTabbedPage> with SingleTickerProviderSt
     super.initState();
     _tabController = TabController(length: myTabs.length, vsync: this);
   }
-
+  /*
   void _selectedCurrency(Currency currAbbrev) {
     setState(() {
-      //currencySelection = currAbbrev.current.toString();
+      currencySelection = currAbbrev.current.toString();
 
       //runApp(MyApp());
       //PricesList();
@@ -68,7 +79,7 @@ class _MyTabbedPageState extends State<MyTabbedPage> with SingleTickerProviderSt
       print("selected currency price is" );
 
     });
-  }
+  } */
 
   @override
   void dispose() {
@@ -85,7 +96,7 @@ class _MyTabbedPageState extends State<MyTabbedPage> with SingleTickerProviderSt
         preferredSize: Size.fromHeight(105),
         child: AppBar(
           //beginning of dropdown tabs
-          actions: <Widget>[
+          /*actions: <Widget>[
             new PopupMenuButton(itemBuilder: (BuildContext context){
               return Currencies.map((Currency currencie){
                 //on select: command to make change when dropdown menu selected
@@ -99,13 +110,12 @@ class _MyTabbedPageState extends State<MyTabbedPage> with SingleTickerProviderSt
               onSelected: _selectedCurrency,
               color: Colors.white, icon: Icon(Icons.more_vert,color: Color(0xff3E0CA9), ),
             ),
-          ],
+          ],*/
 
           backgroundColor: Colors.white,
           centerTitle: true,
           title: Row(
             children: [
-
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
                 child: Image.asset(
