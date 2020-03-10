@@ -26,7 +26,7 @@ const currencyNames = Currencies;
 void main() {
 
   //print(currencyList);
-  runApp(MyApp());
+  runApp(MyApp1());
 }
 
 class MyApp extends StatelessWidget {
