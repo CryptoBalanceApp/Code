@@ -272,7 +272,12 @@ class PricesListState extends State<PricesList>{
               //onSelected:
             },
             onSelected: _selectedCurrency,
-            color: Colors.white, icon: Icon(Icons.more_vert,color: Color(0xff3E0CA9), ),
+            color: Colors.white,
+            icon: Icon(
+              Icons.attach_money,
+              color: Color(0xff3E0CA9),
+
+            ),
           ),
           //nest in a refreshindicator widget, lets use use pull down to refresh
           RefreshIndicator(
