@@ -55,10 +55,7 @@ class PricesListState extends State<PricesList>{
   //List _conversionFactors;
   //SetMap:
   final _initialCryptos = Set<Map>();
-  //factors: class created to handle API conversion and get "rates" map
-  //!!EDIT!!
-  //factors _convertFactors = factors();
-  //final _convertFactors = Map();
+  Map _cryptoPriceMap = Map<String, dynamic>();
   Map _convertFactors;
 
   //set book value: control state if API loading
@@ -81,12 +78,8 @@ class PricesListState extends State<PricesList>{
     http.Response apiResponse = await http.get(_apiURL);
     //after that line execute, set state off of loading, decode response
     setState((){
-      //below: call constructor for factors to get map of rates
-      //rates: <country code> : <conversion factor from USD>
-      //!!EDIT
-      //this._convertFactors = factors.fromJson(json.decode(apiResponseConv.body));
+      //below: decode the json rates into the convertFactors map
       this._convertFactors = json.decode(apiResponseConv.body)["rates"];
-
       // below: decode json from api response into format readable as a list
       this._cryptoPrices = jsonDecode(apiResponse.body);
 
@@ -97,10 +90,19 @@ class PricesListState extends State<PricesList>{
         void add_map(){
           if(_initialCryptos.contains(entry) == false) {
             _initialCryptos.add(entry);
+            //_cryptoPriceMap[entry['name']] = entry['price'];
+            //_cryptoPriceMap[entry['name']] = 5;
+            //https://bezkoder.com/dart-map/
             print("added crypto:" + ID);
           }
         }
         //add to crypto map based on ID
+        //Block below: easier way to add!!
+        List cryptoToAdd = ["btc-bitcoin", "eth-ethereum", "ltc-litecoin", "doge-dogecoin", "xlm-stellar", "bitcoin-cash", "xrp-xrp"];
+        if(cryptoToAdd.contains(ID)){
+          _cryptoPriceMap.putIfAbsent(entry['name'],()=> entry['quotes']['USD']['price']);
+        }
+
         switch(ID){
           case "btc-bitcoin": {
             add_map();
@@ -139,11 +141,13 @@ class PricesListState extends State<PricesList>{
       //we have now loaded json into list, set loading false
       print("debug: in get crypto prices api");
       print("rates Map:" );
-      //this._convertFactors.printrate();
-      //Map<String, dynamic> rateMap = this._convertFactors.returnMap();
       print(_convertFactors);
 
+      //print("initial cryptos map: ");
+      //print(_initialCryptos);
 
+      print("new cryptos map: ");
+      print(_cryptoPriceMap);
 
       this._loading = false;
     });
