@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\Scott\\Documents\\personal coding\\cryptoBalance\\Code\\crypto_balance\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+            "outputFile": "D:\\Scott\\Documents\\personal_coding\\cryptoBalance\\Code\\crypto_balance\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Scott\\.gradle\\caches\\transforms-2\\files-2.1\\ae13efc3dbae5c9ee58d4933337fcd21\\coordinatorlayout-1.0.0\\res\\values\\values.xml",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "D:\\Scott\\Documents\\personal coding\\cryptoBalance\\Code\\crypto_balance\\android\\app\\src\\main\\res\\values\\styles.xml",
+                    "source": "D:\\Scott\\Documents\\personal_coding\\cryptoBalance\\Code\\crypto_balance\\android\\app\\src\\main\\res\\values\\styles.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
