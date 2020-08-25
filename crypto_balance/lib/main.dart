@@ -13,19 +13,16 @@
 
 import 'package:crypto_balance/tabbedAppbar.dart';
 import 'package:flutter/material.dart';
-import 'package:crypto_balance/entities/factors.dart';
-import 'package:crypto_balance/references.dart';
+
 import 'dart:async';
 import 'dart:math';
 import 'dart:convert';
-//import 'dart:core';
+
 import 'package:http/http.dart' as http;
 
 const currencyNames = Currencies;
 
 void main() {
-
-  //print(currencyList);
   runApp(MyApp1());
 }
 
@@ -34,8 +31,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'CryptoBalance',
-      //below: replace with home: CryptoList(),
-
+      //below: replace with home: CryptoList()?,
       home: PricesList(),
     );
   }
@@ -52,12 +48,8 @@ class PricesList extends StatefulWidget {
 class PricesListState extends State<PricesList>{
   //create list type store prices from API
   List _cryptoPrices;
-  //List _conversionFactors;
-  //SetMap:
-  final _initialCryptos = Set<Map>();
   Map _cryptoPriceMap = Map<String, dynamic>();
   Map _convertFactors;
-
   //set book value: control state if API loading
   bool _loading = false;
 
@@ -68,88 +60,34 @@ class PricesListState extends State<PricesList>{
     //get price conversion data from API
     String _apiURLConv = "https://api.exchangeratesapi.io/latest?base=USD";
     String _apiURL = "https://api.coinpaprika.com/v1/tickers";
+
     //setState:
     setState(() {
-      _initialCryptos.clear();
-
       this._loading = true;
     });
+
     //waits for response from API
     http.Response apiResponseConv = await http.get(_apiURLConv);
     http.Response apiResponse = await http.get(_apiURL);
+
     //after that line execute, set state off of loading, decode response
     setState((){
       //below: decode the json rates into the convertFactors map
       this._convertFactors = json.decode(apiResponseConv.body)["rates"];
       // below: decode json from api response into format readable as a list
       this._cryptoPrices = jsonDecode(apiResponse.body);
-
       //for each crypto entry get the id variable, decide what to add
       _cryptoPrices.forEach((var entry){
         String ID = entry['id'];
         //function to add entries to map
-        void add_map(){
-          if(_initialCryptos.contains(entry) == false) {
-            _initialCryptos.add(entry);
-            //_cryptoPriceMap[entry['name']] = entry['price'];
-            //_cryptoPriceMap[entry['name']] = 5;
-            //https://bezkoder.com/dart-map/
-            print("added crypto:" + ID);
-          }
-        }
         //add to crypto map based on ID
-        //Block below: easier way to add!!
         List cryptoToAdd = ["btc-bitcoin", "eth-ethereum", "ltc-litecoin", "doge-dogecoin", "xlm-stellar", "bitcoin-cash", "xrp-xrp"];
         if(cryptoToAdd.contains(ID)){
           _cryptoPriceMap.putIfAbsent(entry['name'],()=> entry['quotes']['USD']['price']);
         }
-
-        switch(ID){
-          case "btc-bitcoin": {
-            add_map();
-          }
-          break;
-          case "eth-ethereum": {
-            add_map();
-          }
-          break;
-          case "ltc-litecoin": {
-            add_map();
-          }
-          break;
-          case "doge-dogecoin": {
-            add_map();
-          }
-          break;
-          case "xlm-stellar": {
-            add_map();
-          }
-          break;
-          case "bitcoin-cash": {
-            add_map();
-          }
-          break;
-          case "xrp-xrp": {
-            add_map();
-          }
-          break;
-          default: {
-            //if not in short list of cryptos, skip
-          }
-          break;
-        }
       });
+
       //we have now loaded json into list, set loading false
-      print("debug: in get crypto prices api");
-      print("rates Map:" );
-      print(_convertFactors);
-
-      //print("initial cryptos map: ");
-      //print(_initialCryptos);
-
-      print("new cryptos map: ");
-      print(_cryptoPriceMap);
-
       this._loading = false;
     });
     return;
@@ -158,48 +96,40 @@ class PricesListState extends State<PricesList>{
   /*rounding: take in crypto map (one of the sub arrays of the json), return a
    * string (crypto price) rounded to two decimals with a dollar sign
    */
-  String getCryptoPrice(Map selection) {
-    /*set number of decimals we wish to see for the crypto, eventually should
-     *vary for each
-    */
+  //String getCryptoPrice(Map selection) {
+  String getCryptoPrice(String name, double selection) {
+    //default decimals to round: 2 (to 1 penny value)
     int decimals_to_round = 2;
-    //iD: use to identify; a few cryptos need different rounding
-    String iD = selection['id'];
+    //ToDo renaming this variable currencySelection, really necessary?
     String country = currencySelection;
     print("country selection is " + currencySelection);
+    //ToDo: is below just the default currency symbol? remove?
     String currSymbol = "\$";
-
-    //this wrong?
+    //get conversion factor
     double countryConvert = this._convertFactors[country];
-
     print("country convert = " + countryConvert.toString());
+    //Determine number of digits to round to based on crypto; lower valued cryptos are rounded to more numerals of precision
     /*pow: return 10^decimal: basic idea: multiply number by power of 10, round,
      *then divide by that same power 10: get rounded to decimals
      */
-    switch(iD){
-      case "xrp-xrp": {
+    switch(name){
+      case "XRP": {
         decimals_to_round=6;
       }
       break;
-      case "xlm-stellar": {
+      case "Stellar": {
         decimals_to_round=6;
       }
       break;
-      case "doge-dogecoin": {
+      case "Dogecoin": {
         decimals_to_round=6;
       }
       break;
     }
     int fac = pow(10, decimals_to_round);
-    /*get price: parse "selection" (passed in crypto subarray from api), only
-     *passing in the subarray with all the information for one cryptocurrency.
-     *finds price based on the parse function for double, looking for the value
-     *from API corresponding to that crypto's price_usd
-     */
-    double parsed = selection['quotes']['USD']['price'];
-    //adjust the parsed price based on international conversion
-    parsed *= countryConvert;
 
+    //multiply USD dollar value through conversion rate
+    selection *= countryConvert;
     //determine which symbol character to use
     switch(country){
       case "USD": {
@@ -249,11 +179,11 @@ class PricesListState extends State<PricesList>{
     }
     //round parsed using equation inside equation, add '$' or other symbol
     if((country != "EUR") && (country != "JPY")){
-      //not Yen: put symbol before number
-      return currSymbol + (parsed = (parsed * fac).round() / fac).toString();
+      //put symbol before number
+      return currSymbol + (selection = (selection * fac).round() / fac).toString();
     }else{
-      //is Yen: put symbol after number
-      return (parsed = (parsed * fac).round() / fac).toString() + currSymbol;
+      //else put symbol after number
+      return (selection = (selection * fac).round() / fac).toString() + currSymbol;
     }
   }
 
@@ -262,10 +192,6 @@ class PricesListState extends State<PricesList>{
     void _selectedCurrency(Currency currAbbrev) {
       setState(() {
         currencySelection = currAbbrev.acronym;
-        //runApp(MyApp());
-        //PricesList();
-        print("selected currency is " + currencySelection);
-        print("selected currency price is" );
       });
     }
     //if loading API is true, create new center container for progress bar
@@ -330,18 +256,18 @@ class PricesListState extends State<PricesList>{
       body: _getMainBody(),
     );
   }
-
   //widget builds list
   Widget _buildShortList() {
     //create iterable for map
-    final Iterable<ListTile> shortTiles = _initialCryptos.map(
-          (crypto){
+    //https://api.flutter.dev/flutter/dart-core/Iterable-class.html
+    final Iterable<ListTile> shortTiles = _cryptoPriceMap.keys.map
+      ((crypto){
         //return new ListTile of Map
         return new ListTile(
-          title: Text(crypto['name']),
+          title: Text(crypto),
           subtitle: Text(
             //return price
-            getCryptoPrice(crypto),
+            getCryptoPrice(crypto, _cryptoPriceMap[crypto]),
           ),
         );
       },
@@ -358,39 +284,4 @@ class PricesListState extends State<PricesList>{
     );
     //make iterable tiles into list
   }
-
-  //below: used to display all currencies from API, not just selected few
-  //ToDo: eventually: use in separate page to use as options to add new cryptos
-  Widget _buildPricesList() {
-    //build items in a list view
-    return ListView.builder(
-      //set item count: ensure index in range, use built in .length function list
-        itemCount: _cryptoPrices.length,
-        //padding for list tile content
-        padding: const EdgeInsets.all(16.0),
-        itemBuilder: (context, i){
-          //builder: return row for each index (if statement met)
-          final index = i;
-          return _buildRow(_cryptoPrices[index]);
-        }
-    );
-  }
-
-  //function to build row
-  //pass in Map: key value pairing, inner array chosen crypto
-  //keys i.e. id, name... values i.e. bitcoin, $3000
-  //map comes from _cryptoPrices[index]
-  Widget _buildRow(Map crypto){
-    //return row with desired properties as ListTile material widget
-    return ListTile(
-      //title of crypto: from 'name' key
-      title: Text(crypto['name']),
-      //show price USD, subtitle
-      subtitle: Text(
-        getCryptoPrice(crypto),
-
-      ),
-    );
-  }
-
 }
