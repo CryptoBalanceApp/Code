@@ -21,4 +21,8 @@ class factors {
     print(rates);
   }
 
+  Map<String, dynamic> returnMap(){
+    return rates;
+  }
+
 }

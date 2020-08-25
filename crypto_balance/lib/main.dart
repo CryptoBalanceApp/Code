@@ -56,7 +56,11 @@ class PricesListState extends State<PricesList>{
   //SetMap:
   final _initialCryptos = Set<Map>();
   //factors: class created to handle API conversion and get "rates" map
-  factors _convertFactors = factors();
+  //!!EDIT!!
+  //factors _convertFactors = factors();
+  //final _convertFactors = Map();
+  Map _convertFactors;
+
   //set book value: control state if API loading
   bool _loading = false;
 
@@ -79,7 +83,10 @@ class PricesListState extends State<PricesList>{
     setState((){
       //below: call constructor for factors to get map of rates
       //rates: <country code> : <conversion factor from USD>
-      this._convertFactors = factors.fromJson(json.decode(apiResponseConv.body));
+      //!!EDIT
+      //this._convertFactors = factors.fromJson(json.decode(apiResponseConv.body));
+      this._convertFactors = json.decode(apiResponseConv.body)["rates"];
+
       // below: decode json from api response into format readable as a list
       this._cryptoPrices = jsonDecode(apiResponse.body);
 
@@ -130,6 +137,14 @@ class PricesListState extends State<PricesList>{
         }
       });
       //we have now loaded json into list, set loading false
+      print("debug: in get crypto prices api");
+      print("rates Map:" );
+      //this._convertFactors.printrate();
+      //Map<String, dynamic> rateMap = this._convertFactors.returnMap();
+      print(_convertFactors);
+
+
+
       this._loading = false;
     });
     return;
@@ -150,7 +165,7 @@ class PricesListState extends State<PricesList>{
     String currSymbol = "\$";
 
     //this wrong?
-    double countryConvert = this._convertFactors.rates[country];
+    double countryConvert = this._convertFactors[country];
 
     print("country convert = " + countryConvert.toString());
     /*pow: return 10^decimal: basic idea: multiply number by power of 10, round,

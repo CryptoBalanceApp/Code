@@ -1,4 +1,5 @@
 import 'package:crypto_balance/tabbedAppbar.dart';
+import 'package:crypto_balance/main.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp4());
