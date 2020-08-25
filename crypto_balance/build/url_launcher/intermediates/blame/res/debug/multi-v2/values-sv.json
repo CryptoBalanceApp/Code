@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\Scott\\Documents\\personal coding\\cryptoBalance\\Code\\crypto_balance\\build\\url_launcher\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sv\\values-sv.xml",
+            "outputFile": "D:\\Scott\\Documents\\personal_coding\\cryptoBalance\\Code\\crypto_balance\\build\\url_launcher\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sv\\values-sv.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Scott\\.gradle\\caches\\transforms-2\\files-2.1\\0a271e99b6771ad4a84318244d532fb7\\core-1.0.0\\res\\values-sv\\values-sv.xml",
@@ -16,7 +16,7 @@
             ]
         },
         {
-            "outputFile": "D:\\Scott\\Documents\\personal coding\\cryptoBalance\\Code\\crypto_balance\\build\\url_launcher\\intermediates\\res\\merged\\debug\\values-sv\\values-sv.xml",
+            "outputFile": "D:\\Scott\\Documents\\personal_coding\\cryptoBalance\\Code\\crypto_balance\\build\\url_launcher\\intermediates\\res\\merged\\debug\\values-sv\\values-sv.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Scott\\.gradle\\caches\\transforms-2\\files-2.1\\0a271e99b6771ad4a84318244d532fb7\\core-1.0.0\\res\\values-sv\\values-sv.xml",
