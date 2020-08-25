@@ -71,6 +71,7 @@ class PricesListState extends State<PricesList>{
     //setState:
     setState(() {
       _initialCryptos.clear();
+
       this._loading = true;
     });
     //waits for response from API
