@@ -3,6 +3,7 @@
 import 'package:crypto_balance/main.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto_balance/references.dart';
+import 'package:crypto_balance/balance.dart';
 
 //
 //List fromCurrAPI;
@@ -101,8 +102,8 @@ class MyTabbedPage extends StatefulWidget{
 class _MyTabbedPageState extends State<MyTabbedPage> with SingleTickerProviderStateMixin {
   final List<Tab> myTabs = <Tab>[
     Tab(text: 'Prices' ),
-    Tab(text: 'About'),
-
+    Tab(text: 'Balance'),
+    Tab(text: 'About')
   ];
 
   TabController _tabController;
@@ -161,6 +162,7 @@ class _MyTabbedPageState extends State<MyTabbedPage> with SingleTickerProviderSt
 
         children:[
           MyApp(),
+          MyApp4(),
           MyApp2(),
 
 

@@ -18,7 +18,7 @@ import 'package:crypto_balance/references.dart';
 import 'dart:async';
 import 'dart:math';
 import 'dart:convert';
-import 'dart:core';
+//import 'dart:core';
 import 'package:http/http.dart' as http;
 
 const currencyNames = Currencies;
@@ -67,6 +67,7 @@ class PricesListState extends State<PricesList>{
     //get price conversion data from API
     String _apiURLConv = "https://api.exchangeratesapi.io/latest?base=USD";
     String _apiURL = "https://api.coinpaprika.com/v1/tickers";
+    //setState:
     setState(() {
       _initialCryptos.clear();
       this._loading = true;
