@@ -1,7 +1,9 @@
 import 'package:crypto_balance/tabbedAppbar.dart';
 import 'package:csv/csv.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:permission/permission.dart';
+//import 'package:simple_permissions/simple_permissions.dart';
 
 void main() => runApp(MyApp4());
 
@@ -34,22 +36,39 @@ class BalanceDisplayState extends State<BalanceDisplay>{
     print("entries:");
     print(entries);
     //test .tocsv
-    //permissions: https://stackoverflow.com/questions/50561737/getting-permission-to-the-external-storage-file-provider-plugin
+    //https://pub.dev/packages/simple_permissions/install
+    //https://icircuit.net/create-csv-file-flutter-app/2614
+//    await SimplePermissions.requestPermission(Permission.WriteExternalStorage);
+//    bool checkPermission = await SimplePermissions.checkPermission(Permission.WriteExternalStorage);
+//    if(checkPermission){
+//      print("permission accepted!!!");
+//    }
+
+
     //https://pub.dev/packages/permission/example
     List<PermissionName> permRequestList = [];
+    print("reached 1");
     permRequestList.add(PermissionName.Storage);
+    print("reached 2");
     String message = '';
     var permissions = await Permission.requestPermissions(permRequestList);
+    print("reached 3");
     permissions.forEach((permission){
+      print("reached 4");
       message += '${permission.permissionName}: ${permission.permissionStatus}\n';
     });
+    print("reached 5");
+
     setState(() {});
+    print("reached 6");
+
   }
 
   _getBalanceBody(){
     print("new balance body test!!!");
-
     _newCsv();
+
+
     return new Center(
       child: CircularProgressIndicator(),
     );
@@ -65,6 +84,7 @@ class BalanceDisplayState extends State<BalanceDisplay>{
     print("global conversion: ");
     print(globalConvFac);
     print(globalCurr);
+
 
   }
 

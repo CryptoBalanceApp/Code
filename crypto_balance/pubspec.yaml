@@ -21,6 +21,7 @@ dependencies:
   flutter_svg: ^0.17.2
   csv: ^4.0.3
   permission: ^0.1.7
+  #simple_permissions: ^0.1.9
 
   flutter:
     sdk: flutter
