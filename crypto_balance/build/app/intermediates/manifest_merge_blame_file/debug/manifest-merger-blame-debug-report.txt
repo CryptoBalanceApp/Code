@@ -26,7 +26,7 @@
 23        android:name="io.flutter.app.FlutterApplication"
 23-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:9:9-57
 24        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-24-->[androidx.core:core:1.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\0a271e99b6771ad4a84318244d532fb7\core-1.0.0\AndroidManifest.xml:22:18-86
+24-->[androidx.core:core:1.0.2] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\fecc98e05c7ccd4a0eedf7cff343a233\core-1.0.2\AndroidManifest.xml:22:18-86
 25        android:debuggable="true"
 26        android:icon="@mipmap/launcher_icon"
 26-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:11:9-45

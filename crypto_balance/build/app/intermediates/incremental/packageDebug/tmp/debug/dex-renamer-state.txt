@@ -1,4 +1,4 @@
-#Tue Aug 25 17:22:19 PDT 2020
+#Tue Aug 25 20:23:41 PDT 2020
 base.0=D\:\\Scott\\Documents\\personal_coding\\cryptoBalance\\Code\\crypto_balance\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
