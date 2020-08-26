@@ -86,6 +86,15 @@ class PricesListState extends State<PricesList>{
           _cryptoPriceMap.putIfAbsent(entry['name'],()=> entry['quotes']['USD']['price']);
         }
       });
+      print(_convertFactors);
+      print(_cryptoPriceMap);
+      print("!!!!!!!");
+      print(helloString);
+      globalCryptoPrice = _cryptoPriceMap;
+      print(globalCryptoPrice);
+      globalConvFac = _convertFactors;
+      print(globalConvFac);
+
 
       //we have now loaded json into list, set loading false
       this._loading = false;
@@ -177,6 +186,10 @@ class PricesListState extends State<PricesList>{
       }
       break;
     }
+    //(selection = (selection * fac).round() / fac).toString()
+    //return currSymbol + selection
+    //or return selection + currSymbol
+    //ToDo: simplify using above commented logic
     //round parsed using equation inside equation, add '$' or other symbol
     if((country != "EUR") && (country != "JPY")){
       //put symbol before number
@@ -192,6 +205,7 @@ class PricesListState extends State<PricesList>{
     void _selectedCurrency(Currency currAbbrev) {
       setState(() {
         currencySelection = currAbbrev.acronym;
+        globalCurr = currencySelection;
       });
     }
     //if loading API is true, create new center container for progress bar

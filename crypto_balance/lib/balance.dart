@@ -23,9 +23,22 @@ class BalanceDisplay extends StatefulWidget {
 
 class BalanceDisplayState extends State<BalanceDisplay>{
   _getBalanceBody(){
+
     return new Center(
       child: CircularProgressIndicator(),
     );
+  }
+
+  void initState() {
+    //override creation: state call function
+    super.initState();
+    //call function to set state
+    print("test print in balance!!!!!");
+    print("global crypto: ");
+    print(globalCryptoPrice);
+    print("global conversion: ");
+    print(globalConvFac);
+    print(globalCurr);
   }
 
   @override

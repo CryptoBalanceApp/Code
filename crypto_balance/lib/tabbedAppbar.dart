@@ -25,6 +25,11 @@ const String currINR = "INR";
 const String currTHB = "THB";
 const String currPHP = "PHP";
 
+String helloString = "HelloWorld";
+Map globalCryptoPrice = Map<String, dynamic>();
+Map globalConvFac = Map<String, dynamic>();
+String globalCurr = currUSD;
+
 class Currency{
   final Text current;
   final String acronym;
