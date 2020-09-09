@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:permission/permission.dart';
 //import 'package:simple_permissions/simple_permissions.dart';
 
+//below: needs to be future void like example?
 void main() => runApp(MyApp4());
 
 class MyApp4 extends StatelessWidget {
@@ -85,6 +86,8 @@ class BalanceDisplayState extends State<BalanceDisplay>{
     super.initState();
     //call function to set state
     _getPermissionStatus();
+    //_requestPermissions();
+    print("exit request");
 
     print("global crypto: ");
     print(globalCryptoPrice);
@@ -105,12 +108,30 @@ class BalanceDisplayState extends State<BalanceDisplay>{
       statmessage += '${permission.permissionName}: ${permission.permissionStatus}\n';
     });
 
-
-
     setState((){
       print(statmessage);
     });
   }
+
+//  _requestPermissions() async {
+//    print("enter 1");
+//    List<PermissionName> permName2 = [];
+//    print("enter 2");
+//    permName2.add(PermissionName.Storage);
+//    print("enter 3");
+//    String statmessage2 = '';
+//    print("enter 4");
+//    var perm2 = await Permission.requestPermissions(permName2);
+//    print("enter 5");
+//    perm2.forEach((permission){
+//      statmessage2 += '${permission.permissionName}: ${permission.permissionStatus}\n';
+//    });
+//    print("enter 6");
+//    setState((){
+//      print(statmessage2);
+//    });
+//
+//  }
 
   @override
   Widget build(BuildContext context) {
