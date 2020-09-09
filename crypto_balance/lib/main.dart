@@ -45,7 +45,9 @@ class PricesList extends StatefulWidget {
   PricesListState createState() => PricesListState();
 }
 
-class PricesListState extends State<PricesList>{
+//keep alive for tabs like https://github.com/fluttervn/tabbar_demo/blob/master/lib/screens/tab1.dart
+//class PricesListState extends State<PricesList>{
+class PricesListState extends State<PricesList> with AutomaticKeepAliveClientMixin<PricesList> {
   //create list type store prices from API
   List _cryptoPrices;
   Map _cryptoPriceMap = Map<String, dynamic>();
@@ -270,6 +272,11 @@ class PricesListState extends State<PricesList>{
       body: _getMainBody(),
     );
   }
+
+  //getter for keepclient alive mixin
+  @override
+  bool get wantKeepAlive => true;
+
   //widget builds list
   Widget _buildShortList() {
     //create iterable for map

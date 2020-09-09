@@ -112,8 +112,8 @@ class TabContainerDefault extends StatefulWidget {
   @override
   _TabContainerDefaultState createState() => _TabContainerDefaultState();
 }
-
-class _TabContainerDefaultState extends State<TabContainerDefault> {
+class _TabContainerDefaultState extends State<TabContainerDefault>  with AutomaticKeepAliveClientMixin<TabContainerDefault>{
+//class _TabContainerDefaultState extends State<TabContainerDefault> {
   List<Widget> screenList;
   @override
   void initState() {
@@ -161,6 +161,8 @@ class _TabContainerDefaultState extends State<TabContainerDefault> {
 
   }
 
+  @override
+  bool get wantKeepAlive => true;
 }
 
 

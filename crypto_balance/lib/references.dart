@@ -5,21 +5,32 @@ import 'package:crypto_balance/referencesTab.dart';
 
 void main() => runApp(MyApp2());
 
-class MyApp2 extends StatelessWidget {
+//class MyApp2 extends StatelessWidget {
+//  @override
+//  Widget build(BuildContext context) {
+//    return new MaterialApp(
+//        home: new MyHome()
+//    );
+//  }
+//
+//}
+
+class MyApp2 extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
-        home: new MyHome()
-    );
-  }
+  MyHome createState() => MyHome();
 
 }
 
-class MyHome extends StatelessWidget{
+//class MyHome extends StatelessWidget{
+class MyHome extends State<MyApp2> with AutomaticKeepAliveClientMixin<MyApp2> {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     // TODO: implement build
-    return new Scaffold(
+    //return new Scaffold(
+    return new MaterialApp(
+      home: Scaffold(
+
         appBar: new AppBar(
           title: new Text('About Page',style: TextStyle(color:Color(0xff3E0CA9), fontFamily: 'Josefin Sans')),
           backgroundColor: Colors.white,
@@ -99,8 +110,11 @@ class MyHome extends StatelessWidget{
             ]
         )
         )
+      )
     );
   }
+  @override
+  bool get wantKeepAlive => true;
   Widget _profile(String name, String roles, String imagePath ){
 
     return Column(
