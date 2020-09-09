@@ -132,6 +132,32 @@ class _TabContainerBottomState extends State<TabContainerBottom> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
+          appBar: PreferredSize(
+          preferredSize: Size.fromHeight(85),
+            child: AppBar(
+              backgroundColor: Colors.white,
+              centerTitle: true,
+              title: Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
+                    child: Image.asset(
+                        'Assets/Logos/moneyTreeAndroid.png',
+                        fit: BoxFit.contain,
+                        height: 40, width: 40),
+                  ),
+
+                  Padding(
+                      padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
+                      child: Text('CryptoBalance',
+                          style: TextStyle(
+                              fontFamily: 'Josefin Sans',
+                              color: Color(0xff3E0CA9)),
+                          textAlign: TextAlign.center))
+                ],
+              ),
+            ),
+          ),
           body: screenList[tabIndex],
           bottomNavigationBar: BottomNavigationBar(
               selectedItemColor: Colors.indigoAccent,
