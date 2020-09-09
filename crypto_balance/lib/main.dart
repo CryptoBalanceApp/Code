@@ -242,9 +242,9 @@ class PricesListState extends State<PricesList>{
           ),
           //nest in a refreshindicator widget, lets use use pull down to refresh
           RefreshIndicator(
-        //make child a column, add icon
-          child: _buildShortList(),
-          onRefresh: getPricesAPI,
+            //make child a column, add icon
+            child: _buildShortList(),
+            onRefresh: getPricesAPI,
           ),
         ],
       );
@@ -276,15 +276,15 @@ class PricesListState extends State<PricesList>{
     //https://api.flutter.dev/flutter/dart-core/Iterable-class.html
     final Iterable<ListTile> shortTiles = _cryptoPriceMap.keys.map
       ((crypto){
-        //return new ListTile of Map
-        return new ListTile(
-          title: Text(crypto),
-          subtitle: Text(
-            //return price
-            getCryptoPrice(crypto, _cryptoPriceMap[crypto]),
-          ),
-        );
-      },
+      //return new ListTile of Map
+      return new ListTile(
+        title: Text(crypto),
+        subtitle: Text(
+          //return price
+          getCryptoPrice(crypto, _cryptoPriceMap[crypto]),
+        ),
+      );
+    },
     );
 
     //make a divided list of the above ListTiles, use listview

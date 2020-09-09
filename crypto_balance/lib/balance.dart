@@ -45,18 +45,20 @@ class BalanceDisplayState extends State<BalanceDisplay>{
 //    }
 
 
-    //https://pub.dev/packages/permission/example
-    List<PermissionName> permRequestList = [];
-    print("reached 1");
-    permRequestList.add(PermissionName.Storage);
-    print("reached 2");
-    String message = '';
-    var permissions = await Permission.requestPermissions(permRequestList);
-    print("reached 3");
-    permissions.forEach((permission){
-      print("reached 4");
-      message += '${permission.permissionName}: ${permission.permissionStatus}\n';
-    });
+//    //https://pub.dev/packages/permission/example
+//    List<PermissionName> permRequestList = [];
+//    print("reached 1");
+//    permRequestList.add(PermissionName.Storage);
+//    print("reached 2");
+//    String message = '';
+//    var permissions = await Permission.requestPermissions(permRequestList);
+//
+//    print("reached 3");
+//    permissions.forEach((permission){
+//      print("reached 4");
+//      message += '${permission.permissionName}: ${permission.permissionStatus}\n';
+//    });
+
     print("reached 5");
 
     setState(() {});
@@ -64,9 +66,13 @@ class BalanceDisplayState extends State<BalanceDisplay>{
 
   }
 
+
+
   _getBalanceBody(){
     print("new balance body test!!!");
-    _newCsv();
+    //_newCsv();
+    //_getPermissionStatus();
+    print("reached 7");
 
 
     return new Center(
@@ -78,6 +84,7 @@ class BalanceDisplayState extends State<BalanceDisplay>{
     //override creation: state call function
     super.initState();
     //call function to set state
+    _getPermissionStatus();
 
     print("global crypto: ");
     print(globalCryptoPrice);
@@ -86,6 +93,23 @@ class BalanceDisplayState extends State<BalanceDisplay>{
     print(globalCurr);
 
 
+  }
+
+  //https://pub.dev/packages/permission/example
+  _getPermissionStatus() async {
+    List<PermissionName> permName1 = [];
+    permName1.add(PermissionName.Storage);
+    String statmessage = '';
+    List<Permissions> perm1 = await Permission.getPermissionsStatus(permName1);
+    perm1.forEach((permission){
+      statmessage += '${permission.permissionName}: ${permission.permissionStatus}\n';
+    });
+
+
+
+    setState((){
+      print(statmessage);
+    });
   }
 
   @override
