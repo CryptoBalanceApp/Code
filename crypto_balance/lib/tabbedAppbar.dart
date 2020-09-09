@@ -100,20 +100,23 @@ class MyApp1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp (
       title: 'CryptoBalance',
-      home: TabContainerDefault(),
+      home: TabContainerBottom(),
 
     );
   }
 }
 
-class TabContainerDefault extends StatefulWidget {
-  TabContainerDefault({Key key}) : super(key: key);
+
+//below: from tab container bottom https://github.com/fluttervn/tabbar_demo/blob/master/lib/tab_containter_bottom.dart
+class TabContainerBottom extends StatefulWidget {
+  TabContainerBottom({Key key}) : super(key:key);
 
   @override
-  _TabContainerDefaultState createState() => _TabContainerDefaultState();
+  _TabContainerBottomState createState() => _TabContainerBottomState();
 }
-class _TabContainerDefaultState extends State<TabContainerDefault>  with AutomaticKeepAliveClientMixin<TabContainerDefault>{
-//class _TabContainerDefaultState extends State<TabContainerDefault> {
+
+class _TabContainerBottomState extends State<TabContainerBottom> {
+  int tabIndex = 0;
   List<Widget> screenList;
   @override
   void initState() {
@@ -128,41 +131,38 @@ class _TabContainerDefaultState extends State<TabContainerDefault>  with Automat
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      //https://www.google.com/search?q=defaulttabcontroller+flutter&rlz=1C1CHBF_enUS810US810&oq=defaulttabcontroller+flutter&aqs=chrome..69i57j0l7.4063j0j7&sourceid=chrome&ie=UTF-8
-      home: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          body: TabBarView(
-            physics: NeverScrollableScrollPhysics(), children: screenList,
-          ),
-          bottomNavigationBar: TabBar(
-            tabs: [
-              Tab(
-                text: 'Prices',
+        home: Scaffold(
+          body: screenList[tabIndex],
+          bottomNavigationBar: BottomNavigationBar(
+              selectedItemColor: Colors.indigoAccent,
+              unselectedItemColor: Colors.blueAccent,
+              backgroundColor: Colors.white70,
+              currentIndex: tabIndex,
+              onTap: (int index) {
+                setState((){
+                  tabIndex = index;
+                });
+              },
+              items: [
+              BottomNavigationBarItem(
                 icon: Icon(Icons.home),
-
+                title: Text('Prices'),
               ),
-              Tab(
-                text: 'Balance',
+              BottomNavigationBarItem(
                 icon: Icon(Icons.home),
+                title: Text('Balance'),
               ),
-              Tab(
-                text: 'About',
+              BottomNavigationBarItem(
                 icon: Icon(Icons.help),
-              )
-            ],
+                title: Text('About'),
+              ),
+              ],
           ),
+          //backgroundColor: Colors.white30,
           backgroundColor: Colors.blueGrey,
         ),
-
-      ),
-
     );
-
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
 
 
