@@ -87,93 +87,172 @@ const List<Currency> Currencies = <Currency>[
 
 ];
 
+//ToDo: add author to references
+/*
+ Note: known bug unresolved with TabBarView, outlined here https://github.com/flutter/flutter/issues/27680
+ Addressing by removing this tab implementation and switching to bottom tab bar outlined here
+ https://medium.com/fluttervn/making-bottom-tabbar-with-flutter-5ff82e8defe0
+ and here https://github.com/fluttervn/tabbar_demo/blob/master/lib/tab_containter_default.dart
+ */
+
 class MyApp1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp (
       title: 'CryptoBalance',
-      home: MyTabbedPage(),
+      home: TabContainerDefault(),
+
     );
   }
 }
-class MyTabbedPage extends StatefulWidget{
-  const MyTabbedPage({Key key}): super(key:key);
+
+class TabContainerDefault extends StatefulWidget {
+  TabContainerDefault({Key key}) : super(key: key);
 
   @override
-  _MyTabbedPageState createState()=>_MyTabbedPageState();
-
+  _TabContainerDefaultState createState() => _TabContainerDefaultState();
 }
 
-class _MyTabbedPageState extends State<MyTabbedPage> with SingleTickerProviderStateMixin {
-  final List<Tab> myTabs = <Tab>[
-    Tab(text: 'Prices' ),
-    Tab(text: 'Balance'),
-    Tab(text: 'About')
-  ];
-
-  TabController _tabController;
-
+class _TabContainerDefaultState extends State<TabContainerDefault> {
+  List<Widget> screenList;
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: myTabs.length, vsync: this);
-  }
-
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
+    screenList = [
+      MyApp(),
+      MyApp4(),
+      MyApp2(),
+    ];
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(105),
-        child: AppBar(
-          backgroundColor: Colors.white,
-          centerTitle: true,
-          title: Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
-                child: Image.asset(
-                    'Assets/Logos/moneyTreeAndroid.png',
-                    fit: BoxFit.contain,
-                    height: 40, width: 40),
-              ),
+    return MaterialApp(
+      //https://www.google.com/search?q=defaulttabcontroller+flutter&rlz=1C1CHBF_enUS810US810&oq=defaulttabcontroller+flutter&aqs=chrome..69i57j0l7.4063j0j7&sourceid=chrome&ie=UTF-8
+      home: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          body: TabBarView(
+            physics: NeverScrollableScrollPhysics(), children: screenList,
+          ),
+          bottomNavigationBar: TabBar(
+            tabs: [
+              Tab(
+                text: 'Prices',
+                icon: Icon(Icons.home),
 
-              Padding(
-                  padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
-                  child: Text('CryptoBalance',
-                      style: TextStyle(
-                          fontFamily: 'Josefin Sans',
-                          color: Color(0xff3E0CA9)),
-                      textAlign: TextAlign.center))
+              ),
+              Tab(
+                text: 'Balance',
+                icon: Icon(Icons.home),
+              ),
+              Tab(
+                text: 'About',
+                icon: Icon(Icons.help),
+              )
             ],
           ),
-          bottom: TabBar(
-            controller: _tabController,
-            labelColor: Colors.black,
-            tabs: myTabs,
-          ),
+          backgroundColor: Colors.blueGrey,
         ),
 
       ),
-      body: TabBarView(
-        controller: _tabController,
 
-        children:[
-          MyApp(),
-          MyApp4(),
-          //MyApp2(),
-          MyApp2(),
-
-
-        ],
-      ),
     );
+
   }
+
 }
+
+
+
+//class MyApp1 extends StatelessWidget {
+//  @override
+//  Widget build(BuildContext context) {
+//    return MaterialApp(
+//      title: 'CryptoBalance',
+//      home: MyTabbedPage(),
+//    );
+//  }
+//}
+//class MyTabbedPage extends StatefulWidget{
+//  const MyTabbedPage({Key key}): super(key:key);
+//
+//  @override
+//  _MyTabbedPageState createState()=>_MyTabbedPageState();
+//
+//}
+//
+//class _MyTabbedPageState extends State<MyTabbedPage> with SingleTickerProviderStateMixin {
+//  final List<Tab> myTabs = <Tab>[
+//    Tab(text: 'Prices' ),
+//    Tab(text: 'Balance'),
+//    Tab(text: 'About')
+//  ];
+//
+//  TabController _tabController;
+//
+//  @override
+//  void initState() {
+//    super.initState();
+//    _tabController = TabController(length: myTabs.length, vsync: this);
+//  }
+//
+//
+//  @override
+//  void dispose() {
+//    _tabController.dispose();
+//    super.dispose();
+//  }
+//
+//  @override
+//  Widget build(BuildContext context) {
+//    // TODO: implement build
+//    return Scaffold(
+//      appBar: PreferredSize(
+//        preferredSize: Size.fromHeight(105),
+//        child: AppBar(
+//          backgroundColor: Colors.white,
+//          centerTitle: true,
+//          title: Row(
+//            children: [
+//              Padding(
+//                padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
+//                child: Image.asset(
+//                    'Assets/Logos/moneyTreeAndroid.png',
+//                    fit: BoxFit.contain,
+//                    height: 40, width: 40),
+//              ),
+//
+//              Padding(
+//                  padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
+//                  child: Text('CryptoBalance',
+//                      style: TextStyle(
+//                          fontFamily: 'Josefin Sans',
+//                          color: Color(0xff3E0CA9)),
+//                      textAlign: TextAlign.center))
+//            ],
+//          ),
+//          bottom: TabBar(
+//            controller: _tabController,
+//            labelColor: Colors.black,
+//            tabs: myTabs,
+//          ),
+//        ),
+//
+//      ),
+//      body: TabBarView(
+//        controller: _tabController,
+//
+//        children:[
+//          MyApp(),
+//          //MyApp2(),
+//          MyApp4(),
+//          MyApp2(),
+//
+//
+//
+//        ],
+//      ),
+//    );
+//  }
+//}
