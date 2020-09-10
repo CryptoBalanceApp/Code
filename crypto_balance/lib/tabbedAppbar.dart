@@ -106,7 +106,6 @@ class MyApp1 extends StatelessWidget {
   }
 }
 
-
 //below: from tab container bottom https://github.com/fluttervn/tabbar_demo/blob/master/lib/tab_containter_bottom.dart
 class TabContainerBottom extends StatefulWidget {
   TabContainerBottom({Key key}) : super(key:key);
@@ -131,156 +130,129 @@ class _TabContainerBottomState extends State<TabContainerBottom> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-          appBar: PreferredSize(
+      home: Scaffold(
+        appBar: PreferredSize(
           preferredSize: Size.fromHeight(85),
-            child: AppBar(
-              backgroundColor: Colors.white,
-              centerTitle: true,
-              title: Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
-                    child: Image.asset(
-                        'Assets/Logos/moneyTreeAndroid.png',
-                        fit: BoxFit.contain,
-                        height: 40, width: 40),
-                  ),
+          child: AppBar(
+            backgroundColor: Colors.white,
+            centerTitle: true,
+            title: Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
+                  child: Image.asset(
+                      'Assets/Logos/moneyTreeAndroid.png',
+                      fit: BoxFit.contain,
+                      height: 40, width: 40),
+                ),
 
-                  Padding(
-                      padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
-                      child: Text('CryptoBalance',
-                          style: TextStyle(
-                              fontFamily: 'Josefin Sans',
-                              color: Color(0xff3E0CA9)),
-                          textAlign: TextAlign.center))
-                ],
-              ),
+                Padding(
+                    padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
+                    child: Text('CryptoBalance',
+                        style: TextStyle(
+                            fontFamily: 'Josefin Sans',
+                            color: Color(0xff3E0CA9)),
+                        textAlign: TextAlign.center))
+              ],
             ),
           ),
-          body: screenList[tabIndex],
-          bottomNavigationBar: BottomNavigationBar(
-              selectedItemColor: Colors.indigoAccent,
-              unselectedItemColor: Colors.blueAccent,
-              backgroundColor: Colors.white70,
-              currentIndex: tabIndex,
-              onTap: (int index) {
-                setState((){
-                  tabIndex = index;
-                });
-              },
-              items: [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                title: Text('Prices'),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                title: Text('Balance'),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.help),
-                title: Text('About'),
-              ),
-              ],
-          ),
-          //backgroundColor: Colors.white30,
-          backgroundColor: Colors.blueGrey,
         ),
+        body: screenList[tabIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: Colors.indigoAccent,
+          unselectedItemColor: Colors.blueAccent,
+          backgroundColor: Colors.white70,
+          currentIndex: tabIndex,
+          onTap: (int index) {
+            setState((){
+              tabIndex = index;
+            });
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              title: Text('Prices'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              title: Text('Balance'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.help),
+              title: Text('About'),
+            ),
+          ],
+        ),
+        //backgroundColor: Colors.white30,
+        backgroundColor: Colors.blueGrey,
+      ),
     );
   }
 }
 
 
 
-//class MyApp1 extends StatelessWidget {
-//  @override
-//  Widget build(BuildContext context) {
-//    return MaterialApp(
-//      title: 'CryptoBalance',
-//      home: MyTabbedPage(),
-//    );
-//  }
-//}
-//class MyTabbedPage extends StatefulWidget{
-//  const MyTabbedPage({Key key}): super(key:key);
+//below: works, and can be used to not reload every tab every time, but need to implement everything in medium article after index list to preven
+//all tabs running at startup and causing permission issue
+//class TabContainerIndexedStack extends StatefulWidget {
+//  TabContainerIndexedStack({Key key}) : super(key: key);
 //
 //  @override
-//  _MyTabbedPageState createState()=>_MyTabbedPageState();
-//
+//  _TabContainerIndexedStackState createState() => _TabContainerIndexedStackState();
 //}
 //
-//class _MyTabbedPageState extends State<MyTabbedPage> with SingleTickerProviderStateMixin {
-//  final List<Tab> myTabs = <Tab>[
-//    Tab(text: 'Prices' ),
-//    Tab(text: 'Balance'),
-//    Tab(text: 'About')
-//  ];
+
+//class TabContainerIndexedStack extends StatefulWidget {
+//  TabContainerIndexedStack({Key key}) : super(key: key);
 //
-//  TabController _tabController;
+//  @override
+//  _TabContainerIndexedStackState createState() => _TabContainerIndexedStackState();
+//}
 //
+//class _TabContainerIndexedStackState extends State<TabContainerIndexedStack> {
+//  int tabIndex = 0;
+//  List<Widget> screenList;
 //  @override
 //  void initState() {
 //    super.initState();
-//    _tabController = TabController(length: myTabs.length, vsync: this);
-//  }
-//
-//
-//  @override
-//  void dispose() {
-//    _tabController.dispose();
-//    super.dispose();
+//    screenList = [
+//    MyApp(),
+//    MyApp4(),
+//    MyApp2(),
+//    ];
 //  }
 //
 //  @override
 //  Widget build(BuildContext context) {
-//    // TODO: implement build
-//    return Scaffold(
-//      appBar: PreferredSize(
-//        preferredSize: Size.fromHeight(105),
-//        child: AppBar(
-//          backgroundColor: Colors.white,
-//          centerTitle: true,
-//          title: Row(
-//            children: [
-//              Padding(
-//                padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
-//                child: Image.asset(
-//                    'Assets/Logos/moneyTreeAndroid.png',
-//                    fit: BoxFit.contain,
-//                    height: 40, width: 40),
+//    return MaterialApp(
+//      home: Scaffold(
+//        body: IndexedStack(index: tabIndex, children: screenList),
+//        bottomNavigationBar: BottomNavigationBar(
+//          currentIndex: tabIndex,
+//          onTap: (int index) {
+//            setState((){
+//              tabIndex = index;
+//            });
+//          },
+//          items: [
+//              BottomNavigationBarItem(
+//                icon: Icon(Icons.attach_money),
+//                title: Text('Prices'),
 //              ),
-//
-//              Padding(
-//                  padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
-//                  child: Text('CryptoBalance',
-//                      style: TextStyle(
-//                          fontFamily: 'Josefin Sans',
-//                          color: Color(0xff3E0CA9)),
-//                      textAlign: TextAlign.center))
-//            ],
-//          ),
-//          bottom: TabBar(
-//            controller: _tabController,
-//            labelColor: Colors.black,
-//            tabs: myTabs,
-//          ),
+//              BottomNavigationBarItem(
+//                icon: Icon(Icons.timeline),
+//                title: Text('Balance'),
+//              ),
+//              BottomNavigationBarItem(
+//                icon: Icon(Icons.help),
+//                title: Text('About'),
+//              ),
+//              ],
 //        ),
-//
-//      ),
-//      body: TabBarView(
-//        controller: _tabController,
-//
-//        children:[
-//          MyApp(),
-//          //MyApp2(),
-//          MyApp4(),
-//          MyApp2(),
-//
-//
-//
-//        ],
+//        backgroundColor: Colors.blueGrey,
 //      ),
 //    );
 //  }
 //}
+
+
