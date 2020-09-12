@@ -7,7 +7,12 @@ import 'package:permission/permission.dart';
 //import 'package:simple_permissions/simple_permissions.dart';
 
 //below: needs to be future void like example?
-void main() => runApp(MyApp4());
+//void main() => runApp(MyApp4());
+
+//below: needs to be future void like example?
+Future<void> main() async {
+  runApp(MyApp4());
+}
 
 class MyApp4 extends StatelessWidget {
   @override
@@ -26,7 +31,7 @@ class BalanceDisplay extends StatefulWidget {
   BalanceDisplayState createState() => BalanceDisplayState();
 }
 
-class BalanceDisplayState extends State<BalanceDisplay>{
+class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveClientMixin<BalanceDisplay> {
   //new csv https://icircuit.net/create-csv-file-flutter-app/2614
   _newCsv() async {
     print("in newCSV");
@@ -142,4 +147,8 @@ class BalanceDisplayState extends State<BalanceDisplay>{
         body: _getBalanceBody()
     );
   }
+
+  //getter for keepclient alive mixin
+  @override
+  bool get wantKeepAlive => true;
 }
