@@ -14,24 +14,34 @@ Future<void> main() async {
   runApp(MyApp4());
 }
 
-class MyApp4 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    //throw UnimplementedError();
-    return MaterialApp(
-      title: "balance sheet",
-      home: BalanceDisplay(),
-    );
-  }
-}
+//class MyApp4 extends StatelessWidget {
+//  @override
+//  Widget build(BuildContext context) {
+//    // TODO: implement build
+//    //throw UnimplementedError();
+//    return MaterialApp(
+//      title: "balance sheet",
+//      home: BalanceDisplay(),
+//    );
+//  }
+//}
+//
+//class BalanceDisplay extends StatefulWidget {
+//  @override
+//  BalanceDisplayState createState() => BalanceDisplayState();
+//}
 
-class BalanceDisplay extends StatefulWidget {
+class MyApp4 extends StatefulWidget {
+//  return MaterialApp(
+//    title: "balance sheet",
+//    home: BalanceDisplayState createState() => BalanceDisplayState();
+//  );
   @override
   BalanceDisplayState createState() => BalanceDisplayState();
 }
 
-class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveClientMixin<BalanceDisplay> {
+//class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveClientMixin<BalanceDisplay> {
+class BalanceDisplayState extends State<MyApp4> with AutomaticKeepAliveClientMixin<MyApp4> {
   //new csv https://icircuit.net/create-csv-file-flutter-app/2614
   _newCsv() async {
     print("in newCSV");
@@ -106,6 +116,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
 
   //https://pub.dev/packages/permission/example
   _getPermissionStatus() async {
+    print("entered get permission status");
     List<PermissionName> permName1 = [];
     permName1.add(PermissionName.Storage);
     String statmessage = '';
