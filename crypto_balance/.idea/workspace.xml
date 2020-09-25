@@ -10,6 +10,7 @@
       <change beforePath="$PROJECT_DIR$/android/.gradle/5.6.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/5.6.2/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/balance.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/balance.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,11 +25,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_3" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6425">
-              <caret line="275" column="2" selection-start-line="275" selection-start-column="2" selection-end-line="277" selection-end-column="33" />
+            <state relative-caret-position="498">
+              <caret line="296" column="1" lean-forward="true" selection-start-line="296" selection-start-column="1" selection-end-line="296" selection-end-column="1" />
               <folding>
                 <element signature="e#0#9489#0" expanded="true" />
                 <element signature="e#622#672#0" expanded="true" />
@@ -49,7 +50,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/references.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1100">
+            <state relative-caret-position="498">
               <caret line="46" column="18" selection-start-line="46" selection-start-column="18" selection-end-line="46" selection-end-column="18" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
@@ -70,7 +71,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/tabbedAppbar.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2475">
+            <state relative-caret-position="498">
               <caret line="102" column="33" selection-start-line="102" selection-start-column="33" selection-end-line="102" selection-end-column="33" />
               <folding>
                 <element signature="e#47#89#0" expanded="true" />
@@ -79,14 +80,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/balance.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2950">
-              <caret line="118" column="43" selection-start-line="118" selection-start-column="43" selection-end-line="118" selection-end-column="43" />
+            <state relative-caret-position="1250">
+              <caret line="50" column="1" selection-start-line="50" selection-start-column="1" selection-end-line="60" selection-end-column="3" />
               <folding>
                 <element signature="e#0#50#0" expanded="true" />
-                <marker date="1599974872516" expanded="true" signature="433:835" ph="..." />
+                <marker date="1601071613143" expanded="true" signature="333:705" ph="..." />
               </folding>
             </state>
           </provider>
@@ -118,26 +119,29 @@
         <option value="$PROJECT_DIR$/lib/entities/factors.dart" />
         <option value="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/pubspec.yaml" />
-        <option value="$PROJECT_DIR$/lib/main.dart" />
         <option value="$PROJECT_DIR$/lib/references.dart" />
         <option value="$PROJECT_DIR$/lib/tabbedAppbar.dart" />
         <option value="$PROJECT_DIR$/lib/referencesTab.dart" />
         <option value="$PROJECT_DIR$/lib/balance.dart" />
+        <option value="$PROJECT_DIR$/lib/main.dart" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-131" />
-    <option name="y" value="-8" />
-    <option name="width" value="816" />
-    <option name="height" value="401" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="953" />
+    <option name="width" value="974" />
+    <option name="height" value="1047" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
@@ -187,11 +191,11 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1216" height="1896" extended-state="6" />
+    <frame x="953" y="0" width="974" height="1047" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49919224" weight="0.44973546" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49919224" weight="0.4488273" />
       <window_info id="Structure" order="2" sideWeight="0.50080776" side_tool="true" weight="0.22334754" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Designer" order="4" />
@@ -199,7 +203,7 @@
       <window_info id="Capture Tool" order="6" />
       <window_info id="Favorites" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Dart Analysis" order="0" weight="0.32169312" />
-      <window_info active="true" anchor="bottom" id="Run" order="1" sideWeight="0.4993573" visible="true" weight="0.37379467" />
+      <window_info active="true" anchor="bottom" id="Run" order="1" sideWeight="0.4993573" visible="true" weight="0.37308535" />
       <window_info anchor="bottom" id="TODO" order="2" sideWeight="0.4993573" weight="0.32839838" />
       <window_info anchor="bottom" id="Debug" order="3" />
       <window_info anchor="bottom" id="Terminal" order="4" sideWeight="0.49946696" weight="0.32910052" />
@@ -212,7 +216,7 @@
       <window_info anchor="right" id="Flutter Inspector" order="2" />
       <window_info anchor="right" id="Flutter Outline" order="3" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
-      <window_info anchor="right" id="Flutter Performance" order="5" />
+      <window_info anchor="right" id="Flutter Performance" order="5" weight="0.32932165" />
     </layout>
   </component>
   <component name="editorHistoryManager">
@@ -243,31 +247,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/main.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6425">
-          <caret line="275" column="2" selection-start-line="275" selection-start-column="2" selection-end-line="277" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#9489#0" expanded="true" />
-            <element signature="e#622#672#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/referencesTab.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="125">
           <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/references.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1100">
-          <caret line="46" column="18" selection-start-line="46" selection-start-column="18" selection-end-line="46" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -280,7 +263,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/tabbedAppbar.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2475">
+        <state relative-caret-position="498">
           <caret line="102" column="33" selection-start-line="102" selection-start-column="33" selection-end-line="102" selection-end-column="33" />
           <folding>
             <element signature="e#47#89#0" expanded="true" />
@@ -288,13 +271,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/references.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="498">
+          <caret line="46" column="18" selection-start-line="46" selection-start-column="18" selection-end-line="46" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/balance.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2950">
-          <caret line="118" column="43" selection-start-line="118" selection-start-column="43" selection-end-line="118" selection-end-column="43" />
+        <state relative-caret-position="1250">
+          <caret line="50" column="1" selection-start-line="50" selection-start-column="1" selection-end-line="60" selection-end-column="3" />
           <folding>
             <element signature="e#0#50#0" expanded="true" />
-            <marker date="1599974872516" expanded="true" signature="433:835" ph="..." />
+            <marker date="1601071613143" expanded="true" signature="333:705" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/main.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="498">
+          <caret line="296" column="1" lean-forward="true" selection-start-line="296" selection-start-column="1" selection-end-line="296" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#9489#0" expanded="true" />
+            <element signature="e#622#672#0" expanded="true" />
           </folding>
         </state>
       </provider>

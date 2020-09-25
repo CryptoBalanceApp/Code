@@ -88,15 +88,10 @@ class PricesListState extends State<PricesList> with AutomaticKeepAliveClientMix
           _cryptoPriceMap.putIfAbsent(entry['name'],()=> entry['quotes']['USD']['price']);
         }
       });
-      print(_convertFactors);
-      print(_cryptoPriceMap);
-      print("!!!!!!!");
-      print(helloString);
+
       globalCryptoPrice = _cryptoPriceMap;
       print(globalCryptoPrice);
       globalConvFac = _convertFactors;
-      print(globalConvFac);
-
 
       //we have now loaded json into list, set loading false
       this._loading = false;
@@ -111,14 +106,11 @@ class PricesListState extends State<PricesList> with AutomaticKeepAliveClientMix
   String getCryptoPrice(String name, double selection) {
     //default decimals to round: 2 (to 1 penny value)
     int decimals_to_round = 2;
-    //ToDo renaming this variable currencySelection, really necessary?
-    String country = currencySelection;
-    print("country selection is " + currencySelection);
     //ToDo: is below just the default currency symbol? remove?
     String currSymbol = "\$";
     //get conversion factor
-    double countryConvert = this._convertFactors[country];
-    print("country convert = " + countryConvert.toString());
+    double countryConvert = this._convertFactors[currencySelection];
+
     //Determine number of digits to round to based on crypto; lower valued cryptos are rounded to more numerals of precision
     /*pow: return 10^decimal: basic idea: multiply number by power of 10, round,
      *then divide by that same power 10: get rounded to decimals
@@ -142,7 +134,7 @@ class PricesListState extends State<PricesList> with AutomaticKeepAliveClientMix
     //multiply USD dollar value through conversion rate
     selection *= countryConvert;
     //determine which symbol character to use
-    switch(country){
+    switch(currencySelection){
       case "USD": {
         currSymbol = "\$";
       }
@@ -188,12 +180,9 @@ class PricesListState extends State<PricesList> with AutomaticKeepAliveClientMix
       }
       break;
     }
-    //(selection = (selection * fac).round() / fac).toString()
-    //return currSymbol + selection
-    //or return selection + currSymbol
-    //ToDo: simplify using above commented logic
+
     //round parsed using equation inside equation, add '$' or other symbol
-    if((country != "EUR") && (country != "JPY")){
+    if((currencySelection != "EUR") && (currencySelection != "JPY")){
       //put symbol before number
       return currSymbol + (selection = (selection * fac).round() / fac).toString();
     }else{
