@@ -13,11 +13,9 @@ void main() => runApp(MyApp4());
 class MyApp4 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    //throw UnimplementedError();
+
     return MaterialApp(
       title: "balance sheet",
-      //home: BalanceDisplay(),
       home: Scaffold(
         body: Center(
           child: BalanceDisplay(),
@@ -41,14 +39,17 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
   void initState() {
     //override creation: state call function
     super.initState();
-    print("permission status is : ${_permissionStatus}");
+
     print("in init state");
     print("platform is android: ${Platform.isAndroid}");
     //below: also from permission handler example
     _listenForPermission();
+    print("permission status is : ${_permissionStatus}");
     //call function to set state
-    //_getPermissionStatus();
-    //_requestPermissions();
+    //ToDo: uneccesary if?
+    if(_permissionStatus != PermissionStatus.granted) {
+      requestPermissionStore();
+    }
     print("permission status is : ${_permissionStatus}");
 
   }
@@ -63,80 +64,43 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
 
   }
 
-  _newCsv() async {
-    print("in newCSV");
-    List<List<dynamic>> entries = List<List<dynamic>>();
-    //test list of list entries
-    entries.add([1, "BTC", .1]);
-    entries.add([2, "BTC", .05]);
-    entries.add([3, "ETH", .15]);
-    print("entries:");
-    print(entries);
-
-    print("reached 5");
-
-    setState(() {});
-    print("reached 6");
+  Future<void> requestPermissionStore() async {
+    print("in reqPermStor");
+    final status = await Permission.storage.request();
+    setState((){
+      print(status);
+      _permissionStatus = status;
+    });
 
   }
 
-//  _getBalanceBody(){
-//    print("new balance body test!!!");
-//    //_newCsv();
-//    //_getPermissionStatus();
-//    print("reached 7");
+//  _newCsv() async {
+//    print("in newCSV");
+//    List<List<dynamic>> entries = List<List<dynamic>>();
+//    //test list of list entries
+//    entries.add([1, "BTC", .1]);
+//    entries.add([2, "BTC", .05]);
+//    entries.add([3, "ETH", .15]);
+//    print("entries:");
+//    print(entries);
 //
+//    print("reached 5");
 //
-//    return new Center(
-//      child: CircularProgressIndicator(),
-//    );
-//  }
-
-//  //https://pub.dev/packages/permission/example
-//  _getPermissionStatus() async {
-//    print("entered get permission status");
-//    List<PermissionName> permName1 = [];
-//    permName1.add(PermissionName.Storage);
-//    String statmessage = '';
-//    List<Permissions> perm1 = await Permission.getPermissionsStatus(permName1);
-//    perm1.forEach((permission){
-//      statmessage += '${permission.permissionName}: ${permission.permissionStatus}\n';
-//    });
-//
-//    setState((){
-//      print(statmessage);
-//    });
-//  }
-//
-//  //someone said this should help avoid crash? https://github.com/flutter/flutter/issues/48622
-//  _requestPermissions() async {
-//    print("enter 1");
-//    List<PermissionName> permName2 = [];
-//    print("enter 2");
-//    permName2.add(PermissionName.Storage);
-//    print("enter 3");
-//    String statmessage2 = '';
-//    print("enter 4");
-//    //var perm2 = await Permission.requestPermissions(permName2);
-//    List<Permissions> perm2 = await Permission.requestPermissions(permName2);
-//    print("enter 5");
-//    perm2.forEach((permission){
-//      statmessage2 += '${permission.permissionName}: ${permission.permissionStatus}\n';
-//    });
-//    print("enter 6");
-//    setState((){
-//      print(statmessage2);
-//    });
+//    setState(() {});
+//    print("reached 6");
 //
 //  }
+//
 
   @override
   Widget build(BuildContext context) {
     //return Scaffold(
         //body: _getBalanceBody()
-      return Center(
-        child: CircularProgressIndicator(),
-      );
+
+
+    return Center(
+      child: CircularProgressIndicator(),
+    );
     //);
   }
 
