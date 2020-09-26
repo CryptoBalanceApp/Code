@@ -5,7 +5,7 @@ INJECTED from D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balan
 INJECTED from D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:1:1-32:12
 INJECTED from D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:1:1-32:12
 MERGED from D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:1:1-32:12
-MERGED from [:permission] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\permission\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:permission_handler] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\permission_handler\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:flutter_plugin_android_lifecycle] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\flutter_plugin_android_lifecycle\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:url_launcher] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-14:12
 MERGED from [androidx.fragment:fragment:1.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\b8b68c04ee72209a3beca37e17f7088d\fragment-1.0.0\AndroidManifest.xml:17:1-22:12
@@ -19,13 +19,13 @@ MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\Scott\
 MERGED from [androidx.customview:customview:1.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\ef0bef029ab70f5fb29de019060cf5fd\customview-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\5fdf5da548a469ca3cc39dc72a350a99\swiperefreshlayout-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\1403af03ba6e6e95b13bf5808de0f892\asynclayoutinflater-1.0.0\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.core:core:1.0.2] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\fecc98e05c7ccd4a0eedf7cff343a233\core-1.0.2\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.core:core:1.1.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\a528b13ac93e64cafa3d0480e2c93207\core-1.1.0\AndroidManifest.xml:17:1-26:12
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\6e38f4e9d5bd10f4c7f28aa7b63ad3a1\lifecycle-runtime-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\23edc849475fdda61367cb003f9b9f93\lifecycle-livedata-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\79f9d65ef8b1c716310f666473a689a7\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\077300052aa327ee6fc9bbb0ce309b24\core-runtime-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\cf738d4606a2d10adda01983ea645814\lifecycle-viewmodel-2.0.0\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\52d4fecae8c1eb4103beef9198e64f51\versionedparcelable-1.0.0\AndroidManifest.xml:17:1-25:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\3a7eb299570065a3866b140e1a95969b\versionedparcelable-1.1.0\AndroidManifest.xml:17:1-27:12
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\2ca8bc49d3a28fb6fa3bddf429b143ba\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\fefdd83516e8eeb5097956f9d9af4b04\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\35bca835e72502cae5588ee7a59cf4b0\documentfile-1.0.0\AndroidManifest.xml:17:1-22:12
@@ -60,12 +60,12 @@ application
 ADDED from D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:10:5-31:19
 MERGED from [:url_launcher] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-12:19
 MERGED from [:url_launcher] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-12:19
-MERGED from [androidx.core:core:1.0.2] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\fecc98e05c7ccd4a0eedf7cff343a233\core-1.0.2\AndroidManifest.xml:22:5-89
-MERGED from [androidx.core:core:1.0.2] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\fecc98e05c7ccd4a0eedf7cff343a233\core-1.0.2\AndroidManifest.xml:22:5-89
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\52d4fecae8c1eb4103beef9198e64f51\versionedparcelable-1.0.0\AndroidManifest.xml:22:5-23:19
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\52d4fecae8c1eb4103beef9198e64f51\versionedparcelable-1.0.0\AndroidManifest.xml:22:5-23:19
+MERGED from [androidx.core:core:1.1.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\a528b13ac93e64cafa3d0480e2c93207\core-1.1.0\AndroidManifest.xml:24:5-89
+MERGED from [androidx.core:core:1.1.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\a528b13ac93e64cafa3d0480e2c93207\core-1.1.0\AndroidManifest.xml:24:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\3a7eb299570065a3866b140e1a95969b\versionedparcelable-1.1.0\AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\3a7eb299570065a3866b140e1a95969b\versionedparcelable-1.1.0\AndroidManifest.xml:24:5-25:19
 	android:appComponentFactory
-		ADDED from [androidx.core:core:1.0.2] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\fecc98e05c7ccd4a0eedf7cff343a233\core-1.0.2\AndroidManifest.xml:22:18-86
+		ADDED from [androidx.core:core:1.1.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\a528b13ac93e64cafa3d0480e2c93207\core-1.1.0\AndroidManifest.xml:24:18-86
 	android:label
 		ADDED from D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:12:9-39
 	android:icon
@@ -106,8 +106,8 @@ uses-sdk
 INJECTED from D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml
 INJECTED from D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml
-MERGED from [:permission] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\permission\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:permission] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\permission\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:permission_handler] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\permission_handler\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:permission_handler] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\permission_handler\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:flutter_plugin_android_lifecycle] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\flutter_plugin_android_lifecycle\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:flutter_plugin_android_lifecycle] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\flutter_plugin_android_lifecycle\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:url_launcher] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
@@ -134,8 +134,8 @@ MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\Scot
 MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\5fdf5da548a469ca3cc39dc72a350a99\swiperefreshlayout-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\1403af03ba6e6e95b13bf5808de0f892\asynclayoutinflater-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\1403af03ba6e6e95b13bf5808de0f892\asynclayoutinflater-1.0.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.core:core:1.0.2] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\fecc98e05c7ccd4a0eedf7cff343a233\core-1.0.2\AndroidManifest.xml:20:5-44
-MERGED from [androidx.core:core:1.0.2] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\fecc98e05c7ccd4a0eedf7cff343a233\core-1.0.2\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.1.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\a528b13ac93e64cafa3d0480e2c93207\core-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.1.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\a528b13ac93e64cafa3d0480e2c93207\core-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\6e38f4e9d5bd10f4c7f28aa7b63ad3a1\lifecycle-runtime-2.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\6e38f4e9d5bd10f4c7f28aa7b63ad3a1\lifecycle-runtime-2.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\23edc849475fdda61367cb003f9b9f93\lifecycle-livedata-2.0.0\AndroidManifest.xml:20:5-44
@@ -146,8 +146,8 @@ MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\Scott\.gradle\cache
 MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\077300052aa327ee6fc9bbb0ce309b24\core-runtime-2.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\cf738d4606a2d10adda01983ea645814\lifecycle-viewmodel-2.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\cf738d4606a2d10adda01983ea645814\lifecycle-viewmodel-2.0.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\52d4fecae8c1eb4103beef9198e64f51\versionedparcelable-1.0.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\52d4fecae8c1eb4103beef9198e64f51\versionedparcelable-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\3a7eb299570065a3866b140e1a95969b\versionedparcelable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\3a7eb299570065a3866b140e1a95969b\versionedparcelable-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\2ca8bc49d3a28fb6fa3bddf429b143ba\interpolator-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\2ca8bc49d3a28fb6fa3bddf429b143ba\interpolator-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\fefdd83516e8eeb5097956f9d9af4b04\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
