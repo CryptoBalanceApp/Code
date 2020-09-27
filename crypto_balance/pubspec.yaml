@@ -22,6 +22,7 @@ dependencies:
   csv: ^4.0.3
   permission_handler: ^5.0.1+1
   flutter_plugin_android_lifecycle: ^1.0.4
+  path_provider: ^1.6.18
 
 
   flutter:

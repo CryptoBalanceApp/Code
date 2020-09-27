@@ -1,5 +1,6 @@
 import 'package:crypto_balance/tabbedAppbar.dart';
 import 'package:csv/csv.dart';
+import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -77,6 +78,27 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
 
   }
 
+
+  //get path, https://flutter.dev/docs/cookbook/persistence/reading-writing-files#1-find-the-correct-local-path
+  Future<String> get _appPath async {
+    //ToDo: need path provider plugin for this https://pub.dev/packages/path_provider
+    final dir = await getApplicationDocumentsDirectory();
+    print("dir is ${dir}");
+    return dir.path;
+
+  }
+
+  Future<File> get _csvFile async {
+    String locPath = await _appPath;
+    print("locPath is ${locPath}");
+    return File('$locPath/test.txt');
+  }
+
+  Future<File> writeString(String S) async {
+    final csvF = await _csvFile;
+    return csvF.writeAsString(S);
+  }
+
   //ToDo: should I be using a SQLlite database for this? https://flutter.dev/docs/cookbook/persistence/sqlite
   _newCsv() async {
     //new csv https://icircuit.net/create-csv-file-flutter-app/2614
@@ -88,13 +110,12 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     entries.add([3, "ETH", .15]);
     print("entries:");
     print(entries);
-
+    File test = await writeString("testing");
+    String contents = await test.readAsString();
+    print("contents is ${contents}");
     print("reached 5");
-    //ToDo: need path provider plugin for this https://pub.dev/packages/path_provider
-    //final dir = await getApplicationDocumentsDirectory();
 
     setState(() {});
-
 
   }
 
