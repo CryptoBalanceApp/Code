@@ -33,6 +33,8 @@ class BalanceDisplay extends StatefulWidget {
 
 class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveClientMixin<BalanceDisplay> {
   PermissionStatus _permissionStatus = PermissionStatus.undetermined;
+  bool _loading = true;
+  File _test;
 
   @override
   void initState() {
@@ -61,8 +63,6 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     print("in ListenFOrPermission");
     //final status = await Permission.location.status;
     final status = await Permission.storage.status;
-
-
     setState(() => _permissionStatus = status);
 
   }
@@ -70,14 +70,11 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
   Future<void> requestPermissionStore() async {
     print("in reqPermStor");
     final status = await Permission.storage.request();
-
     setState((){
       print(status);
       _permissionStatus = status;
     });
-
   }
-
 
   //get path, https://flutter.dev/docs/cookbook/persistence/reading-writing-files#1-find-the-correct-local-path
   Future<String> get _appPath async {
@@ -85,7 +82,6 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     final dir = await getApplicationDocumentsDirectory();
     print("dir is ${dir}");
     return dir.path;
-
   }
 
   Future<File> get _csvFile async {
@@ -110,26 +106,52 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     entries.add([3, "ETH", .15]);
     print("entries:");
     print(entries);
-    File test = await writeString("testing");
-    String contents = await test.readAsString();
+
+    String nCsv = const ListToCsvConverter().convert(entries);
+
+    //File test = await writeString("testing");
+    //File test = await writeString(nCsv);
+    _test = await writeString(nCsv);
+    String contents = await _test.readAsString();
     print("contents is ${contents}");
     print("reached 5");
 
-    setState(() {});
+    setState(() {
+      _loading = false;
+    });
 
   }
+
+  Widget _getBalanceBody(){
+    if(_loading){
+      return Center(
+        child: CircularProgressIndicator(
+          valueColor: new AlwaysStoppedAnimation<Color>(Colors.blue),
+        ),
+      );
+    }else{
+      //ToDo: here: convert _test to list, display as in main
+      return Center(
+        child: CircularProgressIndicator(
+          valueColor: new AlwaysStoppedAnimation<Color>(Colors.red),
+        ),
+      );
+    }
+  }
+
 
 
   @override
   Widget build(BuildContext context) {
-    //return Scaffold(
-        //body: _getBalanceBody()
-
-
-    return Center(
-      child: CircularProgressIndicator(),
+    return Scaffold(
+        body: _getBalanceBody()
     );
-    //);
+
+
+//    return Center(
+//      child: CircularProgressIndicator(),
+//    );
+
   }
 
   //getter for keepclient alive mixin

@@ -204,7 +204,10 @@ class PricesListState extends State<PricesList> with AutomaticKeepAliveClientMix
       return new Center(
         //note: make a child column <widget>[] to put logo over loading bar
         //use built in (material) circular loading bar, child of Center
-        child: new CircularProgressIndicator(),
+        child: new CircularProgressIndicator(
+          //change indicator to purple https://stackoverflow.com/questions/49952048/how-to-change-color-of-circularprogressindicator
+          valueColor: new AlwaysStoppedAnimation<Color>(Colors.deepPurple),
+        ),
       );
     } else {
       //loading is done: return rest of app as body using _buildPricesList
@@ -236,6 +239,7 @@ class PricesListState extends State<PricesList> with AutomaticKeepAliveClientMix
             //make child a column, add icon
             child: _buildShortList(),
             onRefresh: getPricesAPI,
+
           ),
         ],
       );
