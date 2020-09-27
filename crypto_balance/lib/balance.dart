@@ -24,15 +24,13 @@ class MyApp4 extends StatelessWidget {
     );
   }
 }
-//ToDo: add this._permission... constructor? maybe don't need because just storage
+
 class BalanceDisplay extends StatefulWidget {
   @override
   BalanceDisplayState createState() => BalanceDisplayState();
 }
 
 class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveClientMixin<BalanceDisplay> {
-  //new csv https://icircuit.net/create-csv-file-flutter-app/2614
-
   PermissionStatus _permissionStatus = PermissionStatus.undetermined;
 
   @override
@@ -50,6 +48,10 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     if(_permissionStatus != PermissionStatus.granted) {
       requestPermissionStore();
     }
+
+    _newCsv();
+
+
     print("permission status is : ${_permissionStatus}");
 
   }
@@ -67,6 +69,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
   Future<void> requestPermissionStore() async {
     print("in reqPermStor");
     final status = await Permission.storage.request();
+
     setState((){
       print(status);
       _permissionStatus = status;
@@ -74,23 +77,27 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
 
   }
 
-//  _newCsv() async {
-//    print("in newCSV");
-//    List<List<dynamic>> entries = List<List<dynamic>>();
-//    //test list of list entries
-//    entries.add([1, "BTC", .1]);
-//    entries.add([2, "BTC", .05]);
-//    entries.add([3, "ETH", .15]);
-//    print("entries:");
-//    print(entries);
-//
-//    print("reached 5");
-//
-//    setState(() {});
-//    print("reached 6");
-//
-//  }
-//
+  //ToDo: should I be using a SQLlite database for this? https://flutter.dev/docs/cookbook/persistence/sqlite
+  _newCsv() async {
+    //new csv https://icircuit.net/create-csv-file-flutter-app/2614
+    print("in newCSV");
+    List<List<dynamic>> entries = List<List<dynamic>>();
+    //test list of list entries
+    entries.add([1, "BTC", .1]);
+    entries.add([2, "BTC", .05]);
+    entries.add([3, "ETH", .15]);
+    print("entries:");
+    print(entries);
+
+    print("reached 5");
+    //ToDo: need path provider plugin for this https://pub.dev/packages/path_provider
+    //final dir = await getApplicationDocumentsDirectory();
+
+    setState(() {});
+
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
