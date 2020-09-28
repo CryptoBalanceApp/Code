@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:crypto_balance/tabbedAppbar.dart';
 import 'package:csv/csv.dart';
 import 'package:path_provider/path_provider.dart';
@@ -35,6 +37,8 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
   PermissionStatus _permissionStatus = PermissionStatus.undetermined;
   bool _loading = true;
   File _test;
+  String _contents;
+  List<List<dynamic>> convList;
 
   @override
   void initState() {
@@ -51,8 +55,9 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     if(_permissionStatus != PermissionStatus.granted) {
       requestPermissionStore();
     }
-
+    //ToDo: need to have logic here to only create new CSV if necessary, but still do loading test and contents?
     _newCsv();
+
 
 
     print("permission status is : ${_permissionStatus}");
@@ -99,28 +104,33 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
   _newCsv() async {
     //new csv https://icircuit.net/create-csv-file-flutter-app/2614
     print("in newCSV");
+    //ToDo: this is still just a test... need to only create newCSV if not already
     List<List<dynamic>> entries = List<List<dynamic>>();
     //test list of list entries
-    entries.add([1, "BTC", .1]);
-    entries.add([2, "BTC", .05]);
-    entries.add([3, "ETH", .15]);
+    var dat = new DateTime.utc(2020, 9, 24);
+    entries.add([dat, "BTC", .1]);
+    dat = new DateTime.utc(2020, 9, 25);
+    entries.add([dat, "BTC", .05]);
+    entries.add([dat, "ETH", .15]);
     print("entries:");
     print(entries);
 
     String nCsv = const ListToCsvConverter().convert(entries);
 
-    //File test = await writeString("testing");
-    //File test = await writeString(nCsv);
     _test = await writeString(nCsv);
-    String contents = await _test.readAsString();
-    print("contents is ${contents}");
-    print("reached 5");
+    _contents = await _test.readAsString();
+    print("contents is ${_contents}");
 
     setState(() {
       _loading = false;
     });
-
   }
+
+//  //Future<String>
+//  Future<String> get csvString async {
+//    return await _test.readAsString();
+//
+//  }
 
   Widget _getBalanceBody(){
     if(_loading){
@@ -131,26 +141,37 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
       );
     }else{
       //ToDo: here: convert _test to list, display as in main
-      return Center(
-        child: CircularProgressIndicator(
-          valueColor: new AlwaysStoppedAnimation<Color>(Colors.red),
-        ),
+      print("in red loading");
+      List<List<dynamic>> convList = CsvToListConverter().convert(_contents);
+      print("convList is $convList");
+//      return Center(
+//        child: CircularProgressIndicator(
+//          valueColor: new AlwaysStoppedAnimation<Color>(Colors.red),
+//        ),
+//      );
+
+    final Iterable<ListTile> smallTiles = convList.map((key){
+      return new ListTile(
+        title: Text("${key[0].toString()}, ${key[1]}, ${key[2]}"),
       );
+    },);
+    final List<Widget> dividedCSV = ListTile.divideTiles(
+      context: context,
+      tiles: smallTiles,
+    ).toList();
+    return new ListView(
+      shrinkWrap: true,
+      children: dividedCSV,
+    );
+
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: _getBalanceBody()
     );
-
-
-//    return Center(
-//      child: CircularProgressIndicator(),
-//    );
 
   }
 
