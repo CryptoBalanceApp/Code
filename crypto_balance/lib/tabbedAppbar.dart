@@ -191,7 +191,7 @@ class _TabContainerBottomState extends State<TabContainerBottom> {
 }
 
 
-
+//ToDo: delete below? doesn't matter if reload? or implement
 //below: works, and can be used to not reload every tab every time, but need to implement everything in medium article after index list to preven
 //all tabs running at startup and causing permission issue
 //class TabContainerIndexedStack extends StatefulWidget {

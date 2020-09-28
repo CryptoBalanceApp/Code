@@ -101,6 +101,9 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
   }
 
   //ToDo: should I be using a SQLlite database for this? https://flutter.dev/docs/cookbook/persistence/sqlite
+  //would use integer unix time? https://www.sqlite.org/datatype3.html
+  //most direct way: input amount of crypto purchased and cost? refer to excel
+
   _newCsv() async {
     //new csv https://icircuit.net/create-csv-file-flutter-app/2614
     print("in newCSV");
