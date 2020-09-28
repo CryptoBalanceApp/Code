@@ -6,9 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-//above: new package import https://pub.dev/packages/permission_handler/example
-// import 'package:permission/permission.dart';
-//import 'package:simple_permissions/simple_permissions.dart';
+import 'package:sqflite/sqflite.dart';
 
 //below: needs to be future void like example?
 void main() => runApp(MyApp4());
@@ -44,26 +42,16 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
   void initState() {
     //override creation: state call function
     super.initState();
-
-    print("in init state");
-    print("platform is android: ${Platform.isAndroid}");
     //below: also from permission handler example
     _listenForPermission();
-    print("permission status is : ${_permissionStatus}");
     //call function to set state
-    //ToDo: uneccesary if?
-    if(_permissionStatus != PermissionStatus.granted) {
-      requestPermissionStore();
-    }
+    requestPermissionStore();
     //ToDo: need to have logic here to only create new CSV if necessary, but still do loading test and contents?
     _newCsv();
 
-
-
-    print("permission status is : ${_permissionStatus}");
-
   }
 
+  //new package import https://pub.dev/packages/permission_handler/example
   void _listenForPermission() async {
     print("in ListenFOrPermission");
     //final status = await Permission.location.status;
@@ -81,9 +69,10 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     });
   }
 
+
+  //ToDo: below uneeded after sql
   //get path, https://flutter.dev/docs/cookbook/persistence/reading-writing-files#1-find-the-correct-local-path
   Future<String> get _appPath async {
-    //ToDo: need path provider plugin for this https://pub.dev/packages/path_provider
     final dir = await getApplicationDocumentsDirectory();
     print("dir is ${dir}");
     return dir.path;
@@ -129,44 +118,34 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     });
   }
 
-//  //Future<String>
-//  Future<String> get csvString async {
-//    return await _test.readAsString();
-//
-//  }
+
+
 
   Widget _getBalanceBody(){
     if(_loading){
       return Center(
         child: CircularProgressIndicator(
-          valueColor: new AlwaysStoppedAnimation<Color>(Colors.blue),
+          valueColor: new AlwaysStoppedAnimation<Color>(Colors.deepPurple),
         ),
       );
     }else{
-      //ToDo: here: convert _test to list, display as in main
-      print("in red loading");
+      //ToDo: get rid of this csv to list converter... going to be from db
       List<List<dynamic>> convList = CsvToListConverter().convert(_contents);
       print("convList is $convList");
-//      return Center(
-//        child: CircularProgressIndicator(
-//          valueColor: new AlwaysStoppedAnimation<Color>(Colors.red),
-//        ),
-//      );
 
-    final Iterable<ListTile> smallTiles = convList.map((key){
-      return new ListTile(
-        title: Text("${key[0].toString()}, ${key[1]}, ${key[2]}"),
+      final Iterable<ListTile> smallTiles = convList.map((key){
+        return new ListTile(
+          title: Text("${key[0].toString()}, ${key[1]}, ${key[2]}"),
+        );
+      },);
+      final List<Widget> dividedCSV = ListTile.divideTiles(
+        context: context,
+        tiles: smallTiles,
+      ).toList();
+      return new ListView(
+        shrinkWrap: true,
+        children: dividedCSV,
       );
-    },);
-    final List<Widget> dividedCSV = ListTile.divideTiles(
-      context: context,
-      tiles: smallTiles,
-    ).toList();
-    return new ListView(
-      shrinkWrap: true,
-      children: dividedCSV,
-    );
-
     }
   }
 
