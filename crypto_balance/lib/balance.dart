@@ -123,9 +123,20 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
   //begin sqlLite
   //would use integer unix time? https://www.sqlite.org/datatype3.html
   //most direct way: input amount of crypto purchased and cost? refer to excel
+
+
+
   _newBalanceDB() async {
     print("dbPath is $dbPath");
-    return;
+    Trans testTrans = Trans(
+      id: 1,
+      time: DateTime.now(),
+      cryp: "BTC",
+      amt: .15,
+      dolVal: 25,
+    );
+
+    print(testTrans.toString());
   }
 
   //ToDo: learn shared preferences for storing non-table key value pairs https://flutter.dev/docs/cookbook/persistence/key-value
@@ -170,4 +181,30 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
   //getter for keepclient alive mixin
   @override
   bool get wantKeepAlive => true;
+}
+
+//class for transaction entries
+class Trans {
+  final int id;
+  //using real to store date https://www.sqlitetutorial.net/sqlite-date/
+  final DateTime time;
+  final String cryp;
+  final double amt;
+  final double dolVal;
+  Trans({this.id, this.time, this.cryp, this.amt, this.dolVal});
+
+  Map<String, dynamic> toMap() {
+    return{
+      'id': id,
+      'time': time,
+      'cryp': cryp,
+      'amt': amt,
+      'dolVal': dolVal,
+    };
+  }
+
+  @override
+  String toString(){
+    return 'Trans{id: $id, when: $time, cryp: $cryp, amt: $amt, \$: $dolVal }';
+  }
 }
