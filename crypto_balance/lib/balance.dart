@@ -7,6 +7,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart' as p;
+import 'package:flutter/widgets.dart';
 
 //below: needs to be future void like example?
 void main() => runApp(MyApp4());
@@ -48,6 +50,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     requestPermissionStore();
     //ToDo: need to have logic here to only create new CSV if necessary, but still do loading test and contents?
     _newCsv();
+    _newBalanceDB();
 
   }
 
@@ -90,8 +93,6 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
   }
 
   //ToDo: should I be using a SQLlite database for this? https://flutter.dev/docs/cookbook/persistence/sqlite
-  //would use integer unix time? https://www.sqlite.org/datatype3.html
-  //most direct way: input amount of crypto purchased and cost? refer to excel
 
   _newCsv() async {
     //new csv https://icircuit.net/create-csv-file-flutter-app/2614
@@ -118,7 +119,16 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     });
   }
 
+  //ToDo: need async function for all sql functions
+  //begin sqlLite
+  //would use integer unix time? https://www.sqlite.org/datatype3.html
+  //most direct way: input amount of crypto purchased and cost? refer to excel
+  _newBalanceDB() async {
+    print("dbPath is $dbPath");
+    return;
+  }
 
+  //ToDo: learn shared preferences for storing non-table key value pairs https://flutter.dev/docs/cookbook/persistence/key-value
 
 
   Widget _getBalanceBody(){
@@ -131,7 +141,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     }else{
       //ToDo: get rid of this csv to list converter... going to be from db
       List<List<dynamic>> convList = CsvToListConverter().convert(_contents);
-      print("convList is $convList");
+      //print("convList is $convList");
 
       final Iterable<ListTile> smallTiles = convList.map((key){
         return new ListTile(

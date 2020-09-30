@@ -4,10 +4,13 @@ import 'package:crypto_balance/main.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto_balance/references.dart';
 import 'package:crypto_balance/balance.dart';
+//below: for global database
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart' as p;
+import 'package:flutter/widgets.dart';
 
-//
-//List fromCurrAPI;
-//var currMap = new Map();
+
+
 String currencySelection = currUSD;
 
 void main()=> runApp(MyApp1());
@@ -25,10 +28,11 @@ const String currINR = "INR";
 const String currTHB = "THB";
 const String currPHP = "PHP";
 
-String helloString = "HelloWorld";
+//important global variables accessible across tabs
 Map globalCryptoPrice = Map<String, dynamic>();
 Map globalConvFac = Map<String, dynamic>();
 String globalCurr = currUSD;
+final String dbPath = "balance_db.db";
 
 class Currency{
   final Text current;
@@ -170,16 +174,16 @@ class _TabContainerBottomState extends State<TabContainerBottom> {
           },
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text('Prices'),
+              icon: Icon(Icons.home_outlined),
+              label: 'Prices',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text('Balance'),
+              icon: Icon(Icons.account_balance_outlined),
+              label: 'Balance',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.help),
-              title: Text('About'),
+              icon: Icon(Icons.help_outlined),
+              label: 'About',
             ),
           ],
         ),
