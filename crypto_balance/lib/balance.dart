@@ -142,7 +142,20 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
       );
     }
 
-    
+    //retrieve list
+    Future<List<Trans>> transactList() async {
+      final Database db = await transDB;
+      final List<Map<String, dynamic>> dbMap = await db.query('transactions');
+      return List.generate(dbMap.length, (i) {
+        return Trans(
+          id: dbMap[i]['id'],
+          time: DateTime.parse(dbMap[i]['time']),
+          cryp: dbMap[i]['cryp'],
+          amt: dbMap[i]['amt'],
+          dolVal: dbMap[i]['dolVal'],
+        );
+      });
+    }
 
     print("dbPath is $dbPath");
     Trans testTrans = Trans(
@@ -156,6 +169,9 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
 //    print(testTrans.toString());
 //    print(testTrans.toMap());
     await insertTrans(testTrans);
+    List<Trans> dbList = await transactList();
+    print(dbList);
+
 
 
   }
