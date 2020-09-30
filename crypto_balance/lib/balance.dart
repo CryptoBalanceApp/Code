@@ -77,13 +77,11 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
   //get path, https://flutter.dev/docs/cookbook/persistence/reading-writing-files#1-find-the-correct-local-path
   Future<String> get _appPath async {
     final dir = await getApplicationDocumentsDirectory();
-    print("dir is ${dir}");
     return dir.path;
   }
 
   Future<File> get _csvFile async {
     String locPath = await _appPath;
-    print("locPath is ${locPath}");
     return File('$locPath/test.txt');
   }
 
@@ -105,14 +103,14 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     dat = new DateTime.utc(2020, 9, 25);
     entries.add([dat, "BTC", .05]);
     entries.add([dat, "ETH", .15]);
-    print("entries:");
-    print(entries);
+    //print("entries:");
+    //print(entries);
 
     String nCsv = const ListToCsvConverter().convert(entries);
 
     _test = await writeString(nCsv);
     _contents = await _test.readAsString();
-    print("contents is ${_contents}");
+    //print("contents is ${_contents}");
 
     setState(() {
       _loading = false;
@@ -120,13 +118,32 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
   }
 
   //ToDo: need async function for all sql functions
-  //begin sqlLite
-  //would use integer unix time? https://www.sqlite.org/datatype3.html
-  //most direct way: input amount of crypto purchased and cost? refer to excel
-
-
-
+  //begin sqlLite: persistence i.e. https://flutter.dev/docs/cookbook/persistence/sqlite
   _newBalanceDB() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    final Future<Database> transDB = openDatabase(
+      p.join(await getDatabasesPath(), dbPath),
+      onCreate: (db, version){
+        return db.execute(
+          "CREATE TABLE transactions(id INTEGER PRIMARY KEY, time TEXT, cryp TEXT, amt REAL, dolVal REAL)",
+        );
+      },
+      version: 1,
+    );
+
+    //insert new transaction
+    Future<void> insertTrans(Trans t) async {
+      final Database db = await transDB;
+      await db.insert(
+        'transactions',
+        t.toMap(),
+        //ToDo: not sure what ideal conflict alg is, maybe not replace
+        conflictAlgorithm:  ConflictAlgorithm.replace,
+      );
+    }
+
+    
+
     print("dbPath is $dbPath");
     Trans testTrans = Trans(
       id: 1,
@@ -136,8 +153,14 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
       dolVal: 25,
     );
 
-    print(testTrans.toString());
+//    print(testTrans.toString());
+//    print(testTrans.toMap());
+    await insertTrans(testTrans);
+
+
   }
+
+  //would use integer unix time? https://www.sqlite.org/datatype3.html
 
   //ToDo: learn shared preferences for storing non-table key value pairs https://flutter.dev/docs/cookbook/persistence/key-value
 
@@ -196,7 +219,7 @@ class Trans {
   Map<String, dynamic> toMap() {
     return{
       'id': id,
-      'time': time,
+      'time': time.toString(),
       'cryp': cryp,
       'amt': amt,
       'dolVal': dolVal,
