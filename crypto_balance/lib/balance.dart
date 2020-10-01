@@ -52,12 +52,8 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     _listenForPermission();
     //call function to set state
     requestPermissionStore();
-
-    //ToDo: these probably don't need to be 2 functions
+    //create new database/load local variables if already exists
     _newBalanceDB();
-    //ToDO: put below in call from above?
-    //_getDBList();
-
 
   }
 
@@ -71,7 +67,6 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
   Future<void> requestPermissionStore() async {
     final status = await Permission.storage.request();
     setState((){
-      print(status);
       _permissionStatus = status;
     });
   }
@@ -90,92 +85,13 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
       version: 1,
     );
 
-    //insert new transaction
-    Future<void> insertTrans(Trans t) async {
-      final Database db = await transDB;
-      await db.insert(
-        'transactions',
-        t.toMap(),
-        //ToDo: not sure what ideal conflict alg is, maybe not replace
-        conflictAlgorithm:  ConflictAlgorithm.replace,
-      );
-    }
-
-    //retrieve list
-    Future<List<Trans>> transactList() async {
-      final Database db = await transDB;
-      final List<Map<String, dynamic>> dbMap = await db.query('transactions');
-      return List.generate(dbMap.length, (i) {
-        return Trans(
-          id: dbMap[i]['id'],
-          time: DateTime.parse(dbMap[i]['time']),
-          cryp: dbMap[i]['cryp'],
-          amt: dbMap[i]['amt'],
-          dolVal: dbMap[i]['dolVal'],
-        );
-      });
-    }
-
-    //update a transaction
-    Future<void> updateTrans(Trans t) async {
-      final Database db = await transDB;
-      await db.update(
-        'transactions',
-        t.toMap(),
-        where: "id = ?",
-        whereArgs: [t.id],
-      );
-    }
-
-    Future<void> deleteTrans(int id) async {
-      final db = await transDB;
-      await db.delete(
-        'transactions',
-        where: "id = ?",
-        whereArgs: [id],
-      );
-    }
-
-    //ToDo: below: logic to get next index nexID... should be put in its own function
-    //plus more efficient way with sql? https://stackoverflow.com/questions/61229942/how-to-get-the-id-from-next-inserted-element-before-that-is-created
-    print("get current");
-//    List<Trans> currList = await transactList();
-    List<Trans> currList = await transactionsList();
-    //print(currList);
-
-    //below: replace with updateIndex?
-    int nexID;
-    //below shouldn't be reached..?
-    if(currList.length > 0) {
-      nexID = currList[currList.length - 1].id;
-      nexID+=1;
-      curID+=1;
-    }else{
-      nexID = 0;
-      curID++;
-    }
-    print("nexID is $nexID");
-
-    Trans testTrans = Trans(
-      id: nexID,
-      time: DateTime.now(),
-      cryp: "BTC",
-      amt: .15,
-      dolVal: 25,
-    );
-
-    await insertTrans(testTrans);
-    currList = await transactList();
-    print("currList is $currList");
+    //update sqllist to avoid null tiles error
     await _getDBList();
     await updateIndex();
-
-
   }
 
-
-
   //Todo: this could probably be replaced, or made part of transactList?
+  //getDBList: query database to fill list<list<>> sqllist with data to populate scaffold
    _getDBList() async {
     WidgetsFlutterBinding.ensureInitialized();
     //connect to db
@@ -183,14 +99,14 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
       p.join(await getDatabasesPath(), dbPath),
       version: 1,
     );
-
     final Database db = await transDB;
+
+    //use built in database type function query to get transactions table
     final List<Map<String, dynamic>> dbMap = await db.query('transactions');
-
-
     //convert map to list for tiles
     final List<List<dynamic>> dbList = [];
     //Todo: able to ditch while loop and use iterable?
+    //convert each row of table to a list and add to list of lists
     int i = 0;
     while(i < dbMap.length){
       List l = dbMap[i].values.toList();
@@ -199,13 +115,12 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     };
     //update global variable sqlList
     sqlList = dbList;
-
     setState(() {
       _loading = false;
     });
   }
 
-  //new version of get transaction list made for fab but should be consolidated
+  //return a list of lists formatted
   Future<List<Trans>> transactionsList() async {
     WidgetsFlutterBinding.ensureInitialized();
     //connect to db
@@ -214,6 +129,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
       version: 1,
     );
     final Database db = await transDB;
+
     final List<Map<String, dynamic>> dbMap = await db.query('transactions');
     return List.generate(dbMap.length, (i) {
       return Trans(
@@ -226,6 +142,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     });
   }
 
+  //indexinc and update index: ensure we're on correct index
   //ToDo: did having separate indexincrement function really solve anything? not sure... both async...
   Future<void> _indexinc() async {
     List<Trans> currList = await transactionsList();
@@ -239,6 +156,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
   }
 
   //new way to update current made for fab but sould be consolidated
+  //plus more efficient way with sql? https://stackoverflow.com/questions/61229942/how-to-get-the-id-from-next-inserted-element-before-that-is-created
   updateIndex() async {
     await _indexinc();
     print("curID is $curID");
@@ -285,13 +203,13 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
         );
       },);
 
-      final List<Widget> dividedCSV = ListTile.divideTiles(
+      final List<Widget> dividedDB = ListTile.divideTiles(
         context: context,
         tiles: smallTiles,
       ).toList();
       return new ListView(
         shrinkWrap: true,
-        children: dividedCSV,
+        children: dividedDB,
       );
     }
   }
@@ -314,6 +232,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
             dolVal: buttonPress.toDouble(),
           );
           print(n.toString());
+
           insertNewTran(n);
           print("you've pressed the button $buttonPress times");
           //ToDo: issue here is that the page doesn't reload after leaving this button pressed
@@ -358,3 +277,25 @@ class Trans {
     return 'Trans{id: $id, when: $time, cryp: $cryp, amt: $amt, \$: $dolVal }';
   }
 }
+
+
+//ToDo: Functions that fulfill update, delete etc...
+//update a transaction
+//Future<void> updateTrans(Trans t) async {
+//  final Database db = await transDB;
+//  await db.update(
+//    'transactions',
+//    t.toMap(),
+//    where: "id = ?",
+//    whereArgs: [t.id],
+//  );
+//}
+//
+//Future<void> deleteTrans(int id) async {
+//  final db = await transDB;
+//  await db.delete(
+//    'transactions',
+//    where: "id = ?",
+//    whereArgs: [id],
+//  );
+//}
