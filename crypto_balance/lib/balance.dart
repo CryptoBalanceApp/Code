@@ -157,20 +157,53 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
       });
     }
 
-    print("dbPath is $dbPath");
+    //update a transaction
+    Future<void> updateTrans(Trans t) async {
+      final Database db = await transDB;
+      await db.update(
+        'transactions',
+        t.toMap(),
+        where: "id = ?",
+        whereArgs: [t.id],
+      );
+    }
+
+    Future<void> deleteTrans(int id) async {
+      final db = await transDB;
+      await db.delete(
+        'transactions',
+        where: "id = ?",
+        whereArgs: [id],
+      );
+    }
+
+    //ToDo: below: logic to get next index nexID... should be put in its own function
+    //plus more efficient way with sql? https://stackoverflow.com/questions/61229942/how-to-get-the-id-from-next-inserted-element-before-that-is-created
+    print("get current");
+    List<Trans> currList = await transactList();
+    print(currList);
+    int nexID = currList[currList.length-1].id;
+    nexID+=1;
+    print("nexID is $nexID");
+
     Trans testTrans = Trans(
-      id: 1,
+      id: nexID,
       time: DateTime.now(),
       cryp: "BTC",
       amt: .15,
       dolVal: 25,
     );
 
-//    print(testTrans.toString());
-//    print(testTrans.toMap());
     await insertTrans(testTrans);
-    List<Trans> dbList = await transactList();
-    print(dbList);
+    await updateTrans(Trans(
+      id: nexID,
+      time: DateTime.now(),
+      cryp: "ETH",
+      amt: .20,
+      dolVal: 50,
+    ));
+
+    //await deleteTrans(1);
 
 
 
