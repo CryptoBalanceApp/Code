@@ -62,12 +62,6 @@
       "languageVersion": "2.1"
     },
     {
-      "name": "csv",
-      "rootUri": "file:///C:/Users/Scott/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/csv-4.0.3",
-      "packageUri": "lib/",
-      "languageVersion": "2.0"
-    },
-    {
       "name": "cupertino_icons",
       "rootUri": "file:///C:/Users/Scott/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/cupertino_icons-0.1.3",
       "packageUri": "lib/",
@@ -78,18 +72,6 @@
       "rootUri": "file:///C:/Users/Scott/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/fake_async-1.2.0-nullsafety.1",
       "packageUri": "lib/",
       "languageVersion": "2.10"
-    },
-    {
-      "name": "ffi",
-      "rootUri": "file:///C:/Users/Scott/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/ffi-0.1.3",
-      "packageUri": "lib/",
-      "languageVersion": "2.6"
-    },
-    {
-      "name": "file",
-      "rootUri": "file:///C:/Users/Scott/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/file-5.2.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.2"
     },
     {
       "name": "flutter",
@@ -146,12 +128,6 @@
       "languageVersion": "2.0"
     },
     {
-      "name": "intl",
-      "rootUri": "file:///C:/Users/Scott/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/intl-0.16.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.5"
-    },
-    {
       "name": "matcher",
       "rootUri": "file:///C:/Users/Scott/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/matcher-0.12.10-nullsafety.1",
       "packageUri": "lib/",
@@ -182,36 +158,6 @@
       "languageVersion": "1.19"
     },
     {
-      "name": "path_provider",
-      "rootUri": "file:///C:/Users/Scott/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/path_provider-1.6.18",
-      "packageUri": "lib/",
-      "languageVersion": "2.1"
-    },
-    {
-      "name": "path_provider_linux",
-      "rootUri": "file:///C:/Users/Scott/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/path_provider_linux-0.0.1+2",
-      "packageUri": "lib/",
-      "languageVersion": "2.1"
-    },
-    {
-      "name": "path_provider_macos",
-      "rootUri": "file:///C:/Users/Scott/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/path_provider_macos-0.0.4+4",
-      "packageUri": "lib/",
-      "languageVersion": "2.1"
-    },
-    {
-      "name": "path_provider_platform_interface",
-      "rootUri": "file:///C:/Users/Scott/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/path_provider_platform_interface-1.0.3",
-      "packageUri": "lib/",
-      "languageVersion": "2.1"
-    },
-    {
-      "name": "path_provider_windows",
-      "rootUri": "file:///C:/Users/Scott/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/path_provider_windows-0.0.4+1",
-      "packageUri": "lib/",
-      "languageVersion": "2.1"
-    },
-    {
       "name": "pedantic",
       "rootUri": "file:///C:/Users/Scott/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/pedantic-1.8.0+1",
       "packageUri": "lib/",
@@ -236,22 +182,10 @@
       "languageVersion": "2.7"
     },
     {
-      "name": "platform",
-      "rootUri": "file:///C:/Users/Scott/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/platform-2.2.1",
-      "packageUri": "lib/",
-      "languageVersion": "1.24"
-    },
-    {
       "name": "plugin_platform_interface",
       "rootUri": "file:///C:/Users/Scott/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/plugin_platform_interface-1.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.1"
-    },
-    {
-      "name": "process",
-      "rootUri": "file:///C:/Users/Scott/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/process-3.0.13",
-      "packageUri": "lib/",
-      "languageVersion": "2.0"
     },
     {
       "name": "sky_engine",
@@ -362,18 +296,6 @@
       "languageVersion": "2.10"
     },
     {
-      "name": "win32",
-      "rootUri": "file:///C:/Users/Scott/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/win32-1.7.3",
-      "packageUri": "lib/",
-      "languageVersion": "2.7"
-    },
-    {
-      "name": "xdg_directories",
-      "rootUri": "file:///C:/Users/Scott/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/xdg_directories-0.1.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.3"
-    },
-    {
       "name": "xml",
       "rootUri": "file:///C:/Users/Scott/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/xml-4.5.1",
       "packageUri": "lib/",
@@ -392,7 +314,7 @@
       "languageVersion": "2.1"
     }
   ],
-  "generated": "2020-09-29T00:22:00.098746Z",
+  "generated": "2020-10-01T02:16:04.978292Z",
   "generator": "pub",
   "generatorVersion": "2.11.0-174.0.dev"
 }

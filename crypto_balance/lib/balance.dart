@@ -1,8 +1,5 @@
 import 'dart:ffi';
-
 import 'package:crypto_balance/tabbedAppbar.dart';
-import 'package:csv/csv.dart';
-import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -207,6 +204,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
       final Iterable<ListTile> smallTiles = sqlList.map((key){
         return new ListTile(
           title: Text("${key[3].toString()}: ${key[2].toString()}, \$${key[4].toString()}"),
+          //ToDo: parse date into more human readable
           subtitle: Text("${key[1].toString()}"),
         );
       },);
