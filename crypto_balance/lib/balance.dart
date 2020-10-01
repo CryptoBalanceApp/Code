@@ -55,7 +55,9 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
 
     //ToDo: these probably don't need to be 2 functions
     _newBalanceDB();
-    _getDBList();
+    //ToDO: put below in call from above?
+    //_getDBList();
+
 
   }
 
@@ -64,7 +66,6 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
 
     final status = await Permission.storage.status;
     setState(() => _permissionStatus = status);
-
   }
 
   Future<void> requestPermissionStore() async {
@@ -138,15 +139,20 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     //ToDo: below: logic to get next index nexID... should be put in its own function
     //plus more efficient way with sql? https://stackoverflow.com/questions/61229942/how-to-get-the-id-from-next-inserted-element-before-that-is-created
     print("get current");
-    List<Trans> currList = await transactList();
+//    List<Trans> currList = await transactList();
+    List<Trans> currList = await transactionsList();
     //print(currList);
+
+    //below: replace with updateIndex?
     int nexID;
+    //below shouldn't be reached..?
     if(currList.length > 0) {
       nexID = currList[currList.length - 1].id;
       nexID+=1;
       curID+=1;
     }else{
       nexID = 0;
+      curID++;
     }
     print("nexID is $nexID");
 
@@ -157,8 +163,13 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
       amt: .15,
       dolVal: 25,
     );
+
     await insertTrans(testTrans);
     currList = await transactList();
+    print("currList is $currList");
+    await _getDBList();
+    await updateIndex();
+
 
   }
 
@@ -175,6 +186,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
 
     final Database db = await transDB;
     final List<Map<String, dynamic>> dbMap = await db.query('transactions');
+
 
     //convert map to list for tiles
     final List<List<dynamic>> dbList = [];
@@ -247,7 +259,8 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     await db.insert(
       'transactions',
       t.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
+      //conflictAlgorithm: ConflictAlgorithm.replace,
+      conflictAlgorithm: ConflictAlgorithm.fail,
     );
     setState(() {});
   }
@@ -263,7 +276,6 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
       );
     }else{
       //ToDo: this probably needs to be a scaffold or something
-
       //Display tiles of transactions with sqlList
       final Iterable<ListTile> smallTiles = sqlList.map((key){
         return new ListTile(
@@ -293,10 +305,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
       floatingActionButton: FloatingActionButton(
         onPressed:(){
           //ToDo: only incrementing correctly every two... solution to put all logic in same async function with waits? not sure
-
           buttonPress++;
-
-
           Trans n = Trans(
             id: curID,
             time: DateTime.now(),
@@ -304,9 +313,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
             amt: (buttonPress*.66).toDouble(),
             dolVal: buttonPress.toDouble(),
           );
-
           print(n.toString());
-
           insertNewTran(n);
           print("you've pressed the button $buttonPress times");
           //ToDo: issue here is that the page doesn't reload after leaving this button pressed
