@@ -136,7 +136,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     //plus more efficient way with sql? https://stackoverflow.com/questions/61229942/how-to-get-the-id-from-next-inserted-element-before-that-is-created
     print("get current");
     List<Trans> currList = await transactList();
-    print(currList);
+    //print(currList);
     int nexID;
     if(currList.length > 0) {
       nexID = currList[currList.length - 1].id;
@@ -211,10 +211,8 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     });
   }
 
-  //new way to update current made for fab but sould be consolidated
-  Future<void> updateIndex() async {
+  Future<void>_indexinc() async {
     List<Trans> currList = await transactionsList();
-    print(currList);
     //int nexID;
     if(currList.length > 0) {
       curID = currList[currList.length - 1].id;
@@ -224,9 +222,16 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     }
   }
 
+  //new way to update current made for fab but sould be consolidated
+  updateIndex() async {
+    await _indexinc();
+    print("curID is $curID");
+    setState(() {});
+  }
+
   //new version of insert made for fab but should be consolidated
   //making version outside of scope
-  Future<void> insertNewTran(Trans t) async {
+  insertNewTran(Trans t) async {
     WidgetsFlutterBinding.ensureInitialized();
     //connect to db
     final Future<Database> transDB = openDatabase(
@@ -240,9 +245,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
       t.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
-
-
-
+    setState(() {});
   }
 
   //ToDo: learn shared preferences for storing non-table key value pairs https://flutter.dev/docs/cookbook/persistence/key-value
@@ -260,7 +263,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
       //Display tiles of transactions with sqlList
       final Iterable<ListTile> smallTiles = sqlList.map((key){
         return new ListTile(
-          title: Text("${key[3].toString()}: ${key[2].toString()}, \$${key[4].toString()}"),
+          title: Text("${key[0].toString()}: ${key[3].toString()}, ${key[2].toString()}, \$${key[4].toString()}"),
           //ToDo: parse date into more human readable
           subtitle: Text("${key[1].toString()}"),
         );
@@ -288,6 +291,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
 
           buttonPress++;
           updateIndex();
+
           Trans n = Trans(
             id: curID,
             time: DateTime.now(),
@@ -295,6 +299,9 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
             amt: (buttonPress*.66).toDouble(),
             dolVal: buttonPress.toDouble(),
           );
+
+          print(n.toString());
+
           insertNewTran(n);
           print("you've pressed the button $buttonPress times");
           //ToDo: issue here is that the page doesn't reload after leaving this button pressed
