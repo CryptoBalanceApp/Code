@@ -144,6 +144,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     if(currList.length > 0) {
       nexID = currList[currList.length - 1].id;
       nexID+=1;
+      curID+=1;
     }else{
       nexID = 0;
     }
@@ -294,7 +295,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
           //ToDo: only incrementing correctly every two... solution to put all logic in same async function with waits? not sure
 
           buttonPress++;
-          updateIndex();
+
 
           Trans n = Trans(
             id: curID,
@@ -311,6 +312,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
           //ToDo: issue here is that the page doesn't reload after leaving this button pressed
           _getDBList();
           setState(() {});
+          updateIndex();
 
         },
         child: Icon(Icons.add_circle_outline_outlined),
