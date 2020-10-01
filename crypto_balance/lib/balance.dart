@@ -131,8 +131,14 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     print("get current");
     List<Trans> currList = await transactList();
     print(currList);
-    int nexID = currList[currList.length-1].id;
-    nexID+=1;
+    int nexID;
+    if(currList.length > 0) {
+      nexID = currList[currList.length - 1].id;
+      nexID+=1;
+    }else{
+      nexID = 0;
+    }
+
     print("nexID is $nexID");
 
     Trans testTrans = Trans(

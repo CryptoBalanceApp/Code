@@ -6,10 +6,9 @@ INJECTED from D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balan
 INJECTED from D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:1:1-32:12
 MERGED from D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:1:1-32:12
 MERGED from [:permission_handler] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\permission_handler\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
-MERGED from [:url_launcher] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-14:12
 MERGED from [:flutter_plugin_android_lifecycle] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\flutter_plugin_android_lifecycle\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:sqflite] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
-MERGED from [:path_provider] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:url_launcher] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-14:12
 MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\0986d0d74b8a2c7da8161f6370fc7744\fragment-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\28d99d5113324aa067757f8ca41a426f\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.loader:loader:1.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\e1bbce6b0d79e8479b70e7bd729bb743\loader-1.0.0\AndroidManifest.xml:17:1-22:12
@@ -100,14 +99,12 @@ INJECTED from D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balan
 INJECTED from D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml
 MERGED from [:permission_handler] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\permission_handler\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:permission_handler] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\permission_handler\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:url_launcher] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:url_launcher] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:flutter_plugin_android_lifecycle] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\flutter_plugin_android_lifecycle\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:flutter_plugin_android_lifecycle] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\flutter_plugin_android_lifecycle\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:sqflite] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:sqflite] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:path_provider] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:path_provider] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\0986d0d74b8a2c7da8161f6370fc7744\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\0986d0d74b8a2c7da8161f6370fc7744\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\28d99d5113324aa067757f8ca41a426f\viewpager-1.0.0\AndroidManifest.xml:20:5-44
