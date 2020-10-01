@@ -2,6 +2,7 @@ import 'dart:ffi';
 import 'package:crypto_balance/tabbedAppbar.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as p;
@@ -9,6 +10,9 @@ import 'package:flutter/widgets.dart';
 
 //below: needs to be future void like example?
 void main() => runApp(MyApp4());
+
+int buttonPress = 0;
+
 
 class MyApp4 extends StatelessWidget {
   @override
@@ -18,6 +22,7 @@ class MyApp4 extends StatelessWidget {
       title: "balance sheet",
       home: Scaffold(
         body: Center(
+
           child: BalanceDisplay(),
         ),
       ),
@@ -34,6 +39,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
   PermissionStatus _permissionStatus = PermissionStatus.undetermined;
   bool _loading = true;
   List<List<dynamic>> sqlList;
+  int curID = 0;
 
   @override
   void initState() {
@@ -138,7 +144,6 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     }else{
       nexID = 0;
     }
-
     print("nexID is $nexID");
 
     Trans testTrans = Trans(
@@ -149,20 +154,11 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
       dolVal: 25,
     );
     await insertTrans(testTrans);
-
-//    await updateTrans(Trans(
-//      id: nexID,
-//      time: DateTime.now(),
-//      cryp: "ETH",
-//      amt: .20,
-//      dolVal: 50,
-//    ));
-
-//    await deleteTrans(1);
-    //get newest version list
     currList = await transactList();
 
   }
+
+
 
   //Todo: this could probably be replaced, or made part of transactList?
    _getDBList() async {
@@ -191,6 +187,61 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     setState(() {
       _loading = false;
     });
+  }
+
+
+  //new version of get transaction list made for fab but should be consolidated
+  Future<List<Trans>> transactionsList() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    //connect to db
+    final Future<Database> transDB = openDatabase(
+      p.join(await getDatabasesPath(), dbPath),
+      version: 1,
+    );
+    final Database db = await transDB;
+    final List<Map<String, dynamic>> dbMap = await db.query('transactions');
+    return List.generate(dbMap.length, (i) {
+      return Trans(
+        id: dbMap[i]['id'],
+        time: DateTime.parse(dbMap[i]['time']),
+        cryp: dbMap[i]['cryp'],
+        amt: dbMap[i]['amt'],
+        dolVal: dbMap[i]['dolVal'],
+      );
+    });
+  }
+
+  //new way to update current made for fab but sould be consolidated
+  Future<void> updateIndex() async {
+    List<Trans> currList = await transactionsList();
+    print(currList);
+    //int nexID;
+    if(currList.length > 0) {
+      curID = currList[currList.length - 1].id;
+      curID +=1;
+    }else{
+      curID = 0;
+    }
+  }
+
+  //new version of insert made for fab but should be consolidated
+  //making version outside of scope
+  Future<void> insertNewTran(Trans t) async {
+    WidgetsFlutterBinding.ensureInitialized();
+    //connect to db
+    final Future<Database> transDB = openDatabase(
+      p.join(await getDatabasesPath(), dbPath),
+      version: 1,
+    );
+
+    final Database db = await transDB;
+    await db.insert(
+      'transactions',
+      t.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+
+
 
   }
 
@@ -226,10 +277,34 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     }
   }
 
+  //below: action button logic leading to showdialog for inputting new transaction
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: _getBalanceBody()
+      body: _getBalanceBody(),
+      floatingActionButton: FloatingActionButton(
+        onPressed:(){
+
+          buttonPress++;
+          updateIndex();
+          Trans n = Trans(
+            id: curID,
+            time: DateTime.now(),
+            cryp: "BTC",
+            amt: (buttonPress*.66).toDouble(),
+            dolVal: buttonPress.toDouble(),
+          );
+          insertNewTran(n);
+          print("you've pressed the button $buttonPress times");
+          //ToDo: issue here is that the page doesn't reload after leaving this button pressed
+          _getDBList();
+          setState(() {});
+
+        },
+        child: Icon(Icons.add_circle_outline_outlined),
+        backgroundColor: Colors.deepPurple,
+      ),
     );
   }
   //getter for keepclient alive mixin
