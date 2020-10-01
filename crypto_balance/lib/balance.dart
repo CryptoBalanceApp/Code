@@ -36,9 +36,7 @@ class BalanceDisplay extends StatefulWidget {
 class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveClientMixin<BalanceDisplay> {
   PermissionStatus _permissionStatus = PermissionStatus.undetermined;
   bool _loading = true;
-  File _test;
-  String _contents;
-  List<List<dynamic>> convList;
+  List<List<dynamic>> sqlList;
 
   @override
   void initState() {
@@ -48,23 +46,22 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     _listenForPermission();
     //call function to set state
     requestPermissionStore();
-    //ToDo: need to have logic here to only create new CSV if necessary, but still do loading test and contents?
-    _newCsv();
+
+    //ToDo: these probably don't need to be 2 functions
     _newBalanceDB();
+    _getDBList();
 
   }
 
   //new package import https://pub.dev/packages/permission_handler/example
   void _listenForPermission() async {
-    print("in ListenFOrPermission");
-    //final status = await Permission.location.status;
+
     final status = await Permission.storage.status;
     setState(() => _permissionStatus = status);
 
   }
 
   Future<void> requestPermissionStore() async {
-    print("in reqPermStor");
     final status = await Permission.storage.request();
     setState((){
       print(status);
@@ -72,52 +69,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     });
   }
 
-
-  //ToDo: below uneeded after sql
-  //get path, https://flutter.dev/docs/cookbook/persistence/reading-writing-files#1-find-the-correct-local-path
-  Future<String> get _appPath async {
-    final dir = await getApplicationDocumentsDirectory();
-    return dir.path;
-  }
-
-  Future<File> get _csvFile async {
-    String locPath = await _appPath;
-    return File('$locPath/test.txt');
-  }
-
-  Future<File> writeString(String S) async {
-    final csvF = await _csvFile;
-    return csvF.writeAsString(S);
-  }
-
-  //ToDo: should I be using a SQLlite database for this? https://flutter.dev/docs/cookbook/persistence/sqlite
-
-  _newCsv() async {
-    //new csv https://icircuit.net/create-csv-file-flutter-app/2614
-    print("in newCSV");
-    //ToDo: this is still just a test... need to only create newCSV if not already
-    List<List<dynamic>> entries = List<List<dynamic>>();
-    //test list of list entries
-    var dat = new DateTime.utc(2020, 9, 24);
-    entries.add([dat, "BTC", .1]);
-    dat = new DateTime.utc(2020, 9, 25);
-    entries.add([dat, "BTC", .05]);
-    entries.add([dat, "ETH", .15]);
-    //print("entries:");
-    //print(entries);
-
-    String nCsv = const ListToCsvConverter().convert(entries);
-
-    _test = await writeString(nCsv);
-    _contents = await _test.readAsString();
-    //print("contents is ${_contents}");
-
-    setState(() {
-      _loading = false;
-    });
-  }
-
-  //ToDo: need async function for all sql functions
+  //ToDo: combine sql functions
   //begin sqlLite: persistence i.e. https://flutter.dev/docs/cookbook/persistence/sqlite
   _newBalanceDB() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -193,26 +145,53 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
       amt: .15,
       dolVal: 25,
     );
-
     await insertTrans(testTrans);
-    await updateTrans(Trans(
-      id: nexID,
-      time: DateTime.now(),
-      cryp: "ETH",
-      amt: .20,
-      dolVal: 50,
-    ));
 
-    //await deleteTrans(1);
+//    await updateTrans(Trans(
+//      id: nexID,
+//      time: DateTime.now(),
+//      cryp: "ETH",
+//      amt: .20,
+//      dolVal: 50,
+//    ));
 
-
+//    await deleteTrans(1);
+    //get newest version list
+    currList = await transactList();
 
   }
 
-  //would use integer unix time? https://www.sqlite.org/datatype3.html
+  //Todo: this could probably be replaced, or made part of transactList?
+   _getDBList() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    //connect to db
+    final Future<Database> transDB = openDatabase(
+      p.join(await getDatabasesPath(), dbPath),
+      version: 1,
+    );
+
+    final Database db = await transDB;
+    final List<Map<String, dynamic>> dbMap = await db.query('transactions');
+
+    //convert map to list for tiles
+    final List<List<dynamic>> dbList = [];
+    //Todo: able to ditch while loop and use iterable?
+    int i = 0;
+    while(i < dbMap.length){
+      List l = dbMap[i].values.toList();
+      dbList.add(l);
+      i++;
+    };
+    //update global variable sqlList
+    sqlList = dbList;
+
+    setState(() {
+      _loading = false;
+    });
+
+  }
 
   //ToDo: learn shared preferences for storing non-table key value pairs https://flutter.dev/docs/cookbook/persistence/key-value
-
 
   Widget _getBalanceBody(){
     if(_loading){
@@ -222,15 +201,16 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
         ),
       );
     }else{
-      //ToDo: get rid of this csv to list converter... going to be from db
-      List<List<dynamic>> convList = CsvToListConverter().convert(_contents);
-      //print("convList is $convList");
+      //ToDo: this probably needs to be a scaffold or something
 
-      final Iterable<ListTile> smallTiles = convList.map((key){
+      //Display tiles of transactions with sqlList
+      final Iterable<ListTile> smallTiles = sqlList.map((key){
         return new ListTile(
-          title: Text("${key[0].toString()}, ${key[1]}, ${key[2]}"),
+          title: Text("${key[3].toString()}: ${key[2].toString()}, \$${key[4].toString()}"),
+          subtitle: Text("${key[1].toString()}"),
         );
       },);
+
       final List<Widget> dividedCSV = ListTile.divideTiles(
         context: context,
         tiles: smallTiles,
@@ -247,13 +227,12 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     return Scaffold(
         body: _getBalanceBody()
     );
-
   }
-
   //getter for keepclient alive mixin
   @override
   bool get wantKeepAlive => true;
 }
+
 
 //class for transaction entries
 class Trans {
