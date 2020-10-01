@@ -11,6 +11,7 @@ import 'package:flutter/widgets.dart';
 //below: needs to be future void like example?
 void main() => runApp(MyApp4());
 
+//ToDo: this has no real purpose, remove
 int buttonPress = 0;
 
 
@@ -36,9 +37,11 @@ class BalanceDisplay extends StatefulWidget {
 }
 
 class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveClientMixin<BalanceDisplay> {
+  //ToDo: don't need permstats?
   PermissionStatus _permissionStatus = PermissionStatus.undetermined;
   bool _loading = true;
   List<List<dynamic>> sqlList;
+  //ToDo: curId still messing up... maybe not right solution?
   int curID = 0;
 
   @override
@@ -189,7 +192,6 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     });
   }
 
-
   //new version of get transaction list made for fab but should be consolidated
   Future<List<Trans>> transactionsList() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -211,7 +213,8 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     });
   }
 
-  Future<void>_indexinc() async {
+  //ToDo: did having separate indexincrement function really solve anything? not sure... both async...
+  Future<void> _indexinc() async {
     List<Trans> currList = await transactionsList();
     //int nexID;
     if(currList.length > 0) {
@@ -288,6 +291,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
       body: _getBalanceBody(),
       floatingActionButton: FloatingActionButton(
         onPressed:(){
+          //ToDo: only incrementing correctly every two... solution to put all logic in same async function with waits? not sure
 
           buttonPress++;
           updateIndex();
