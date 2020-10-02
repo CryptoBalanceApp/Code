@@ -43,6 +43,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
   List<List<dynamic>> sqlList;
   //ToDo: curId still messing up... maybe not right solution?
   int curID = 0;
+  Trans newTran;
 
   @override
   void initState() {
@@ -185,29 +186,6 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
 
   //ToDo: learn shared preferences for storing non-table key value pairs https://flutter.dev/docs/cookbook/persistence/key-value
 
-  //ToDo: implement show dialog function
-  // https://coflutter.com/flutter-how-to-show-dialog/
-  // builder context fix: https://medium.com/@nils.backe/flutter-alert-dialogs-9b0bb9b01d28
-  _showTransactDiag() {
-    showDialog(
-      context: context,
-      //builder: (_) => new AlertDialog(
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: new Text("testDialog"),
-          content: new Text("testContent"),
-          actions: <Widget>[
-            FlatButton(
-              child: Text("close"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        );
-      },
-    );
-  }
 
   Widget _getBalanceBody(){
     if(_loading){
@@ -238,7 +216,60 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     }
   }
 
+
+  //ToDo: probably want to replace this dialog with a form https://stackoverflow.com/a/58359701/10432596
+  //https://api.flutter.dev/flutter/widgets/Form-class.html
+
+
   //below: action button logic leading to showdialog for inputting new transaction
+
+  //ToDo: implement show dialog function
+  // https://coflutter.com/flutter-how-to-show-dialog/
+  // builder context fix: https://medium.com/@nils.backe/flutter-alert-dialogs-9b0bb9b01d28
+  // text editing https://stackoverflow.com/questions/49778217/how-to-create-a-dialog-that-is-able-to-accept-text-input-and-show-result-in-flut?rq=1
+  _showTransactDiag() {
+    final _c = new TextEditingController();
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return new Dialog(
+          child: new Column(
+            children: <Widget>[
+              new TextField(
+                decoration: new InputDecoration(hintText: "enter crypto name"),
+                //_c: text editing controller, see initstate
+                controller: _c,
+              ),
+              new FlatButton(
+                child: new Text("input"),
+                onPressed: (){
+                  if(mounted) {
+                    setState((){
+                      print("_c.text is ${_c.text}");
+                      if(_c.text != ""){
+                        newTran = Trans(
+                          id: curID,
+                          time: DateTime.now(),
+                          cryp: _c.text,
+                          amt: .420,
+                          dolVal: buttonPress.toDouble(),
+                        ) ;
+                        print("newTran: ${newTran.toString()}");
+                        insertNewTran(newTran);
+                        _getDBList();
+                        updateIndex();
+                      }
+                    });
+                  }
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -248,26 +279,10 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
         onPressed:(){
           //ToDo: only incrementing correctly every two... solution to put all logic in same async function with waits? not sure
           _showTransactDiag();
-          buttonPress++;
-          Trans n = Trans(
-            id: curID,
-            time: DateTime.now(),
-            cryp: "BTC",
-            amt: (buttonPress*.66).toDouble(),
-            dolVal: buttonPress.toDouble(),
-          );
-          print(n.toString());
-
-          insertNewTran(n);
-          print("you've pressed the button $buttonPress times");
-          //ToDo: issue here is that the page doesn't reload after leaving this button pressed
-          _getDBList();
           //dispose issue solved by if !mounted check? https://stackoverflow.com/questions/49340116/setstate-called-after-dispose
           if(mounted) {
             setState(() {});
           }
-          updateIndex();
-
         },
         child: Icon(Icons.add_circle_outline_outlined),
         backgroundColor: Colors.deepPurple,
