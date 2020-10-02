@@ -37,12 +37,13 @@ class BalanceDisplay extends StatefulWidget {
 }
 
 class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveClientMixin<BalanceDisplay> {
-  //ToDo: don't need permstats?
+  //ToDo: does this need to be global, or should be in somewhere else?
   PermissionStatus _permissionStatus = PermissionStatus.undetermined;
   bool _loading = true;
   List<List<dynamic>> sqlList;
-  //ToDo: curId still messing up... maybe not right solution?
+  //ToDo: is there a better way to index database than with global variable updating? not sure
   int curID = 0;
+  //ToDo: does this need to be a global variable or should just be in _showtransactdiag?
   Trans newTran;
 
   @override
@@ -91,7 +92,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     await updateIndex();
   }
 
-  //Todo: this could probably be replaced, or made part of transactList?
+  //Todo: this could probably be replaced, or made part of transactList? High Priority, need to make sure don't have two versions of same logic
   //getDBList: query database to fill list<list<>> sqllist with data to populate scaffold
    _getDBList() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -219,56 +220,100 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
 
   //ToDo: probably want to replace this dialog with a form https://stackoverflow.com/a/58359701/10432596
   //https://api.flutter.dev/flutter/widgets/Form-class.html
+  //https://stackoverflow.com/questions/54480641/flutter-how-to-create-forms-in-popup
+  _showFormDialog() {
+    final _formKey = GlobalKey<FormState>();
+    final _name = new TextEditingController();
+    final _amt = new TextEditingController();
+    final _dol = new TextEditingController();
 
-
-  //below: action button logic leading to showdialog for inputting new transaction
-
-  //ToDo: implement show dialog function
-  // https://coflutter.com/flutter-how-to-show-dialog/
-  // builder context fix: https://medium.com/@nils.backe/flutter-alert-dialogs-9b0bb9b01d28
-  // text editing https://stackoverflow.com/questions/49778217/how-to-create-a-dialog-that-is-able-to-accept-text-input-and-show-result-in-flut?rq=1
-  _showTransactDiag() {
-    final _c = new TextEditingController();
     showDialog(
       context: context,
       builder: (BuildContext context){
-        return new Dialog(
-          child: new Column(
+        return AlertDialog(
+          content: Stack(
+            //clipBehavior: Clip.hardEdge,
+            clipBehavior: Clip.none,
             children: <Widget>[
-              new TextField(
-                decoration: new InputDecoration(hintText: "enter crypto name"),
-                //_c: text editing controller, see initstate
-                controller: _c,
+              Positioned(
+                right:-40,
+                top: -40,
+                child: InkResponse(
+                  onTap: (){
+                    Navigator.of(context).pop();
+                  },
+                  child: CircleAvatar(
+                    child: Icon(Icons.close_outlined),
+                    backgroundColor: Colors.deepPurple,
+                  ),
+                ),
               ),
-              new FlatButton(
-                child: new Text("input"),
-                onPressed: (){
-                  if(mounted) {
-                    setState((){
-                      print("_c.text is ${_c.text}");
-                      if(_c.text != ""){
-                        newTran = Trans(
-                          id: curID,
-                          time: DateTime.now(),
-                          cryp: _c.text,
-                          amt: .420,
-                          dolVal: buttonPress.toDouble(),
-                        ) ;
-                        print("newTran: ${newTran.toString()}");
-                        insertNewTran(newTran);
-                        _getDBList();
-                        updateIndex();
-                      }
-                    });
-                  }
-                  Navigator.pop(context);
-                },
-              )
+              Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        decoration: new InputDecoration(hintText: "Crypto Name (i.e. ETH)"),
+                        controller: _name,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        decoration: new InputDecoration(hintText: "Crypto Amt (i.e. 1.23)"),
+                        controller: _amt,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        decoration: new InputDecoration(hintText: "Dollar Value (USD, i.e. 25.51)"),
+                        controller: _dol,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: RaisedButton(
+                        child: Text("Submit"),
+                        onPressed: () {
+                          if(mounted){
+                            setState(() {
+                              //ToDo: use validator validate entries https://stackoverflow.com/a/58117942/10432596
+                              if(_formKey.currentState.validate()){
+                                _formKey.currentState.save();
+                                double newAmt = double.parse(_amt.text);
+                                double newDol = double.parse(_dol.text);
+                                newTran = Trans(
+                                  id: curID,
+                                  time: DateTime.now(),
+                                  cryp: _name.text,
+                                  amt: newAmt,
+                                  dolVal: newDol,
+                                );
+                              }
+                              print("newTran: ");
+                              print(newTran.toString());
+                              insertNewTran(newTran);
+                              _getDBList();
+                              updateIndex();
+                              Navigator.of(context).pop();
+                            });
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         );
       },
     );
+
   }
 
   @override
@@ -277,8 +322,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
       body: _getBalanceBody(),
       floatingActionButton: FloatingActionButton(
         onPressed:(){
-          //ToDo: only incrementing correctly every two... solution to put all logic in same async function with waits? not sure
-          _showTransactDiag();
+          _showFormDialog();
           //dispose issue solved by if !mounted check? https://stackoverflow.com/questions/49340116/setstate-called-after-dispose
           if(mounted) {
             setState(() {});
@@ -293,7 +337,6 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
   @override
   bool get wantKeepAlive => true;
 }
-
 
 //class for transaction entries
 class Trans {
@@ -340,5 +383,57 @@ class Trans {
 //    'transactions',
 //    where: "id = ?",
 //    whereArgs: [id],
+//  );
+//}
+
+//below: show single dialog logic that got replaced with show form, probably delete soon
+
+//below: action button logic leading to showdialog for inputting new transaction
+
+//ToDo: implement show dialog function
+// https://coflutter.com/flutter-how-to-show-dialog/
+// builder context fix: https://medium.com/@nils.backe/flutter-alert-dialogs-9b0bb9b01d28
+// text editing https://stackoverflow.com/questions/49778217/how-to-create-a-dialog-that-is-able-to-accept-text-input-and-show-result-in-flut?rq=1
+//_showTransactDiag() {
+//  final _c = new TextEditingController();
+//  showDialog(
+//    context: context,
+//    builder: (BuildContext context){
+//      return new Dialog(
+//        child: new Column(
+//          children: <Widget>[
+//            new TextField(
+//              decoration: new InputDecoration(hintText: "enter crypto name"),
+//              //_c: text editing controller, see initstate
+//              controller: _c,
+//            ),
+//            new FlatButton(
+//              child: new Text("input"),
+//              onPressed: (){
+//                if(mounted) {
+//                  setState((){
+//                    print("_c.text is ${_c.text}");
+//                    if(_c.text != ""){
+//                      newTran = Trans(
+//                        id: curID,
+//                        time: DateTime.now(),
+//                        cryp: _c.text,
+//                        amt: .420,
+//                        dolVal: buttonPress.toDouble(),
+//                      ) ;
+//                      print("newTran: ${newTran.toString()}");
+//                      insertNewTran(newTran);
+//                      _getDBList();
+//                      updateIndex();
+//                    }
+//                  });
+//                }
+//                Navigator.pop(context);
+//              },
+//            )
+//          ],
+//        ),
+//      );
+//    },
 //  );
 //}
