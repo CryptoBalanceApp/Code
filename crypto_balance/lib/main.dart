@@ -72,30 +72,42 @@ class PricesListState extends State<PricesList> with AutomaticKeepAliveClientMix
     http.Response apiResponseConv = await http.get(_apiURLConv);
     http.Response apiResponse = await http.get(_apiURL);
 
-    //after that line execute, set state off of loading, decode response
-    setState((){
-      //below: decode the json rates into the convertFactors map
-      this._convertFactors = json.decode(apiResponseConv.body)["rates"];
-      // below: decode json from api response into format readable as a list
-      this._cryptoPrices = jsonDecode(apiResponse.body);
-      //for each crypto entry get the id variable, decide what to add
-      _cryptoPrices.forEach((var entry){
-        String ID = entry['id'];
-        //function to add entries to map
-        //add to crypto map based on ID
-        List cryptoToAdd = ["btc-bitcoin", "eth-ethereum", "ltc-litecoin", "doge-dogecoin", "xlm-stellar", "bitcoin-cash", "xrp-xrp"];
-        if(cryptoToAdd.contains(ID)){
-          _cryptoPriceMap.putIfAbsent(entry['name'],()=> entry['quotes']['USD']['price']);
-        }
+    //if mounted: fix set after dispose issue? https://stackoverflow.com/questions/49340116/setstate-called-after-dispose
+    if(mounted) {
+      //after that line execute, set state off of loading, decode response
+      setState(() {
+        //below: decode the json rates into the convertFactors map
+        this._convertFactors = json.decode(apiResponseConv.body)["rates"];
+        // below: decode json from api response into format readable as a list
+        this._cryptoPrices = jsonDecode(apiResponse.body);
+        //for each crypto entry get the id variable, decide what to add
+        _cryptoPrices.forEach((var entry) {
+          String ID = entry['id'];
+          //function to add entries to map
+          //add to crypto map based on ID
+          List cryptoToAdd = [
+            "btc-bitcoin",
+            "eth-ethereum",
+            "ltc-litecoin",
+            "doge-dogecoin",
+            "xlm-stellar",
+            "bitcoin-cash",
+            "xrp-xrp"
+          ];
+          if (cryptoToAdd.contains(ID)) {
+            _cryptoPriceMap.putIfAbsent(
+                entry['name'], () => entry['quotes']['USD']['price']);
+          }
+        });
+
+        globalCryptoPrice = _cryptoPriceMap;
+        print(globalCryptoPrice);
+        globalConvFac = _convertFactors;
+
+        //we have now loaded json into list, set loading false
+        this._loading = false;
       });
-
-      globalCryptoPrice = _cryptoPriceMap;
-      print(globalCryptoPrice);
-      globalConvFac = _convertFactors;
-
-      //we have now loaded json into list, set loading false
-      this._loading = false;
-    });
+    }
     return;
   }
 

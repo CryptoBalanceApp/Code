@@ -11,7 +11,7 @@ import 'package:flutter/widgets.dart';
 //below: needs to be future void like example?
 void main() => runApp(MyApp4());
 
-//ToDo: this has no real purpose, remove
+//ToDo: this has no real purpose, remove... it's fun to click the button though
 int buttonPress = 0;
 
 
@@ -185,6 +185,30 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
 
   //ToDo: learn shared preferences for storing non-table key value pairs https://flutter.dev/docs/cookbook/persistence/key-value
 
+  //ToDo: implement show dialog function
+  // https://coflutter.com/flutter-how-to-show-dialog/
+  // builder context fix: https://medium.com/@nils.backe/flutter-alert-dialogs-9b0bb9b01d28
+  _showTransactDiag() {
+    showDialog(
+      context: context,
+      //builder: (_) => new AlertDialog(
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text("testDialog"),
+          content: new Text("testContent"),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
   Widget _getBalanceBody(){
     if(_loading){
       return Center(
@@ -223,6 +247,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
       floatingActionButton: FloatingActionButton(
         onPressed:(){
           //ToDo: only incrementing correctly every two... solution to put all logic in same async function with waits? not sure
+          _showTransactDiag();
           buttonPress++;
           Trans n = Trans(
             id: curID,
@@ -237,7 +262,10 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
           print("you've pressed the button $buttonPress times");
           //ToDo: issue here is that the page doesn't reload after leaving this button pressed
           _getDBList();
-          setState(() {});
+          //dispose issue solved by if !mounted check? https://stackoverflow.com/questions/49340116/setstate-called-after-dispose
+          if(mounted) {
+            setState(() {});
+          }
           updateIndex();
 
         },
