@@ -224,6 +224,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
   _showFormDialog() {
     final _formKey = GlobalKey<FormState>();
     List<String> inputs = [];
+    newTran = null;
     showDialog(
       context: context,
       builder: (BuildContext context){
@@ -256,6 +257,12 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
                       child: TextFormField(
                         //onsaved: https://stackoverflow.com/a/61070122/10432596
                         onSaved: (String value){inputs.insert(0, value);},
+                        validator: (value){
+                          if(value.isEmpty){
+                            return 'Field cannot be empty';
+                          }
+                          return null;
+                        },
                         decoration: new InputDecoration(hintText: "Crypto Name (i.e. ETH)"),
                       ),
                     ),
@@ -263,6 +270,12 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
                       padding: EdgeInsets.all(8.0),
                       child: TextFormField(
                         onSaved: (String value){inputs.insert(0, value);},
+                        validator: (value){
+                          if(value.isEmpty){
+                            return 'Field cannot be empty';
+                          }
+                          return null;
+                        },
                         decoration: new InputDecoration(hintText: "Crypto Amt (i.e. 1.23)"),
                       ),
                     ),
@@ -270,6 +283,12 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
                       padding: EdgeInsets.all(8.0),
                       child: TextFormField(
                         onSaved: (String value){inputs.insert(0, value);},
+                        validator: (value){
+                          if(value.isEmpty){
+                            return 'Field cannot be empty';
+                          }
+                          return null;
+                        },
                         decoration: new InputDecoration(hintText: "Dollar Value (USD, i.e. 25.51)"),
                       ),
                     ),
@@ -293,13 +312,15 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
                                   dolVal: newDol,
                                 );
                               }
-                              print("newTran: ");
-                              print(newTran.toString());
-                              print("inputs: $inputs");
+                              if(newTran!=null){
+                                print("newTran: ");
+                                print(newTran.toString());
+                                print("inputs: $inputs");
 
-                              insertNewTran(newTran);
-                              _getDBList();
-                              updateIndex();
+                                insertNewTran(newTran);
+                                _getDBList();
+                                updateIndex();
+                              }
                               Navigator.of(context).pop();
                             });
                           }
