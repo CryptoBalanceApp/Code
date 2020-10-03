@@ -223,10 +223,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
   //https://stackoverflow.com/questions/54480641/flutter-how-to-create-forms-in-popup
   _showFormDialog() {
     final _formKey = GlobalKey<FormState>();
-    final _name = new TextEditingController();
-    final _amt = new TextEditingController();
-    final _dol = new TextEditingController();
-
+    List<String> inputs = [];
     showDialog(
       context: context,
       builder: (BuildContext context){
@@ -249,6 +246,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
                 ),
               ),
               Form(
+                //note: need to use onsaved?
                 key: _formKey,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -256,22 +254,23 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: TextFormField(
+                        //onsaved: https://stackoverflow.com/a/61070122/10432596
+                        onSaved: (String value){inputs.insert(0, value);},
                         decoration: new InputDecoration(hintText: "Crypto Name (i.e. ETH)"),
-                        controller: _name,
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: TextFormField(
+                        onSaved: (String value){inputs.insert(0, value);},
                         decoration: new InputDecoration(hintText: "Crypto Amt (i.e. 1.23)"),
-                        controller: _amt,
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: TextFormField(
+                        onSaved: (String value){inputs.insert(0, value);},
                         decoration: new InputDecoration(hintText: "Dollar Value (USD, i.e. 25.51)"),
-                        controller: _dol,
                       ),
                     ),
                     Padding(
@@ -284,18 +283,20 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
                               //ToDo: use validator validate entries https://stackoverflow.com/a/58117942/10432596
                               if(_formKey.currentState.validate()){
                                 _formKey.currentState.save();
-                                double newAmt = double.parse(_amt.text);
-                                double newDol = double.parse(_dol.text);
+                                double newAmt = double.parse(inputs[1]);
+                                double newDol = double.parse(inputs[0]);
                                 newTran = Trans(
                                   id: curID,
                                   time: DateTime.now(),
-                                  cryp: _name.text,
+                                  cryp: inputs[2],
                                   amt: newAmt,
                                   dolVal: newDol,
                                 );
                               }
                               print("newTran: ");
                               print(newTran.toString());
+                              print("inputs: $inputs");
+
                               insertNewTran(newTran);
                               _getDBList();
                               updateIndex();
