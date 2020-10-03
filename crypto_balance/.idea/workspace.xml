@@ -77,11 +77,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/balance.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+            <state relative-caret-position="315">
+              <caret line="284" column="22" lean-forward="true" selection-start-line="284" selection-start-column="22" selection-end-line="284" selection-end-column="22" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
-                <marker date="1601692088574" expanded="true" signature="530:910" ph="..." />
+                <marker date="1601693427298" expanded="true" signature="530:910" ph="..." />
               </folding>
             </state>
           </provider>
@@ -144,7 +144,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-54" />
     <option name="y" value="23" />
-    <option name="width" value="1288" />
+    <option name="width" value="1120" />
     <option name="height" value="1047" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -206,11 +206,11 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-54" y="23" width="1288" height="1047" extended-state="0" />
+    <frame x="-54" y="23" width="1120" height="1047" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49919224" visible="true" weight="0.16368078" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49919224" visible="true" weight="0.18962264" />
       <window_info id="Structure" order="2" sideWeight="0.50080776" side_tool="true" weight="0.22334754" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Designer" order="4" />
@@ -344,11 +344,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/balance.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        <state relative-caret-position="315">
+          <caret line="284" column="22" lean-forward="true" selection-start-line="284" selection-start-column="22" selection-end-line="284" selection-end-column="22" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <marker date="1601692088574" expanded="true" signature="530:910" ph="..." />
+            <marker date="1601693427298" expanded="true" signature="530:910" ph="..." />
           </folding>
         </state>
       </provider>

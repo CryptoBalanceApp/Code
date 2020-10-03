@@ -274,6 +274,10 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
                           if(value.isEmpty){
                             return 'Field cannot be empty';
                           }
+                          //https://api.flutter.dev/flutter/dart-core/double/tryParse.html
+                          if(double.tryParse(value) == null){
+                            return 'invalid number';
+                          }
                           return null;
                         },
                         decoration: new InputDecoration(hintText: "Crypto Amt (i.e. 1.23)"),
@@ -286,6 +290,9 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
                         validator: (value){
                           if(value.isEmpty){
                             return 'Field cannot be empty';
+                          }
+                          if(double.tryParse(value) == null){
+                            return 'invalid number';
                           }
                           return null;
                         },
