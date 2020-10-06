@@ -7,6 +7,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as p;
 import 'package:flutter/widgets.dart';
+import 'package:dropdown_formfield/dropdown_formfield.dart';
 
 //below: needs to be future void like example?
 void main() => runApp(MyApp4());
@@ -45,6 +46,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
   int curID = 0;
   //ToDo: does this need to be a global variable or should just be in _showtransactdiag?
   Trans newTran;
+
 
   @override
   void initState() {
@@ -218,6 +220,8 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
   }
 
 
+
+
   //ToDo: probably want to replace this dialog with a form https://stackoverflow.com/a/58359701/10432596
   //https://api.flutter.dev/flutter/widgets/Form-class.html
   //https://stackoverflow.com/questions/54480641/flutter-how-to-create-forms-in-popup
@@ -225,6 +229,8 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     final _formKey = GlobalKey<FormState>();
     List<String> inputs = [];
     newTran = null;
+
+
     showDialog(
       context: context,
       builder: (BuildContext context){
@@ -252,20 +258,56 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Padding(
+                    //first: dropdown field https://pub.dev/packages/dropdown_formfield
+                    //ToDo: maybe not best package for dropdown field, text hint not updating, builtin exists here? https://api.flutter.dev/flutter/material/DropdownButtonFormField-class.html
+                    //ToDo: add validators to dropdown field
+                    Container(
                       padding: EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        //onsaved: https://stackoverflow.com/a/61070122/10432596
-                        onSaved: (String value){inputs.insert(0, value);},
-                        validator: (value){
-                          if(value.isEmpty){
-                            return 'Field cannot be empty';
-                          }
-                          return null;
-                        },
-                        decoration: new InputDecoration(hintText: "Crypto Name (i.e. ETH)"),
+                      child: DropDownFormField(
+                        titleText: 'CryptoCurrency',
+                        hintText: "",
+                        value: "",
+                        onSaved: (value){
+                          setState(() {
+                            inputs.insert(0, value);
+                          });
+                          },
+                        onChanged: (value){
+                          setState(() {
+                            inputs.insert(0, value);
+                          });
+                          },
+                        dataSource: [
+                          {
+                            "display": "Bitcoin",
+                            "value": "Bitcoin",
+                          },
+                          {
+                            "display": "Ethereum",
+                            "value": "Ethereum",
+                          },
+                          {
+                            "display": "XRP",
+                            "value": "XRP",
+                          },{
+                            "display": "Litecoin",
+                            "value": "Litecoin",
+                          },{
+                            "display": "Stellar",
+                            "value": "Stellar",
+                          },{
+                            "display": "Dogecoin",
+                            "value": "Dogecoin",
+                          },
+
+                        ],
+                        textField: 'display',
+                        valueField: 'value',
+
+
                       ),
                     ),
+
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: TextFormField(
@@ -306,7 +348,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
                         onPressed: () {
                           if(mounted){
                             setState(() {
-                              //ToDo: use validator validate entries https://stackoverflow.com/a/58117942/10432596
+                              //use validator validate entries https://stackoverflow.com/a/58117942/10432596
                               if(_formKey.currentState.validate()){
                                 _formKey.currentState.save();
                                 double newAmt = double.parse(inputs[1]);
@@ -323,7 +365,6 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
                                 print("newTran: ");
                                 print(newTran.toString());
                                 print("inputs: $inputs");
-
                                 insertNewTran(newTran);
                                 _getDBList();
                                 updateIndex();
