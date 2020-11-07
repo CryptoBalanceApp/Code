@@ -22,46 +22,46 @@
 20         FlutterApplication and put your custom class here.
 21    -->
 22    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-22-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:8:5-80
-22-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:8:22-77
+22-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:8:489-79
+22-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:8:506-561
 23    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-23-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:9:5-81
-23-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:9:22-78
+23-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:9:569-80
+23-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:9:586-642
 24
 25    <application
-25-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:10:5-31:19
+25-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:13:650-31:18
 26        android:name="io.flutter.app.FlutterApplication"
-26-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:11:9-57
+26-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:13:671-719
 27        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 27-->[androidx.core:core:1.1.0] C:\Users\Scott\.gradle\caches\transforms-2\files-2.1\a528b13ac93e64cafa3d0480e2c93207\core-1.1.0\AndroidManifest.xml:24:18-86
 28        android:debuggable="true"
 29        android:icon="@mipmap/launcher_icon"
-29-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:13:9-45
+29-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:13:767-803
 30        android:label="crypto_balance" >
-30-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:12:9-39
+30-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:13:728-758
 31        <activity
-31-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:14:9-25:20
+31-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:20:813-25:19
 32            android:name="com.packages.crypto_balance.MainActivity"
-32-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:15:13-41
+32-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:20:835-863
 33            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-33-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:18:13-163
+33-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:20:966-1116
 34            android:hardwareAccelerated="true"
-34-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:19:13-47
+34-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:20:1129-1163
 35            android:launchMode="singleTop"
-35-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:16:13-43
+35-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:20:876-906
 36            android:theme="@style/LaunchTheme"
-36-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:17:13-47
+36-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:20:919-953
 37            android:windowSoftInputMode="adjustResize" >
-37-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:20:13-55
+37-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:20:1176-1218
 38            <intent-filter>
-38-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:21:13-24:29
+38-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:21:1232-24:28
 39                <action android:name="android.intent.action.MAIN" />
-39-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:22:17-68
-39-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:22:25-66
+39-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:22:1264-67
+39-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:22:1272-1313
 40
 41                <category android:name="android.intent.category.LAUNCHER" />
-41-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:23:17-76
-41-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:23:27-74
+41-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:23:1332-75
+41-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:23:1342-1389
 42            </intent-filter>
 43        </activity>
 44        <!--
@@ -69,11 +69,11 @@
 46             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
 47        -->
 48        <meta-data
-48-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:28:9-30:33
+48-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:30:1589-33
 49            android:name="flutterEmbedding"
-49-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:29:13-44
+49-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:30:1612-1643
 50            android:value="2" />
-50-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:30:13-30
+50-->D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\android\app\src\main\AndroidManifest.xml:30:1656-1673
 51
 52        <activity
 52-->[:url_launcher] D:\Scott\Documents\personal_coding\cryptoBalance\Code\crypto_balance\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-11:74

@@ -229,8 +229,6 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     final _formKey = GlobalKey<FormState>();
     List<String> inputs = [];
     newTran = null;
-
-
     showDialog(
       context: context,
       builder: (BuildContext context){
