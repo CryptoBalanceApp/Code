@@ -1,8 +1,5 @@
-import 'dart:ffi';
 import 'package:crypto_balance/tabbedAppbar.dart';
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as p;
@@ -15,11 +12,9 @@ void main() => runApp(MyApp4());
 //ToDo: this has no real purpose, remove... it's fun to click the button though
 int buttonPress = 0;
 
-
 class MyApp4 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       title: "balance sheet",
       home: Scaffold(
@@ -63,7 +58,6 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
 
   //new package import https://pub.dev/packages/permission_handler/example
   void _listenForPermission() async {
-
     final status = await Permission.storage.status;
     setState(() => _permissionStatus = status);
   }
@@ -77,30 +71,28 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
 
   //ToDo: combine sql functions
   //begin sqlLite: persistence i.e. https://flutter.dev/docs/cookbook/persistence/sqlite
+  //ToDo: eventually need way to handle what type of currency to make dollar value more useful
   _newBalanceDB() async {
     WidgetsFlutterBinding.ensureInitialized();
-    final Future<Database> transDB = openDatabase(
-      p.join(await getDatabasesPath(), dbPath),
-      onCreate: (db, version){
-        return db.execute(
-          "CREATE TABLE transactions(id INTEGER PRIMARY KEY, time TEXT, cryp TEXT, amt REAL, dolVal REAL)",
-        );
-      },
-      version: 1,
-    );
-
     //update sqllist to avoid null tiles error
     await _getDBList();
+//    final Database db = await transDB;
     await updateIndex();
   }
 
-  //Todo: this could probably be replaced, or made part of transactList? High Priority, need to make sure don't have two versions of same logic
   //getDBList: query database to fill list<list<>> sqllist with data to populate scaffold
    _getDBList() async {
     WidgetsFlutterBinding.ensureInitialized();
     //connect to db
     final Future<Database> transDB = openDatabase(
       p.join(await getDatabasesPath(), dbPath),
+      //create transDB, a database of transactions initially holding an empty table with
+      //transaction ID, time input, type of cryptocurrency, amount of that currency, and dollar value
+      onCreate: (db, version){
+        return db.execute(
+          "CREATE TABLE transactions(id INTEGER PRIMARY KEY, time TEXT, cryp TEXT, amt REAL, dolVal REAL)",
+        );
+      },
       version: 1,
     );
     final Database db = await transDB;
@@ -109,21 +101,18 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
     final List<Map<String, dynamic>> dbMap = await db.query('transactions');
     //convert map to list for tiles
     final List<List<dynamic>> dbList = [];
-    //Todo: able to ditch while loop and use iterable?
+
     //convert each row of table to a list and add to list of lists
-    int i = 0;
-    while(i < dbMap.length){
-      List l = dbMap[i].values.toList();
+    for(var i in dbMap){
+      List l = i.values.toList();
       dbList.add(l);
-      i++;
-    };
+    }
     //update global variable sqlList
     sqlList = dbList;
     setState(() {
       _loading = false;
     });
   }
-
   //return a list of lists formatted
   Future<List<Trans>> transactionsList() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -267,6 +256,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
                         value: "",
                         onSaved: (value){
                           setState(() {
+
                             inputs.insert(0, value);
                           });
                           },
@@ -454,54 +444,3 @@ class Trans {
 //  );
 //}
 
-//below: show single dialog logic that got replaced with show form, probably delete soon
-
-//below: action button logic leading to showdialog for inputting new transaction
-
-//ToDo: implement show dialog function
-// https://coflutter.com/flutter-how-to-show-dialog/
-// builder context fix: https://medium.com/@nils.backe/flutter-alert-dialogs-9b0bb9b01d28
-// text editing https://stackoverflow.com/questions/49778217/how-to-create-a-dialog-that-is-able-to-accept-text-input-and-show-result-in-flut?rq=1
-//_showTransactDiag() {
-//  final _c = new TextEditingController();
-//  showDialog(
-//    context: context,
-//    builder: (BuildContext context){
-//      return new Dialog(
-//        child: new Column(
-//          children: <Widget>[
-//            new TextField(
-//              decoration: new InputDecoration(hintText: "enter crypto name"),
-//              //_c: text editing controller, see initstate
-//              controller: _c,
-//            ),
-//            new FlatButton(
-//              child: new Text("input"),
-//              onPressed: (){
-//                if(mounted) {
-//                  setState((){
-//                    print("_c.text is ${_c.text}");
-//                    if(_c.text != ""){
-//                      newTran = Trans(
-//                        id: curID,
-//                        time: DateTime.now(),
-//                        cryp: _c.text,
-//                        amt: .420,
-//                        dolVal: buttonPress.toDouble(),
-//                      ) ;
-//                      print("newTran: ${newTran.toString()}");
-//                      insertNewTran(newTran);
-//                      _getDBList();
-//                      updateIndex();
-//                    }
-//                  });
-//                }
-//                Navigator.pop(context);
-//              },
-//            )
-//          ],
-//        ),
-//      );
-//    },
-//  );
-//}
