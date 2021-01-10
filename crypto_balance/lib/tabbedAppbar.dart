@@ -1,12 +1,18 @@
+//tabbedAppbar.dart
+
 
 //import 'package:crypto_balance/Jerid.dart';
 import 'package:crypto_balance/main.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto_balance/references.dart';
+import 'package:crypto_balance/balance.dart';
+//below: for global database
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart' as p;
+import 'package:flutter/widgets.dart';
 
-//
-//List fromCurrAPI;
-//var currMap = new Map();
+
+
 String currencySelection = currUSD;
 
 void main()=> runApp(MyApp1());
@@ -23,6 +29,12 @@ const String currKRW = "KRW";
 const String currINR = "INR";
 const String currTHB = "THB";
 const String currPHP = "PHP";
+
+//important global variables accessible across tabs
+Map globalCryptoPrice = Map<String, dynamic>();
+Map globalConvFac = Map<String, dynamic>();
+String globalCurr = currUSD;
+final String dbPath = "balance_db.db";
 
 class Currency{
   final Text current;
@@ -81,91 +93,172 @@ const List<Currency> Currencies = <Currency>[
 
 ];
 
+//ToDo: add author to references
+/*
+ Note: known bug unresolved with TabBarView, outlined here https://github.com/flutter/flutter/issues/27680
+ Addressing by removing this tab implementation and switching to bottom tab bar outlined here
+ https://medium.com/fluttervn/making-bottom-tabbar-with-flutter-5ff82e8defe0
+ and here https://github.com/fluttervn/tabbar_demo/blob/master/lib/tab_containter_default.dart
+ */
+
 class MyApp1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp (
       title: 'CryptoBalance',
-      home: MyTabbedPage(),
+      home: TabContainerBottom(),
+
     );
   }
 }
-class MyTabbedPage extends StatefulWidget{
-  const MyTabbedPage({Key key}): super(key:key);
+
+//below: from tab container bottom https://github.com/fluttervn/tabbar_demo/blob/master/lib/tab_containter_bottom.dart
+class TabContainerBottom extends StatefulWidget {
+  TabContainerBottom({Key key}) : super(key:key);
 
   @override
-  _MyTabbedPageState createState()=>_MyTabbedPageState();
-
+  _TabContainerBottomState createState() => _TabContainerBottomState();
 }
 
-class _MyTabbedPageState extends State<MyTabbedPage> with SingleTickerProviderStateMixin {
-  final List<Tab> myTabs = <Tab>[
-    Tab(text: 'Prices' ),
-    Tab(text: 'About'),
-
-  ];
-
-  TabController _tabController;
-
+class _TabContainerBottomState extends State<TabContainerBottom> {
+  int tabIndex = 0;
+  List<Widget> screenList;
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: myTabs.length, vsync: this);
-  }
-
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
+    screenList = [
+      MyApp(),
+      MyApp4(),
+      MyApp2(),
+    ];
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(105),
-        child: AppBar(
-          backgroundColor: Colors.white,
-          centerTitle: true,
-          title: Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
-                child: Image.asset(
-                    'Assets/Logos/moneyTreeAndroid.png',
-                    fit: BoxFit.contain,
-                    height: 40, width: 40),
-              ),
+    return MaterialApp(
+      home: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(85),
+          child: AppBar(
+            backgroundColor: Colors.white,
+            centerTitle: true,
+            title: Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
+                  child: Image.asset(
+                      'Assets/Logos/moneyTreeAndroid.png',
+                      fit: BoxFit.contain,
+                      height: 40, width: 40),
+                ),
 
-              Padding(
-                  padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
-                  child: Text('CryptoBalance',
-                      style: TextStyle(
-                          fontFamily: 'Josefin Sans',
-                          color: Color(0xff3E0CA9)),
-                      textAlign: TextAlign.center))
-            ],
-          ),
-          bottom: TabBar(
-            controller: _tabController,
-            labelColor: Colors.black,
-            tabs: myTabs,
+                Padding(
+                    padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
+                    child: Text('CryptoBalance',
+                        style: TextStyle(
+                            fontFamily: 'Josefin Sans',
+                            color: Color(0xff3E0CA9)),
+                        textAlign: TextAlign.center))
+              ],
+            ),
           ),
         ),
-
-      ),
-      body: TabBarView(
-        controller: _tabController,
-
-        children:[
-          MyApp(),
-          MyApp2(),
-
-
-        ],
+        body: screenList[tabIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: Colors.indigoAccent,
+          unselectedItemColor: Colors.blueAccent,
+          backgroundColor: Colors.white70,
+          currentIndex: tabIndex,
+          onTap: (int index) {
+            setState((){
+              tabIndex = index;
+            });
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined),
+              label: 'Prices',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.account_balance_outlined),
+              label: 'Balance',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.help_outlined),
+              label: 'About',
+            ),
+          ],
+        ),
+        //backgroundColor: Colors.white30,
+        backgroundColor: Colors.blueGrey,
       ),
     );
   }
 }
+
+
+//ToDo: delete below? doesn't matter if reload? or implement
+//below: works, and can be used to not reload every tab every time, but need to implement everything in medium article after index list to preven
+//all tabs running at startup and causing permission issue
+//class TabContainerIndexedStack extends StatefulWidget {
+//  TabContainerIndexedStack({Key key}) : super(key: key);
+//
+//  @override
+//  _TabContainerIndexedStackState createState() => _TabContainerIndexedStackState();
+//}
+//
+
+//class TabContainerIndexedStack extends StatefulWidget {
+//  TabContainerIndexedStack({Key key}) : super(key: key);
+//
+//  @override
+//  _TabContainerIndexedStackState createState() => _TabContainerIndexedStackState();
+//}
+//
+//class _TabContainerIndexedStackState extends State<TabContainerIndexedStack> {
+//  int tabIndex = 0;
+//  List<Widget> screenList;
+//  @override
+//  void initState() {
+//    super.initState();
+//    screenList = [
+//    MyApp(),
+//    MyApp4(),
+//    MyApp2(),
+//    ];
+//  }
+//
+//  @override
+//  Widget build(BuildContext context) {
+//    return MaterialApp(
+//      home: Scaffold(
+//        body: IndexedStack(index: tabIndex, children: screenList),
+//        bottomNavigationBar: BottomNavigationBar(
+//          currentIndex: tabIndex,
+//          onTap: (int index) {
+//            setState((){
+//              tabIndex = index;
+//            });
+//          },
+//          items: [
+//              BottomNavigationBarItem(
+//                icon: Icon(Icons.attach_money),
+//                title: Text('Prices'),
+//              ),
+//              BottomNavigationBarItem(
+//                icon: Icon(Icons.timeline),
+//                title: Text('Balance'),
+//              ),
+//              BottomNavigationBarItem(
+//                icon: Icon(Icons.help),
+//                title: Text('About'),
+//              ),
+//              ],
+//        ),
+//        backgroundColor: Colors.blueGrey,
+//      ),
+//    );
+//  }
+//}
+
+

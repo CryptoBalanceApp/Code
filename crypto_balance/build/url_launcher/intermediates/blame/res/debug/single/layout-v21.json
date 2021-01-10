@@ -1,6 +1,21 @@
 [
     {
         "merged": "D:\\Scott\\Documents\\personal_coding\\cryptoBalance\\Code\\crypto_balance\\build\\url_launcher\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_icon_group.xml",
+<<<<<<< HEAD
+        "source": "C:\\Users\\Scott\\.gradle\\caches\\transforms-2\\files-2.1\\a528b13ac93e64cafa3d0480e2c93207\\core-1.1.0\\res\\layout-v21\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "D:\\Scott\\Documents\\personal_coding\\cryptoBalance\\Code\\crypto_balance\\build\\url_launcher\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\Scott\\.gradle\\caches\\transforms-2\\files-2.1\\a528b13ac93e64cafa3d0480e2c93207\\core-1.1.0\\res\\layout-v21\\notification_action_tombstone.xml"
+    },
+    {
+        "merged": "D:\\Scott\\Documents\\personal_coding\\cryptoBalance\\Code\\crypto_balance\\build\\url_launcher\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action.xml",
+        "source": "C:\\Users\\Scott\\.gradle\\caches\\transforms-2\\files-2.1\\a528b13ac93e64cafa3d0480e2c93207\\core-1.1.0\\res\\layout-v21\\notification_action.xml"
+    },
+    {
+        "merged": "D:\\Scott\\Documents\\personal_coding\\cryptoBalance\\Code\\crypto_balance\\build\\url_launcher\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_custom_big.xml",
+        "source": "C:\\Users\\Scott\\.gradle\\caches\\transforms-2\\files-2.1\\a528b13ac93e64cafa3d0480e2c93207\\core-1.1.0\\res\\layout-v21\\notification_template_custom_big.xml"
+=======
         "source": "C:\\Users\\Scott\\.gradle\\caches\\transforms-2\\files-2.1\\0a271e99b6771ad4a84318244d532fb7\\core-1.0.0\\res\\layout-v21\\notification_template_icon_group.xml"
     },
     {
@@ -14,5 +29,6 @@
     {
         "merged": "D:\\Scott\\Documents\\personal_coding\\cryptoBalance\\Code\\crypto_balance\\build\\url_launcher\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_custom_big.xml",
         "source": "C:\\Users\\Scott\\.gradle\\caches\\transforms-2\\files-2.1\\0a271e99b6771ad4a84318244d532fb7\\core-1.0.0\\res\\layout-v21\\notification_template_custom_big.xml"
+>>>>>>> master
     }
 ]

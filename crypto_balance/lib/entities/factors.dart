@@ -12,12 +12,17 @@ class factors {
 
   factory factors.fromJson(Map<String, dynamic> json){
     return factors(
+      //take in a json named json, return a "factors" instance (map of ac. to cur.)
       rates: json['rates'],
     );
   }
 
   void printrate(){
     print(rates);
+  }
+
+  Map<String, dynamic> returnMap(){
+    return rates;
   }
 
 }

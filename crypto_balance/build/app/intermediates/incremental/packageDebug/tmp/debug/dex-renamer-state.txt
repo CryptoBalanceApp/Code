@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+#Sun Jan 10 15:01:22 PST 2021
+=======
 #Tue Aug 25 04:13:18 PDT 2020
+>>>>>>> master
 base.0=D\:\\Scott\\Documents\\personal_coding\\cryptoBalance\\Code\\crypto_balance\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
