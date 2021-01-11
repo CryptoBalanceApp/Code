@@ -7,15 +7,6 @@ import 'package:crypto_balance/referencesTab.dart';
 
 void main() => runApp(MyApp2());
 
-//class MyApp2 extends StatelessWidget {
-//  @override
-//  Widget build(BuildContext context) {
-//    return new MaterialApp(
-//        home: new MyHome()
-//    );
-//  }
-//
-//}
 
 class MyApp2 extends StatefulWidget {
   @override
