@@ -1,2 +1,6 @@
 #folders:
-crypto_balance/android/key.properties
+./crypto_balance/android/key.properties
+./crypto_balance/.idea/*
+./crypto_balance/.dart_tool/*
+./crypto_balance/.packages
+./crypto_balance/build/5309adf19d515716f998475c647d9c18 ./crypto_balance/build/app ./crypto_balance/build/cache.dill.track.dill ./crypto_balance/build/flutter_plugin_android_lifecycle ./crypto_balance/build/kotlin ./crypto_balance/build/last_build_run.json ./crypto_balance/build/path_provider ./crypto_balance/build/permission_handler ./crypto_balance/build/sqflite ./crypto_balance/build/url_launcher
