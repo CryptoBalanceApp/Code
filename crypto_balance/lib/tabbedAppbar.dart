@@ -1,12 +1,6 @@
 //tabbedAppbar.dart
 
-
-//import 'package:crypto_balance/Jerid.dart';
-import 'package:crypto_balance/main.dart';
 import 'package:flutter/material.dart';
-//below: for global database
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart' as p;
 import 'package:flutter/widgets.dart';
 
 import 'package:crypto_balance/pricesTab.dart';
