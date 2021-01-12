@@ -1,5 +1,5 @@
 import 'package:crypto_balance/assets/constants.dart';
-import 'package:crypto_balance/assets/currency.dart';
+import 'file:///D:/Scott/Documents/personal_coding/cryptoBalance/Code/crypto_balance/lib/entities/currency.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';

@@ -1,6 +1,6 @@
 //important global variables accessible across tabs
 //const currencyNames = Currencies;
-import 'package:crypto_balance/assets/currency.dart';
+import 'file:///D:/Scott/Documents/personal_coding/cryptoBalance/Code/crypto_balance/lib/entities/currency.dart';
 
 String currencySelection = currUSD;
 
