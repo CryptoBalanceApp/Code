@@ -1,4 +1,6 @@
 import 'package:crypto_balance/tabbedAppbar.dart';
+import 'package:crypto_balance/assets/constants.dart';
+import 'package:crypto_balance/entities/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sqflite/sqflite.dart';
@@ -7,12 +9,12 @@ import 'package:flutter/widgets.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 
 //below: needs to be future void like example?
-void main() => runApp(MyApp4());
+void main() => runApp(BalancePage());
 
 //ToDo: this has no real purpose, remove... it's fun to click the button though
 int buttonPress = 0;
 
-class MyApp4 extends StatelessWidget {
+class BalancePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -39,6 +41,7 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
   List<List<dynamic>> sqlList;
   //ToDo: is there a better way to index database than with global variable updating? not sure
   int curID = 0;
+  //transaction class: in crypto_balance/entities/transaction.dart; class object for transaction input
   //ToDo: does this need to be a global variable or should just be in _showtransactdiag?
   Trans newTran;
 
@@ -396,51 +399,4 @@ class BalanceDisplayState extends State<BalanceDisplay> with AutomaticKeepAliveC
   bool get wantKeepAlive => true;
 }
 
-//class for transaction entries
-class Trans {
-  final int id;
-  //using real to store date https://www.sqlitetutorial.net/sqlite-date/
-  final DateTime time;
-  final String cryp;
-  final double amt;
-  final double dolVal;
-  Trans({this.id, this.time, this.cryp, this.amt, this.dolVal});
-
-  Map<String, dynamic> toMap() {
-    return{
-      'id': id,
-      'time': time.toString(),
-      'cryp': cryp,
-      'amt': amt,
-      'dolVal': dolVal,
-    };
-  }
-
-  @override
-  String toString(){
-    return 'Trans{id: $id, when: $time, cryp: $cryp, amt: $amt, \$: $dolVal }';
-  }
-}
-
-
-//ToDo: Functions that fulfill update, delete etc...
-//update a transaction
-//Future<void> updateTrans(Trans t) async {
-//  final Database db = await transDB;
-//  await db.update(
-//    'transactions',
-//    t.toMap(),
-//    where: "id = ?",
-//    whereArgs: [t.id],
-//  );
-//}
-//
-//Future<void> deleteTrans(int id) async {
-//  final db = await transDB;
-//  await db.delete(
-//    'transactions',
-//    where: "id = ?",
-//    whereArgs: [id],
-//  );
-//}
 

@@ -6,9 +6,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 
-void main() => runApp(MyApp3());
+void main() => runApp(ReferencesPage());
 
-class MyApp3 extends StatelessWidget {
+class ReferencesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  new Scaffold(
