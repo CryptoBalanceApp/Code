@@ -5,9 +5,9 @@ import 'package:flutter/widgets.dart';
 
 import 'package:crypto_balance/pricesTab.dart';
 import 'package:crypto_balance/balance.dart';
-import 'package:crypto_balance/references.dart';
+import 'package:crypto_balance/about.dart';
 
-void main()=> runApp(MyApp1());
+void main()=> runApp(BottomNavigation());
 
 //ToDo: add author to references
 /*
@@ -17,7 +17,8 @@ void main()=> runApp(MyApp1());
  and here https://github.com/fluttervn/tabbar_demo/blob/master/lib/tab_containter_default.dart
  */
 
-class MyApp1 extends StatelessWidget {
+//bottom bar: for general app navigation
+class BottomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp (
@@ -44,12 +45,12 @@ class _TabContainerBottomState extends State<TabContainerBottom> {
     super.initState();
     screenList = [
       //todo: change names to meaningful
-      //MyApp: prices list
-      MyApp(),
-      //MyApp4: balances
-      MyApp4(),
-      //MyApp2: references tab
-      MyApp2(),
+      //PricePage: prices list (pricesTab.dart)
+      PricePage(),
+      //BalancePage: balances (balance.dart)
+      BalancePage(),
+      //ReferencesPage: references tab (references.dart)
+      AboutPage(),
     ];
   }
 

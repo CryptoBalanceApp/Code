@@ -8,10 +8,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 
-void main()=> runApp(MyApp());
+void main()=> runApp(PricePage());
 
 //todo: put in new file pricesTab.dart
-class MyApp extends StatelessWidget {
+class PricePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

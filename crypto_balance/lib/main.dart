@@ -18,6 +18,6 @@ import 'package:flutter/material.dart';
 
 void main() {
   //run: tabbedAppbar; display bottom bar
-  runApp(MyApp1());
+  runApp(BottomNavigation());
 }
 
